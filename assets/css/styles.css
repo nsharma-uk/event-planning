@@ -1,0 +1,58 @@
+:root {
+  /* CSS HEX */
+  --gunmetal: #292f36ff;
+  --medium-turquoise: #4ecdc4ff;
+  --mint-cream: #f7fff7ff;
+  --bittersweet: #ff6b6bff;
+  --yellow-crayola: #ffe66dff;
+}
+
+/*whole document styling*/
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Oxygen", sans-serif;
+  color: gunmental;
+  background-color: mintcream;
+}
+
+.main {
+  flex: 2;
+}
+
+/*Start of header styling*/
+
+header {
+  background-color: var(--medium-turquoise);
+  font-family: "Oxygen", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.nav-link-item {
+  list-style-type: none;
+  padding: 20px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav-item {
+  font-size: 50px;
+  font-family: "Bubblegum Sans", cursive;
+}
+/*End of header styling */
