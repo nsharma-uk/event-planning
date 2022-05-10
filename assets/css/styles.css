@@ -46,6 +46,9 @@ header {
   flex-direction: row;
   list-style-type: none;
   border: black solid 1px;
+  font-size: 3rem;
+  padding: 2rem;
+
 }
 
 .img-confetti {
@@ -55,6 +58,6 @@ header {
 }
 
 #title {
-  font-size: 10rem;
+  font-size: 6rem;
 }
 /*End of header styling */
