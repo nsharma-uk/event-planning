@@ -12,15 +12,17 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: "Bubblegum Sans", cursive;
 }
 
 html {
-  font-size: 10px;
+  font-size: 16px;
 }
 
 body {
   min-height: 100vh;
+  font-family: "Oxygen", sans-serif;
+  color: gunmental;
+  background-color: mintcream;
 }
 
 .main {
@@ -31,6 +33,7 @@ body {
 
 header {
   background-color: var(--medium-turquoise);
+  font-family: "Oxygen", sans-serif;
 }
 
 .navbar {
@@ -38,26 +41,18 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
 }
 
-.nav-list,
-.nav-link {
-  display: flex;
-  flex-direction: row;
+.nav-link-item {
   list-style-type: none;
-  border: black solid 1px;
-  font-size: 3rem;
-  padding: 2rem;
-
+  padding: 20px;
+  text-decoration: none;
+  font-size: 20px;
 }
 
-.img-confetti {
-  height: 4px;
-  width: auto;
-  vertical-align: middle;
-}
-
-#title {
-  font-size: 6rem;
+.nav-item {
+  font-size: 50px;
+  font-family: "Bubblegum Sans", cursive;
 }
 /*End of header styling */
