@@ -33,16 +33,22 @@ const clearLS = () => {
 
 //empty the designated div/container - target by ID
 const emptyContainer = (containerId) => {
-  //empty the content of the container, but keeps the container
-  $(`#${containerId}`).empty();
-  //remove the click event from the container
-  $(`#${containerId}`).off("click");
+  //check if exist
+  if (containerId) {
+    //empty the content of the container, but keeps the container
+    $(`#${containerId}`).empty();
+    //remove the click event from the container
+    $(`#${containerId}`).off("click");
+  }
 };
 
 //removes the designated container - target by ID
+//may be reworked later
 const removeContainer = (containerId) => {
-  //remove the container itself and all its content
-  $(`#${containerId}`).remove();
+  if (containerId) {
+    //remove the container itself and all its content
+    $(`#${containerId}`).remove();
+  }
 };
 
 //END UTILITY FUNCTIONS
