@@ -3,27 +3,14 @@
 //UTILITY FUNCTIONS
 
 //extract info from local storage (get)
-const getFromLocalStorage = (data) => {
-  // get from LS using key name
-  const dataFromLS = localStorage.getItem(key);
-
-  // parse data from LS
-  const parsedData = JSON.parse(dataFromLS);
-
-  if (parsedData) {
-    return parsedData;
-  } else {
-    return defaultValue;
-  }
+const getFromLocalStorage = (key, defaultValue) => {
+  const parsedData = JSON.parse(localStorage.getItem(key));
+  return parsedData ? parsedData : defaultValue;
 };
 
 //write info into local storage (set)
-const writeToLocalStorage = (key, data) => {
-  // convert value to string
-  const stringifiedValue = JSON.stringify(value);
-
-  // set stringified value to LS for key name
-  localStorage.setItem(key, stringifiedValue);
+const writeToLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
 };
 
 //empty local storage (clear)
