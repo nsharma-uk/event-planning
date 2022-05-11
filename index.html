@@ -7,11 +7,33 @@
     <title>Event Planning | Home</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Oxygen:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="./assets/css/styles.css" />
   </head>
+
   <body>
+    <!--Header with Nav links and logo-->
+    <header>
+      <nav class="navbar">
+        <div class="nav-list">
+          <h1 class="nav-item">Event Card Creator</h1>
+        </div>
+
+        <div class="navbar-links">
+          <a class="nav-link-item" href="./index.html">Home</a>
+          <a class="nav-link-item" href="./event.html">My saved event cards</a>
+        </div>
+      </nav>
+    </header>
+
     <main>
-      <!-- Start page main div -->
+      <!-- Start page div -->
       <div class="startpage-div">
         <div class="start-box">
           <p class="intro-message">Create a new event card</p>
@@ -28,7 +50,19 @@
           </div>
         </div>
       </div>
+
+      <section class="event-details-container"></section>
+      <section class="food-container"></section>
+      <section class="music-container"></section>
+      <section class="controls-container"></section>
+      <section class="event-card-container"></section>
     </main>
-    <script src="./assets/js/script.js" async defer></script>
+
+    <footer>
+      <a href="mailto:eventplanning.co.uk"> Contact Us </a>
+      <p>Copyright &copy; 2022 Event Planning.</p>
+    </footer>
+
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
