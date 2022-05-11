@@ -18,17 +18,6 @@ const clearLS = () => {
   localStorage.clear();
 };
 
-//empty the designated div/container - target by ID
-const emptyContainer = (containerId) => {
-  //check if exist
-  if (containerId) {
-    //empty the content of the container, but keeps the container
-    $(`#${containerId}`).empty();
-    //remove the click event from the container
-    $(`#${containerId}`).off("click");
-  }
-};
-
 //removes the designated container - target by ID
 //may be reworked later
 const removeContainer = (containerId) => {
