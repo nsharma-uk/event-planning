@@ -28,3 +28,5 @@ const removeContainer = (containerId) => {
 };
 
 //END UTILITY FUNCTIONS
+
+//Function to construct URL for API
