@@ -54,42 +54,45 @@
       <!-- Event Registration -->
       <section class="event-details-container" id = "event-details-container">
         <!--  event-details-div  starts here-->
-        <form class="event-details-div" id = "event-details-div" >
-          <h1>Event Name</h1>
+        <div>
+          <h2>Form Title</h2>
+          <form class="event-details-div" id = "event-details-div" >
+            <h1>Event Name</h1>
           
-          <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
-          <!-- Event organizer Text box divs -->
-          <div>
-            <!--Event organizer name div -->
-             <div class = "event-organizer-name">
-               <label class="input-label" for="input">Event organiser</label>
-                <input type="text" class="event-input" id="event-organizer"></input>
+            <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
+            <!-- Event organizer Text box divs -->
+            <div>
+              <!--Event organizer name div -->
+               <div class = "event-organizer-name">
+                 <label class="input-label" for="input">Event organiser</label>
+                  <input type="text" class="event-input" id="event-organizer"></input>
+              </div>
+              <!--Event email div -->
+              <div class = "event-organizer-email">
+                <label class="input-label" for="input">Event organiser's email</label>
+                <input type = "text" class = "event-input" id = "organiser-mail"></input>
+              </div>
+              <!--Event location div -->
+              <div class="event-location" >
+                <label class="input-label" for="input">Event location</label>
+                <input type = "text" class = "event-input" id = "event-location"></input>
+              </div>
+              <!--Event date div -->
+              <div class ="event-date">
+                <label class="input-label" for="input">Event date</label>
+               <input type = "date" class = "event-input" id = "event-date"></input>
+              </div>
+              <!--Event description div  starts here-->
+              <div class = "event- description">
+                <label class="input-label" for="textarea">Detailed description of my event</label>
+               <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
+              </div>
+              <!--button div -->
+              <div class="event-button-div">
+                <button class="event-start-btn" type="submit">Save</button>
+              </div>
             </div>
-            <!--Event email div -->
-            <div class = "event-organizer-email">
-              <label class="input-label" for="input">Event organiser's email</label>
-              <input type = "text" class = "event-input" id = "organiser-mail"></input>
-            </div>
-            <!--Event location div -->
-            <div class="event-location" >
-              <label class="input-label" for="input">Event location</label>
-              <input type = "text" class = "event-input" id = "event-location"></input>
-            </div>
-            <!--Event date div -->
-            <div class ="event-date">
-              <label class="input-label" for="input">Event date</label>
-             <input type = "date" class = "event-input" id = "event-date"></input>
-            </div>
-            <!--Event description div  starts here-->
-            <div class = "event- description">  
-              <label class="input-label" for="textarea">Detailed description of my event</label>
-             <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
-            </div>
-            <!--button div -->
-            <div class="event-button-div">
-              <button class="event-start-btn" type="submit">Save</button>
-            </div>         
-          </div>
+          </form>
         </div>
         <!-- End of event-details-div -->
 
@@ -121,6 +124,8 @@
               <button class ="food-search"  type = "submit">Submit</button>
             </div> 
           </form> 
+           <!-- main div for food container ends here -->
+        </div>
           <!-- aside div -->
           <div class = "food-aside"> 
             <h4>Your selected food</h4>
@@ -129,11 +134,38 @@
               <li>Burgers</li>
             </ul>
           </div>
-          <!-- main div for food container ends here -->
-        </div>
       </section>
+      
+      <!-- Music Container Section -->
 
-      <section class="music-container"></section>
+      <section class="music-container" id ="music-container">
+        
+        <!-- main div for music container -->
+        <div class="main-container-div-music">
+      
+          <form class = "music" id = "music-selection" >
+            <p class = "music-text-div">Please select your desired music</p> 
+            <!--  div for music type starts here -->
+            <div><input type = "text" class = "music-input" id = "music-type"></input></div>
+                       
+            <div>
+              <button class ="music-search"  type = "submit">Submit</button>
+            </div> 
+          </form> 
+         
+          <!-- main div for music container ends here -->
+        </div>
+        <!-- aside div -->
+        <div class = "music-aside"> 
+            <h4>Your selected </h4>
+            <ul>
+              <li>Michael Jackson</li>
+              <li>Rock</li>
+              
+            </ul>
+          </div>
+      </section>
+    
       <section class="controls-container"></section>
       <section class="event-card-container"></section>
     </main>
