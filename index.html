@@ -124,6 +124,36 @@
               <button class ="food-search"  type = "submit">Submit</button>
             </div> 
           </form> 
+          
+          <div>
+            <div class="card food-card">
+                    <div class="card-image">
+            <figure class="image is-4by3">
+              <img
+                src=${recipeImage}
+                alt="recipe cover image"
+              />
+            </figure>
+                    </div>
+                    <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">${recipe title}</p>
+                <p class="subtitle is-6">${source}</p>
+              </div>
+            </div>
+                    </div>
+                    <footer class="card-footer">
+            <button class="button is-ghost card-footer-item">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <a
+              href=${linkUrl}
+              class="card-footer-item"
+              ><i class="fa-brands fa-spotify"></i></a>
+                    </footer>
+                  </div>
+          </div>
            <!-- main div for food container ends here -->
         </div>
           <!-- aside div -->
@@ -152,7 +182,35 @@
               <button class ="music-search"  type = "submit">Submit</button>
             </div> 
           </form> 
-         
+         <div>
+           <div class="card music-card">
+                   <div class="card-image">
+            <figure class="image is-4by3">
+              <img
+                src=${albumCover}
+                alt="album cover image"
+              />
+            </figure>
+                   </div>
+                   <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">${trackTitle}</p>
+                <p class="subtitle is-6">${artistName}</p>
+              </div>
+            </div>
+                   </div>
+                   <footer class="card-footer">
+            <button class="button is-ghost card-footer-item">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <a
+              href=${linkUrl}
+              class="card-footer-item"
+              ><i class="fa-brands fa-spotify"></i></a>
+                   </footer>
+                 </div>
+         </div>
           <!-- main div for music container ends here -->
         </div>
         <!-- aside div -->
