@@ -50,87 +50,89 @@
           </div>
         </div>
       </div>
+      
       <!-- Event Registration -->
-      Event Registraion Code <br>
       <section class="event-details-container">
-
-<!-- Main event information -container div starts here -->
-
-        <div class="event-details-div"><!--  event-details-div  starts here-->
-
-        <h1>Value from 1st page</h1>
-         <!-- Enter Name of the event <input type = "text"  class = "event-input" id ="event-name"></input> -->
+        <!--  event-details-div  starts here-->
+        <form class="event-details-div">
+          <h1>Event Name</h1>
+          <!-- Enter Name of the event <input type = "text"  class = "event-input" id ="event-name"></input> -->
           <h2 id ="message">Enter details of your event</h2>
           <!-- Text box divs -->
-          <div class="textbox-container ">
-             <div><!--Event organizer div -->
-              Event Organizer: <input type = "text" class = "event-input" id = "event-organizer"></input>
-            </div><!--Event organizer div ends here -->
+          <div class="textbox-container">
+            <!--Event organizer div -->
+             <div>
+               <label class="input-label" for="input">Event organiser</label>
+                <input type="text" class="event-input" id="event-organizer"></input>
+            </div>
             <!--Event email div -->
             <div>
-            Email: <input type = "text" class = "event-input" id = "organizer-mail"></input>
-            </div><!--Event email div ends here -->
+              <label class="input-label" for="input">Event organiser's email</label>
+              <input type = "text" class = "event-input" id = "organiser-mail"></input>
+            </div>
             <!--Event location div -->
             <div>
-              Event Location: <input type = "text" class = "event-input" id = "event-location"></input>
-            </div><!--Event location div ends here --> 
-           
-           
+              <label class="input-label" for="input">Event location</label>
+              <input type = "text" class = "event-input" id = "event-location"></input>
+            </div>
             <!--Event date div -->
             <div>
-             Event Date: <input type = "date" class = "event-input" id = "event-location"  value="2022-07-22"
-       min="2022-07-01" max="2022-12-31"></input>
-       </div> <!--Event date div -->
-            <div>  <!--Event description div  starts here-->
-             <textarea id = "event-description" class = "description" placeholder="Add details of your event"> </textarea>
-            </div> <!--Event description div  ends here-->
+              <label class="input-label" for="input">Event date</label>
+             <input type = "date" class = "event-input" id = "event-date"></input>
+            </div>
+            <!--Event description div  starts here-->
+            <div>  
+              <label class="input-label" for="textarea">Detailed description of my event</label>
+             <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
+            </div>
             <!--button div -->
-            <div>
-              <button class="start-btn">Save</button>
+            <div class="button-div">
+              <button class="start-btn" type="submit">Save</button>
             </div><!--button div ends here -->          
-
           </div>
-        
-       
         </div>
         <!-- End of event-details-div -->
+
         <!-- aside div -->
-         <div> <p>mesage goes here</p></div>
-         <!-- aside div ends here -->
+        <div> 
+           <p>You've sucessfully saved your details!</p>
+        </div>
+         
       </section>
 
      <!--Food  container  -->
       <section class="food-container">
         <!-- main div for food container -->
         <div class="main-container-div-food">
-      <!-- Food  div ends here -->
-        <div class = "food" id = "food-selection" >
-          <div class = "text-div">Please select your desired food</div>
-
-          <!--  select option div starts here -->
-          <div>
-            <select name="food-type" id="food-type">
-              <option value="starter">Starter</option>
-              <option value="vegetarian">Vegetarian</option>
-              <option value="chicken">Chicken</option>
-              <option value="fish">Fish</option>
-             <option value="meat">Meat</option>
-            </select>
-         </div><!--  select option div ends here -->
-         <div>
-          <button class ="food-search"  type = "submit">Submit</button>
-        </div> 
-        </div> <!-- Food div ends here -->
+      
+          <form class = "food" id = "food-selection" >
+            <p class = "text-div">Please select your desired food</p> <!--maybe just a p tag here-->
+            <!--  select option div starts here -->
+            <div>
+              <select name="food-type" id="food-type">
+                <option value="starter">Starter</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="chicken">Chicken</option>
+                <option value="fish">Fish</option>
+                <option value="meat">Meat</option>
+              </select>
+            </div>
+            <div>
+              <button class ="food-search"  type = "submit">Submit</button>
+            </div> 
+          </form> 
      
-      <div class = "aside"> <!-- aside div -->
-        <h4>Your selected food</h4>
-        <ul>
-          <li>Burgers</li>
-          <li>Burgers</li>
-        </ul>
-      </div><!-- aside div ends here -->
-      </div><!-- main div for food container ends here -->
+          <div class = "aside"> <!-- aside div -->
+            <h4>Your selected food</h4>
+            <ul>
+              <li>Burgers</li>
+              <li>Burgers</li>
+            </ul>
+          </div>
+
+        </div><!-- main div for food container ends here -->
       </section>
+
       <section class="music-container"></section>
       <section class="controls-container"></section>
       <section class="event-card-container"></section>
