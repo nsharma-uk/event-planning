@@ -58,57 +58,57 @@
           <h1>Event Name</h1>
           
           <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
-          <!-- Text box divs -->
-          <div class="textbox-container" id = "textbox-container">
-            <!--Event organizer div -->
-             <div>
+          <!-- Event organizer Text box divs -->
+          <div>
+            <!--Event organizer name div -->
+             <div class = "event-organizer-name">
                <label class="input-label" for="input">Event organiser</label>
                 <input type="text" class="event-input" id="event-organizer"></input>
             </div>
             <!--Event email div -->
-            <div>
+            <div class = "event-organizer-email">
               <label class="input-label" for="input">Event organiser's email</label>
               <input type = "text" class = "event-input" id = "organiser-mail"></input>
             </div>
             <!--Event location div -->
-            <div>
+            <div class="event-location" >
               <label class="input-label" for="input">Event location</label>
               <input type = "text" class = "event-input" id = "event-location"></input>
             </div>
             <!--Event date div -->
-            <div>
+            <div class ="event-date">
               <label class="input-label" for="input">Event date</label>
              <input type = "date" class = "event-input" id = "event-date"></input>
             </div>
             <!--Event description div  starts here-->
-            <div>  
+            <div class = "event- description">  
               <label class="input-label" for="textarea">Detailed description of my event</label>
              <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
             </div>
             <!--button div -->
-            <div class="button-div">
-              <button class="start-btn" type="submit">Save</button>
+            <div class="event-button-div">
+              <button class="event-start-btn" type="submit">Save</button>
             </div>         
           </div>
         </div>
         <!-- End of event-details-div -->
 
         <!-- aside div -->
-        <div> 
+        <div class = "save-details-message"> 
            <p>You've sucessfully saved your details!</p>
         </div>
          
       </section>
 
      <!--Food  container  -->
-      <section class="food-container">
+      <section class="food-container" id = "food-container">
         <!-- main div for food container -->
         <div class="main-container-div-food">
       
           <form class = "food" id = "food-selection" >
-            <p class = "food-text-div">Please select your desired food</p> <!--maybe just a p tag here-->
+            <p class = "food-text-div">Please select your desired food</p> 
             <!--  select option div starts here -->
-            <div>
+            <div class = "select-food">
               <select name="food-type" id="food-type">
                 <option value="starter">Starter</option>
                 <option value="vegetarian">Vegetarian</option>
