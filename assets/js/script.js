@@ -49,14 +49,14 @@ const removeContainer = (containerId) => {
 
 //END UTILITY FUNCTIONS
 
-//Constructing the URL for API call
+//Constructing the URL for an API call
 const constructUrl = (baseUrl, params) => {
   const queryParams = new URLSearchParams(params).toString();
 
   return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
 };
 
-//Fetching the data from the API
+//Fetching the data from an API
 const fetchData = async (url, options = {}) => {
   try {
     const response = await fetch(url, options);
