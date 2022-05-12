@@ -52,14 +52,14 @@
       </div>
       
       <!-- Event Registration -->
-      <section class="event-details-container">
+      <section class="event-details-container" id = "event-details-container">
         <!--  event-details-div  starts here-->
-        <form class="event-details-div">
+        <form class="event-details-div" id = "event-details-div" >
           <h1>Event Name</h1>
-          <!-- Enter Name of the event <input type = "text"  class = "event-input" id ="event-name"></input> -->
-          <h2 id ="message">Enter details of your event</h2>
+          
+          <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
           <!-- Text box divs -->
-          <div class="textbox-container">
+          <div class="textbox-container" id = "textbox-container">
             <!--Event organizer div -->
              <div>
                <label class="input-label" for="input">Event organiser</label>
@@ -88,7 +88,7 @@
             <!--button div -->
             <div class="button-div">
               <button class="start-btn" type="submit">Save</button>
-            </div><!--button div ends here -->          
+            </div>         
           </div>
         </div>
         <!-- End of event-details-div -->
@@ -106,7 +106,7 @@
         <div class="main-container-div-food">
       
           <form class = "food" id = "food-selection" >
-            <p class = "text-div">Please select your desired food</p> <!--maybe just a p tag here-->
+            <p class = "food-text-div">Please select your desired food</p> <!--maybe just a p tag here-->
             <!--  select option div starts here -->
             <div>
               <select name="food-type" id="food-type">
@@ -121,16 +121,16 @@
               <button class ="food-search"  type = "submit">Submit</button>
             </div> 
           </form> 
-     
-          <div class = "aside"> <!-- aside div -->
+          <!-- aside div -->
+          <div class = "food-aside"> 
             <h4>Your selected food</h4>
             <ul>
               <li>Burgers</li>
               <li>Burgers</li>
             </ul>
           </div>
-
-        </div><!-- main div for food container ends here -->
+          <!-- main div for food container ends here -->
+        </div>
       </section>
 
       <section class="music-container"></section>
