@@ -18,6 +18,7 @@ const edamamOptions = {
     "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
   },
 };
+const edamamBaseUrl = "https://edamam-recipe-search.p.rapidapi.com/search";
 
 //UTILITY FUNCTIONS
 
