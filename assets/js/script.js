@@ -71,3 +71,66 @@ const fetchData = async (url, options = {}) => {
     throw new Error(error.message);
   }
 };
+
+//Handling form submit in music-container section - Spotify api call
+const handleMusicSubmit = async (event) => {
+  try {
+    event.preventDefault();
+
+    // get form values
+    const searchQuery = searchInput.val();
+    const searchType = "playlists";
+
+    // validate form
+    if (searchQuery) {
+      // construct the URL
+      const baseUrl = spotifyBaseUrl;
+
+      const url = constructUrl(baseUrl, { q: searchQuery, type: searchType });
+
+      // construct fetch options
+      const options = spotifyOptions;
+
+      // fetch data from API
+      const data = await fetchData(url, options);
+
+      renderCards(data?.playlists?.items || []);
+    } else {
+      // target input and set class is-danger
+      searchInput.addClass("is-danger");
+    }
+  } catch (error) {
+    renderError("Sorry something went wrong and we are working on fixing it.");
+  }
+};
+
+//Handling form submit in music-container section - Edamam api call
+const handleFoodSubmit = async (event) => {
+  try {
+    event.preventDefault();
+
+    // get form values for api
+    const searchQuery = searchInput.val();
+
+    // validate form
+    if (searchQuery) {
+      // construct the URL
+      const baseUrl = edamamBaseUrl;
+
+      const url = constructUrl(baseUrl, { q: searchQuery });
+
+      // construct fetch options
+      const options = edamamOptions;
+
+      // fetch data from API
+      const data = await fetchData(url, options);
+
+      renderCards(data?.hits || []);
+    } else {
+      // target input and set class is-danger
+      searchInput.addClass("is-danger");
+    }
+  } catch (error) {
+    renderError("Sorry something went wrong and we are working on fixing it.");
+  }
+};
