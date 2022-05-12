@@ -1,8 +1,23 @@
 //Global variables
 
-//Spotify API key
-const spotifyApiKey = "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4";
+//Spotify API info
+const spotifyOptions = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
+  },
+};
 const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
+
+//Edamam API Info
+const edamamOptions = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
+  },
+};
 
 //UTILITY FUNCTIONS
 
@@ -33,6 +48,25 @@ const removeContainer = (containerId) => {
 
 //END UTILITY FUNCTIONS
 
-//Function to construct URL for API
+//Constructing the URL for API call
+const constructUrl = (baseUrl, params) => {
+  const queryParams = new URLSearchParams(params).toString();
 
-//Spotify API
+  return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+};
+
+//Fetching the data from the API
+const fetchData = async (url, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Failed to fetch data");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
