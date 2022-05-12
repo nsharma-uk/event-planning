@@ -1,5 +1,9 @@
 //Global variables
 
+//Spotify API key
+const spotifyApiKey = "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4";
+const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
+
 //UTILITY FUNCTIONS
 
 //extract info from local storage (get)
@@ -30,3 +34,5 @@ const removeContainer = (containerId) => {
 //END UTILITY FUNCTIONS
 
 //Function to construct URL for API
+
+//Spotify API
