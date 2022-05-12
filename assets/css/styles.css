@@ -56,3 +56,10 @@ header {
   font-family: "Bubblegum Sans", cursive;
 }
 /*End of header styling */
+
+.saved-cards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
