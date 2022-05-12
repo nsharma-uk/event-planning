@@ -1,5 +1,25 @@
 //Global variables
 
+//Spotify API info
+const spotifyOptions = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
+  },
+};
+const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
+
+//Edamam API Info
+const edamamOptions = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
+  },
+};
+const edamamBaseUrl = "https://edamam-recipe-search.p.rapidapi.com/search";
+
 //UTILITY FUNCTIONS
 
 //extract info from local storage (get)
@@ -28,3 +48,26 @@ const removeContainer = (containerId) => {
 };
 
 //END UTILITY FUNCTIONS
+
+//Constructing the URL for an API call
+const constructUrl = (baseUrl, params) => {
+  const queryParams = new URLSearchParams(params).toString();
+
+  return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+};
+
+//Fetching the data from an API
+const fetchData = async (url, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Failed to fetch data");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
