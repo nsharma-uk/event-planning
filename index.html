@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link
       href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -32,19 +33,11 @@
       </nav>
     </header>
 
-    <main>
+    <main class = "main" id ="main">
       <!-- Start page div -->
       <div class="startpage-div">
         <div class="start-box">
           <p class="intro-message">Create a new event card</p>
-
-          <input
-            type="text"
-            class="event-name-input"
-            id="event-name-input"
-            name="event-name"
-            placeholder="Give your event a name to get started"
-          />
           <div class="start-button-div">
             <button class="start-btn">Start</button>
           </div>
@@ -54,49 +47,55 @@
       <!-- Event Registration -->
       <section class="event-details-container" id = "event-details-container">
         <!--  event-details-div  starts here-->
-        <form class="event-details-div" id = "event-details-div" >
-          <h1>Event Name</h1>
-          
+        <div class="event-registration-container" id="event-registration-container">
           <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
-          <!-- Event organizer Text box divs -->
-          <div>
-            <!--Event organizer name div -->
-             <div class = "event-organizer-name">
-               <label class="input-label" for="input">Event organiser</label>
-                <input type="text" class="event-input" id="event-organizer"></input>
+          <form class="event-details-div" id = "event-details-div" >
+            <!-- Event name div -->
+            <div>
+              <label class="input-label" for="input">Event name</label>
+              <input
+            type="text"
+            class="event-name-input"
+            id="event-name-input"
+            name="event-name"
+            placeholder="Give your event a name"
+            />
             </div>
-            <!--Event email div -->
-            <div class = "event-organizer-email">
-              <label class="input-label" for="input">Event organiser's email</label>
-              <input type = "text" class = "event-input" id = "organiser-mail"></input>
+          
+            <div>
+              <!--Event organizer name div -->
+               <div class = "event-organizer-name">
+                 <label class="input-label" for="input">Event organiser</label>
+                  <input type="text" class="event-input" id="event-organizer"></input>
+              </div>
+              <!--Event email div -->
+              <div class = "event-organizer-email">
+                <label class="input-label" for="input">Event organiser's email</label>
+                <input type = "text" class = "event-input" id = "organiser-mail"></input>
+              </div>
+              <!--Event location div -->
+              <div class="event-location" >
+                <label class="input-label" for="input">Event location</label>
+                <input type = "text" class = "event-input" id = "event-location"></input>
+              </div>
+              <!--Event date div -->
+              <div class ="event-date">
+                <label class="input-label" for="input">Event date</label>
+               <input type = "date" class = "event-input" id = "event-date"></input>
+              </div>
+              <!--Event description div  starts here-->
+              <div class = "event- description">
+                <label class="input-label" for="textarea">Detailed description of my event</label>
+               <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
+              </div>
+              <!--button div -->
+              <div class="event-button-div">
+                <button class="event-start-btn" type="submit">Save</button>
+              </div>
             </div>
-            <!--Event location div -->
-            <div class="event-location" >
-              <label class="input-label" for="input">Event location</label>
-              <input type = "text" class = "event-input" id = "event-location"></input>
-            </div>
-            <!--Event date div -->
-            <div class ="event-date">
-              <label class="input-label" for="input">Event date</label>
-             <input type = "date" class = "event-input" id = "event-date"></input>
-            </div>
-            <!--Event description div  starts here-->
-            <div class = "event- description">  
-              <label class="input-label" for="textarea">Detailed description of my event</label>
-             <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
-            </div>
-            <!--button div -->
-            <div class="event-button-div">
-              <button class="event-start-btn" type="submit">Save</button>
-            </div>         
-          </div>
+          </form>
         </div>
-        <!-- End of event-details-div -->
-
-        <!-- aside div -->
-        <div class = "save-details-message"> 
-           <p>You've sucessfully saved your details!</p>
-        </div>
+        <!-- End of event-details-div -->      
          
       </section>
 
@@ -121,6 +120,38 @@
               <button class ="food-search"  type = "submit">Submit</button>
             </div> 
           </form> 
+          
+          <div class="card-container" id="card-container">
+            <div class="card food-card">
+                    <div class="card-image">
+            <figure class="image is-4by3">
+              <img
+                src=${recipeImage}
+                alt="recipe cover image"
+              />
+            </figure>
+                    </div>
+                    <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">${recipe title}</p>
+                <p class="subtitle is-6">${source}</p>
+              </div>
+            </div>
+                    </div>
+                    <footer class="card-footer">
+            <button class="button is-ghost card-footer-item">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <a
+              href=${linkUrl}
+              class="card-footer-item"
+              ><i class="fa-brands fa-spotify"></i></a>
+                    </footer>
+                  </div>
+          </div>
+           <!-- main div for food container ends here -->
+        </div>
           <!-- aside div -->
           <div class = "food-aside"> 
             <h4>Your selected food</h4>
@@ -129,11 +160,66 @@
               <li>Burgers</li>
             </ul>
           </div>
-          <!-- main div for food container ends here -->
-        </div>
       </section>
+      
+      <!-- Music Container Section -->
 
-      <section class="music-container"></section>
+      <section class="music-container" id ="music-container">
+        
+        <!-- main div for music container -->
+        <div class="main-container-div-music">
+      
+          <form class = "music" id = "music-selection" >
+            <p class = "music-text-div">Please select your desired music</p> 
+            <!--  div for music type starts here -->
+            <div><input type = "text" class = "music-input" id = "music-type"></input></div>
+                       
+            <div>
+              <button class ="music-search"  type = "submit">Submit</button>
+            </div> 
+          </form> 
+         <div class="card-container" id="card-container" >
+           <div class="card music-card">
+                   <div class="card-image">
+            <figure class="image is-4by3">
+              <img
+                src=${albumCover}
+                alt="album cover image"
+              />
+            </figure>
+                   </div>
+                   <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">${trackTitle}</p>
+                <p class="subtitle is-6">${artistName}</p>
+              </div>
+            </div>
+                   </div>
+                   <footer class="card-footer">
+            <button class="button is-ghost card-footer-item">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <a
+              href=${linkUrl}
+              class="card-footer-item"
+              ><i class="fa-brands fa-spotify"></i></a>
+                   </footer>
+                 </div>
+         </div>
+          <!-- main div for music container ends here -->
+        </div>
+        <!-- aside div -->
+        <div class = "music-aside"> 
+            <h4>Your selected </h4>
+            <ul>
+              <li>Michael Jackson</li>
+              <li>Rock</li>
+              
+            </ul>
+          </div>
+      </section>
+    
       <section class="controls-container"></section>
       <section class="event-card-container"></section>
     </main>
