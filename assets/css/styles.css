@@ -63,3 +63,13 @@ header {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+.event-card {
+  width: 15rem;
+  margin: 30px;
+  border-bottom: solid black 1px;
+}
+
+/* .event-name {
+  border-bottom: solid black 1px;
+} */
