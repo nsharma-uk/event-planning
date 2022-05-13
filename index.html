@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Event Planning | Home</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Oxygen:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
 
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Event Planning | Home</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Oxygen:wght@300;400;700&display=swap"
+    rel="stylesheet" />
 
-  <body>
-    <!--Header with Nav links and logo-->
-    <header>
-      <nav class="navbar">
-        <div class="nav-list">
-          <h1 class="nav-item">Event Card Creator</h1>
-        </div>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
 
-        <div class="navbar-links">
-          <a class="nav-link-item" href="./index.html">Home</a>
-          <a class="nav-link-item" href="./event.html">My saved event cards</a>
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <!-- Start page div -->
-      <div class="startpage-div">
-        <div class="start-box">
-          <p class="intro-message">Create a new event card</p>
-
-          <input
-            type="text"
-            class="event-name-input"
-            id="event-name-input"
-            name="event-name"
-            placeholder="Give your event a name to get started"
-          />
-          <div class="start-button-div">
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
+<body>
+  <!--Header with Nav links and logo-->
+  <header>
+    <nav class="navbar">
+      <div class="nav-list">
+        <h1 class="nav-item">Event Card Creator</h1>
       </div>
 
-      <section class="event-details-container"></section>
-      <section class="food-container"></section>
-      <section class="music-container"></section>
-      <section class="controls-container"></section>
-      <section class="event-card-container"></section>
-    </main>
+      <div class="navbar-links">
+        <a class="nav-link-item" href="./index.html">Home</a>
+        <a class="nav-link-item" href="./event.html">My saved event cards</a>
+      </div>
+    </nav>
+  </header>
 
-    <footer>
-      <a href="mailto:eventplanning.co.uk"> Contact Us </a>
-      <p>Copyright &copy; 2022 Event Planning.</p>
-    </footer>
+  <main>
+    <!-- Start page div -->
+    <div class="startpage-div">
+      <div class="start-box">
+        <p class="intro-message">Create a new event card</p>
 
-    <script src="./assets/js/script.js"></script>
-  </body>
+        <input type="text" class="event-name-input" id="event-name-input" name="event-name"
+          placeholder="Give your event a name to get started" />
+        <div class="start-button-div">
+          <button class="start-btn">Start</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="event-details-container"></section>
+    <section class="food-container"></section>
+    <section class="music-container"></section>
+    <section class="controls-container"></section>
+    <section class="event-card-container"></section>
+  </main>
+
+  <!--footer section-->
+  <footer class="footer has-background-primary has-shadow is-primary">
+    <div class="footer-container">
+
+      <div class="footer-link-item">
+        <a class="has-text-white py-6 social-icon" href="mailto:eventplanning.co.uk" target="_blank">
+          <ion-icon name="mail-outline"></ion-icon>
+        </a>
+        <a class="has-text-white py-6 social-icon " href="https://github.com/Am0031" target="_blank">
+          <ion-icon name="logo-github"></ion-icon>
+        </a>
+      </div>
+      <p class="has-text-white pb-3">Copyright &copy; 2022 Event Planning</p>
+    </div>
+    <div>
+
+    </div>
+  </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>
