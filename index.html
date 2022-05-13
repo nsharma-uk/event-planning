@@ -42,19 +42,19 @@
 
     <main class = "main" id ="main">
       <!-- Start page div -->
-      <div class="startpage-div">
-        <div class="start-box">
-          <p class="intro-message">Create a new event card</p>
+      <section class="section" id="start-page">
+        <div class="container has-text-centered" id="start-container">
+          <p class="intro-message">Let's get started on creating your a new event card</p>
           <div class="start-button-div">
             <button class="start-btn">Start</button>
           </div>
         </div>
-      </div>
+      </section>
       
       <!-- Event Registration -->
-      <section class="event-details-container" id = "event-details-container">
+      <section class="section" id = "event-details-container">
         <!--  event-details-div  starts here-->
-        <div class="event-registration-container" id="event-registration-container">
+        <div class="container has-text-centered" id="event-registration-container">
           <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
           <form class="event-details-div" id = "event-details-div" >
             <!-- Event name div -->
@@ -91,13 +91,13 @@
                <input type = "date" class = "event-input" id = "event-date"></input>
               </div>
               <!--Event description div  starts here-->
-              <div class = "event- description">
+              <div class = "event-description">
                 <label class="input-label" for="textarea">Detailed description of my event</label>
                <textarea id = "event-description" class = "description" placeholder="Add description"> </textarea>
               </div>
               <!--button div -->
               <div class="event-button-div">
-                <button class="event-start-btn" type="submit">Save</button>
+                <button class="button" type="submit" id="event-details-button">Save</button>
               </div>
             </div>
           </form>
@@ -107,29 +107,69 @@
       </section>
 
      <!--Food  container  -->
-      <section class="food-container" id = "food-container">
+      <section class="section" id = "food-container">
         <!-- main div for food container -->
-        <div class="main-container-div-food">
+        <div class="container has-text-centered">
       
-          <form class = "food" id = "food-selection" >
-            <p class = "food-text-div">Please select your desired food</p> 
+          <form class="form" id="food-selection" >
+            <p class="food-text-div">Please select your desired food</p> 
             <!--  select option div starts here -->
-            <div class = "select-food">
+            <div class="food-select" id="food-select">
               <select name="food-type" id="food-type">
-                <option value="starter">Starter</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="chicken">Chicken</option>
-                <option value="fish">Fish</option>
-                <option value="meat">Meat</option>
+                <option value="japanese">Japanese</option>
+                <option value="ethiopian">Ethiopian</option>
+                <option value="turkish">Turkish</option>
+                <option value="mexican">Mexican</option>
+                <option value="chinese">Chinese</option>
+                <option value="indian">Indian</option>
+                <option value="thai">Thai</option>
+                <option value="italian">Italian</option>
+                <option value="brazilian">Brazilian</option>
+                <option value="korean">Korean</option>
+                <option value="indian">Indian</option>
+                              
               </select>
             </div>
             <div>
-              <button class ="food-search"  type = "submit">Submit</button>
+              <button class="button"  type="submit" id="food-submit">Submit</button>
+            </div> 
+            <div>
+              <button class="button is-rounded is-medium my-5"  type="submit" id="surprise-me">Surprise me!</button>
             </div> 
           </form> 
           
-          <div class="card-container" id="card-container">
-            <div class="card food-card">
+          <div class="card-container" id="food-card-container">
+
+            <!--first recipe card-->
+            <div class="card" id="food-card">
+                    <div class="card-image">
+            <figure class="image is-4by3">
+              <img
+                src=${recipeImage}
+                alt="recipe cover image"
+              />
+            </figure>
+                    </div>
+                    <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">${recipe title}</p>
+                <p class="subtitle is-6">${source}</p>
+              </div>
+            </div>
+                    </div>
+                    <footer class="card-footer">
+            <button class="button is-ghost card-footer-item">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <a
+              href=${linkUrl}
+              class="card-footer-item"
+              ><i class="fa-brands fa-spotify"></i></a>
+                    </footer>
+                  </div>
+  <!--second recipe card-->
+                  <div class="card " id="food-card">
                     <div class="card-image">
             <figure class="image is-4by3">
               <img
@@ -171,10 +211,10 @@
       
       <!-- Music Container Section -->
 
-      <section class="music-container" id ="music-container">
+      <section class="section" id ="music-section">
         
         <!-- main div for music container -->
-        <div class="main-container-div-music">
+        <div class="container" id="music-container" >
       
           <form class = "music" id = "music-selection" >
             <p class = "music-text-div">Please select your desired music</p> 
@@ -185,7 +225,7 @@
               <button class ="music-search"  type = "submit">Submit</button>
             </div> 
           </form> 
-         <div class="card-container" id="card-container" >
+         <div class="card-container" id=" music-card-container" >
            <div class="card music-card">
                    <div class="card-image">
             <figure class="image is-4by3">

@@ -29,6 +29,9 @@ body {
   flex: 2;
 }
 
+section {
+  border: solid 1px red;
+}
 /*Start of header styling*/
 
 .nav-item {
