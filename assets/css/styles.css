@@ -57,7 +57,7 @@ header {
 }
 /*End of header styling */
 
-.saved-cards-container {
+.section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
