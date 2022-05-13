@@ -40,8 +40,11 @@ section {
 
 /*End of header styling */
 
+/*start page styling*/
+
 #first-page-button {
   width: 35%;
+  
 }
 
 /*Start of footer styles*/
@@ -49,6 +52,7 @@ section {
   padding: 10px 0;
   letter-spacing: 0.4m;
   width: auto;
+  margin: auto;
 }
 
 .footer-container {
