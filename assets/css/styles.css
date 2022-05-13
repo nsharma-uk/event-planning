@@ -40,6 +40,10 @@ section {
 
 /*End of header styling */
 
+#first-page-button {
+  width: 35%;
+}
+
 /*Start of footer styles*/
 .footer {
   padding: 10px 0;
