@@ -1,5 +1,11 @@
 //Global variables
 
+const burgerIcon = $("#burger");
+const navbarMenu = $("#nav-links");
+
+const musicContainer = $("#music-card-container");
+const foodContainer = $("#food-card-container");
+
 //Spotify API info
 const spotifyOptions = {
   method: "GET",
@@ -72,6 +78,108 @@ const fetchData = async (url, options = {}) => {
   }
 };
 
+//render music cards
+const renderMusicCards = (items) => {
+  if (items.length) {
+    const createCard = (item) => {
+      const playlistTitle = item.data.name;
+      const ownerName = item.data.owner.name;
+      const playlistCover = item.data.images.items[0].sources[0].url;
+      const linkUrl = item.data.uri;
+      //rendering with template string - TEMPORARY Template string
+      const playlistCard = `<div class="card music-card">
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img
+              src=${playlistCover}
+              alt="album cover image"
+            />
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4">${playlistTitle}</p>
+              <p class="subtitle is-6">${ownerName}</p>
+            </div>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <button class="button is-ghost card-footer-item">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <a
+            href=${linkUrl}
+            class="card-footer-item"
+            ><i class="fa-brands fa-spotify"></i></a>
+        </footer>
+      </div>`;
+
+      return playlistCard;
+    };
+
+    const allCards = items.map(createCard).join("");
+
+    musicContainer.empty();
+
+    musicContainer.append(allCards);
+  } else {
+    // render error
+    renderError("No results found.");
+  }
+};
+
+//render food cards
+const renderFoodCards = (items) => {
+  if (items.length) {
+    const createCard = (item) => {
+      const recipeTitle = item.recipe.label;
+      const source = item.recipe.source;
+      const recipeImage = item.recipe.image;
+      const linkUrl = item.recipe.url;
+      //rendering with template string - TEMPORARY Template string
+      const foodCard = `<div class="card food-card">
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img
+              src=${recipeImage}
+              alt="recipe cover image"
+            />
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4">${recipeTitle}</p>
+              <p class="subtitle is-6">${source}</p>
+            </div>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <button class="button is-ghost card-footer-item">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <a
+            href=${linkUrl}
+            class="card-footer-item"
+            ><i class="fa-solid fa-earth-americas"></i></a>
+        </footer>
+      </div>`;
+
+      return foodCard;
+    };
+
+    const allCards = items.map(createCard).join("");
+
+    foodContainer.empty();
+
+    foodContainer.append(allCards);
+  } else {
+    // render error
+    renderError("No results found.");
+  }
+};
+
 //Handling form submit in music-container section - Spotify api call
 const handleMusicSubmit = async (event) => {
   try {
@@ -94,7 +202,7 @@ const handleMusicSubmit = async (event) => {
       // fetch data from API
       const data = await fetchData(url, options);
 
-      renderCards(data?.playlists?.items || []);
+      renderMusicCards(data?.playlists?.items || []);
     } else {
       // target input and set class is-danger
       searchInput.addClass("is-danger");
@@ -125,7 +233,7 @@ const handleFoodSubmit = async (event) => {
       // fetch data from API
       const data = await fetchData(url, options);
 
-      renderCards(data?.hits || []);
+      renderFoodCards(data?.hits || []);
     } else {
       // target input and set class is-danger
       searchInput.addClass("is-danger");
@@ -134,3 +242,13 @@ const handleFoodSubmit = async (event) => {
     renderError("Sorry something went wrong and we are working on fixing it.");
   }
 };
+
+// On load
+const onReady = () => {
+  //event listener for mobile burger bar menu for html pages -Youtube NetNinja Bulma
+  burgerIcon.click(() => {
+    navbarMenu.classList.toggle("is-active");
+  });
+};
+
+$(document).ready(onReady);
