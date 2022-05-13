@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link
       href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -37,14 +38,6 @@
       <div class="startpage-div">
         <div class="start-box">
           <p class="intro-message">Create a new event card</p>
-
-          <input
-            type="text"
-            class="event-name-input"
-            id="event-name-input"
-            name="event-name"
-            placeholder="Give your event a name to get started"
-          />
           <div class="start-button-div">
             <button class="start-btn">Start</button>
           </div>
@@ -54,13 +47,21 @@
       <!-- Event Registration -->
       <section class="event-details-container" id = "event-details-container">
         <!--  event-details-div  starts here-->
-        <div>
-          <h2>Form Title</h2>
+        <div class="event-registration-container" id="event-registration-container">
+          <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
           <form class="event-details-div" id = "event-details-div" >
-            <h1>Event Name</h1>
+            <!-- Event name div -->
+            <div>
+              <label class="input-label" for="input">Event name</label>
+              <input
+            type="text"
+            class="event-name-input"
+            id="event-name-input"
+            name="event-name"
+            placeholder="Give your event a name"
+            />
+            </div>
           
-            <h2 id ="event-registration-message" class="event-registration-message">Enter details of your event</h2>
-            <!-- Event organizer Text box divs -->
             <div>
               <!--Event organizer name div -->
                <div class = "event-organizer-name">
@@ -120,7 +121,7 @@
             </div> 
           </form> 
           
-          <div>
+          <div class="card-container" id="card-container">
             <div class="card food-card">
                     <div class="card-image">
             <figure class="image is-4by3">
@@ -177,7 +178,7 @@
               <button class ="music-search"  type = "submit">Submit</button>
             </div> 
           </form> 
-         <div>
+         <div class="card-container" id="card-container" >
            <div class="card music-card">
                    <div class="card-image">
             <figure class="image is-4by3">
