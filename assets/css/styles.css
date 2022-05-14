@@ -54,6 +54,18 @@ section {
   margin: 0;
 }
 
+/*card styling*/
+.api-card {
+  width: 15rem;
+  margin: 10px;
+}
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 /*Start of footer styles*/
 .footer {
   padding: 10px 0;
