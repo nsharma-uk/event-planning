@@ -3,17 +3,16 @@
 const burgerIcon = $("#burger");
 const navbarMenu = $("#nav-links");
 
-const musicContainer = $("#music-card-container");
-const foodContainer = $("#food-card-container");
-
 const apiKey = "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4";
+
+let chosenItems = [];
 
 //Spotify API info
 const spotifyOptions = {
   method: "GET",
   headers: {
     "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
-    "X-RapidAPI-Key": apiKey,
+    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
   },
 };
 const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
@@ -23,7 +22,7 @@ const edamamOptions = {
   method: "GET",
   headers: {
     "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
-    "X-RapidAPI-Key": apiKey,
+    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
   },
 };
 const edamamBaseUrl = "https://edamam-recipe-search.p.rapidapi.com/search";
@@ -59,6 +58,7 @@ const emptyContainer = (containerId) => {
   if (containerId) {
     //remove the container itself and all its content
     $(`#${containerId}`).empty();
+    $(`#${containerId}`).off();
   }
 };
 
@@ -77,14 +77,43 @@ const fetchData = async (url, options = {}) => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      const data = await response.json();
-      return data;
+      return await response.json();
     } else {
       throw new Error("Failed to fetch data");
     }
   } catch (error) {
     throw new Error(error.message);
   }
+};
+
+const renderError = (message, containerId) => {
+  // create component
+  const errorComponent = `<div class="notification is-danger is-light">
+    <i class="fa-solid fa-triangle-exclamation"></i> ${message}
+  </div>`;
+
+  // append component to musicContainer
+  containerId.append(errorComponent);
+};
+
+const handleItemSelection = (event) => {
+  event.stopPropagation();
+  const targetName = $(event.target).attr("data-value");
+
+  const targetPic = $(event.target).attr("data-pic");
+
+  const chosenItem = {
+    targetName,
+    targetPic,
+  };
+
+  if (chosenItems.length < 3) {
+    chosenItems.push(chosenItem);
+  } else {
+    chosenItems.slice(1);
+    chosenItems.push(chosenItem);
+  }
+  //re-render the selection list in the aside div
 };
 
 //render music cards
@@ -96,97 +125,141 @@ const renderMusicCards = (items) => {
       const playlistCover = item.data.images.items[0].sources[0].url;
       const linkUrl = item.data.uri;
       //rendering with template string - TEMPORARY Template string
-      const playlistCard = `<div class="card music-card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img
-              src=${playlistCover}
-              alt="album cover image"
-            />
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4">${playlistTitle}</p>
-              <p class="subtitle is-6">${ownerName}</p>
-            </div>
+      const playlistCard = `<div class="card api-card" id="music-card-${item.index}">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img
+            src=${playlistCover}
+            alt="album cover image"
+          />
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">${playlistTitle}</p>
+            <p class="subtitle is-6">${ownerName}</p>
           </div>
         </div>
-        <footer class="card-footer">
-          <button class="button is-ghost card-footer-item">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <a
-            href=${linkUrl}
-            class="card-footer-item"
-            ><i class="fa-brands fa-spotify"></i></a>
-        </footer>
-      </div>`;
+      </div>
+      <footer class="card-footer">
+        <button
+          class="button is-ghost card-footer-item"
+          type="button"
+          data-value="${playlistTitle}"
+          data-pic="${playlistCover}"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <a
+          href=${linkUrl}
+          class="card-footer-item"
+          ><i class="fa-brands fa-spotify"></i
+        ></a>
+      </footer>
+    </div>`;
 
       return playlistCard;
     };
 
     const allCards = items.map(createCard).join("");
 
-    musicContainer.empty();
-
+    const musicContainer = $("#music-card-container");
+    emptyContainer("music-card-container");
     musicContainer.append(allCards);
+    musicContainer.click(handleItemSelection);
   } else {
     // render error
-    renderError("No results found.");
+    renderError("No results found.", musicContainer);
   }
 };
 
 //render food cards
 const renderFoodCards = (items) => {
   if (items.length) {
-    const createCard = (item) => {
+    const createCard = (item, i) => {
       const recipeTitle = item.recipe.label;
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
       const linkUrl = item.recipe.url;
       //rendering with template string - TEMPORARY Template string
-      const foodCard = `<div class="card food-card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img
-              src=${recipeImage}
-              alt="recipe cover image"
-            />
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4">${recipeTitle}</p>
-              <p class="subtitle is-6">${source}</p>
-            </div>
+      const foodCard = `<div class="card api-card" id="food-card-${i}">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img
+            src=${recipeImage}
+            alt="recipe cover image"
+          />
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">${recipeTitle}</p>
+            <p class="subtitle is-6">${source}</p>
           </div>
         </div>
-        <footer class="card-footer">
-          <button class="button is-ghost card-footer-item">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <a
-            href=${linkUrl}
-            class="card-footer-item"
-            ><i class="fa-solid fa-earth-americas"></i></a>
-        </footer>
-      </div>`;
+      </div>
+      <footer class="card-footer">
+        <button class="button is-ghost card-footer-item"
+        type="button"
+          data-value="${recipeTitle}"
+          data-pic="${recipeImage}">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <a
+          href=${linkUrl}
+          class="card-footer-item"
+          ><i class="fa-solid fa-earth-americas"></i
+        ></a>
+      </footer>
+    </div>`;
 
       return foodCard;
     };
 
     const allCards = items.map(createCard).join("");
 
-    foodContainer.empty();
-
+    const foodContainer = $("#food-card-container");
+    emptyContainer("food-card-container");
     foodContainer.append(allCards);
+    foodContainer.click(handleItemSelection);
   } else {
     // render error
-    renderError("No results found.");
+    renderError("No results found.", foodContainer);
   }
+};
+
+const assignMusicToEvent = (e) => {
+  e.stopPropagation();
+  const target = $(e.target);
+  const currentTarget = $(e.currentTarget);
+
+  const myEvent = $("#event-select").find(":selected").text();
+
+  const myEvents = getFromLocalStorage("myEvents");
+  const myEventIndex = myEvents.findIndex((obj) => (obj.eventName = myEvent));
+
+  myEvents[myEventIndex].music = chosenItems;
+  writeToLocalStorage("myEvents", myEvents);
+
+  chosenItems = [];
+};
+
+const assignFoodToEvent = (e) => {
+  e.stopPropagation();
+  const target = $(e.target);
+  const currentTarget = $(e.currentTarget);
+
+  const myEvent = $("#event-select").find(":selected").text();
+
+  const myEvents = getFromLocalStorage("myEvents");
+  const myEventIndex = myEvents.findIndex((obj) => (obj.eventName = myEvent));
+
+  myEvents[myEventIndex].food = chosenItems;
+  writeToLocalStorage("myEvents", myEvents);
+
+  chosenItems = [];
 };
 
 //Handling form submit in music-container section - Spotify api call
@@ -217,7 +290,10 @@ const handleMusicSubmit = async (event) => {
       searchInput.addClass("is-danger");
     }
   } catch (error) {
-    renderError("Sorry something went wrong and we are working on fixing it.");
+    renderError(
+      "Sorry something went wrong and we are working on fixing it.",
+      musicContainer
+    );
   }
 };
 
@@ -227,7 +303,10 @@ const handleFoodSubmit = async (event) => {
     event.preventDefault();
 
     // get form values for api
-    const searchQuery = searchInput.val();
+    const searchQuery = $("#food-select")
+      .find(":selected")
+      .text()
+      .toLowerCase();
 
     // validate form
     if (searchQuery) {
@@ -248,19 +327,92 @@ const handleFoodSubmit = async (event) => {
       searchInput.addClass("is-danger");
     }
   } catch (error) {
-    renderError("Sorry something went wrong and we are working on fixing it.");
+    renderError(
+      "Sorry something went wrong and we are working on fixing it.",
+      foodContainer
+    );
   }
 };
-const renderFoodSection = (eventName) => {
-  removeContainer("event-details-section");
-  $("#main").append(` <section class="section" id="food-section">
-      
+
+const renderMusicSection = () => {
+  emptyContainer("main");
+  $("#main")
+    .append(`<section class="section is-flex-direction-row" id="music-section">
+  <div class="container has-text-centered" id="music-container">
+    <form class="form" id="music-selection">
+      <p class="music-text-div">Please select your desired music</p>
+      <div
+        class="form-field is-flex-direction-row is-align-content-center my-5"
+      >
+        <input type="text" class="music-input" id="music-type" />
+
+        <button
+          class="button is-rounded is-small"
+          type="submit"
+          id="music-submit-btn"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    <div class="card-container" id="music-card-container">
+    </div>
+  </div>
+  <div class="aside music-aside has-text-centered m-3" id="music-aside">
+    <div class="aside-list my-5">
+      <h4 class="aside-text m-5">Your selected playlists</h4>
+      <ul class="selected-items-list" id="selected-items-list">
+      </ul>
+    </div>
+    <div class="aside-event my-5">
+      <h4 class="aside-text m-5">Confirm the event</h4>
+      <select class="event-select" name="event-select" id="event-select">
+      </select>
+    </div>
+    <div class="aside-btn my-5">
+      <button
+        class="button is-rounded is-small my-5"
+        type="button"
+        id="music-save-btn"
+        data-theme="music"
+      >
+        Save to event
+      </button>
+    </div>
+    <div class="event-card-btn my-5">
+      <button
+        class="button is-rounded is-small my-5"
+        type="button"
+        id="create-btn"
+      >
+        Go to Event Card
+      </button>
+    </div>
+  </div>
+  </section>`);
+
+  const myEvents = getFromLocalStorage("myEvents");
+
+  myEvents.forEach((e) =>
+    $("#event-select").append(`<option>${e.eventName}</option>`)
+  );
+
+  chosenItems = [];
+  $("#music-aside").click(assignMusicToEvent);
+};
+
+const renderFoodSection = () => {
+  emptyContainer("main");
+  $("#main")
+    .append(`<section class="section is-flex-direction-row" id="food-section">
   <div class="container has-text-centered" id="food-container">
     <form class="form" id="food-selection">
-      <p class="food-text-div">Please select your desired food for the event ${eventName}</p>
-      
-      <div class="food-select" id="food-select">
-        <select name="food-type" id="food-type">
+      <p class="food-text-div">Please select your desired food</p>
+
+      <div
+        class="form-field is-flex-direction-row is-align-content-center my-5"
+      >
+        <select class="food-select" name="food-type" id="food-select">
           <option value="japanese">Japanese</option>
           <option value="ethiopian">Ethiopian</option>
           <option value="turkish">Turkish</option>
@@ -273,26 +425,61 @@ const renderFoodSection = (eventName) => {
           <option value="korean">Korean</option>
           <option value="indian">Indian</option>
         </select>
-      </div>
-      <div>
-        <button class="button" type="submit" id="food-submit-btn">
+
+        <button
+          class="form-button button is-rounded is-small"
+          type="submit"
+          id="food-submit-btn"
+        >
           Submit
         </button>
       </div>
-      <div>
-        <button
-          class="button is-rounded is-medium my-5"
-          type="submit"
-          id="surprise-me"
-        >
-          Surprise me!
-        </button>
-      </div>
     </form>
+    <div class="card-container" id="food-card-container"> 
+    </div>
+  </div>
+  <div class="aside food-aside has-text-centered m-3" id="food-aside">
+    <div class="aside-list my-5">
+      <h4 class="aside-text m-5">Your selected food</h4>
+      <ul class="selected-items-list" id="selected-items-list">
+      </ul>
+    </div>
+    <div class="aside-event my-5">
+      <h4 class="aside-text m-5">Confirm the event</h4>
+      <select class="event-select" name="event-select" id="event-select">
+      </select>
+    </div>
+    <div class="aside-btn my-5">
+      <button
+        class="button is-rounded is-small my-5"
+        type="button"
+        id="food-save-btn"
+        data-theme="food"
+      >
+        Save to event
+      </button>
+    </div>
+    <div class="event-card-btn my-5">
+      <button
+        class="button is-rounded is-small my-5"
+        type="button"
+        id="create-btn"
+      >
+        Go to Event Card
+      </button>
+    </div>
+  </div>
+  </section>`);
+  const myEvents = getFromLocalStorage("myEvents");
 
-    <div class="card-container" id="food-card-container"></div></section>`);
-  $("#food-selection").click(handleFoodSubmit);
+  myEvents.forEach((e) =>
+    $("#event-select").append(`<option>${e.eventName}</option>`)
+  );
+  $("#food-selection").submit(handleFoodSubmit);
+  chosenItems = [];
+  $("#food-aside").click(assignFoodToEvent);
 };
+
 const saveEventDetails = (e) => {
   e.preventDefault();
   const eventName = $("#event-name-input").val();
@@ -325,75 +512,92 @@ const saveEventDetails = (e) => {
 const renderForm = () => {
   removeContainer("start-page-section");
   $("#main").append(`<section class="section" id="event-details-section">
-  <!--  event-details-div  starts here-->
-  <div class="container has-text-centered" id="event-details-container">
+  <div class="container is-mobile" id="event-details-container">
     <h2 id="event-details-message" class="title event-details-message">
       Enter details of your event
     </h2>
-    <form class="event-details-form" id="event-details-form">
-      <!-- Event name div -->
-      <div>
-        <label class="input-label" for="input">Event name</label>
-        <input
-          type="text"
-          class="event-name-input"
-          id="event-name-input"
-          name="event-name"
-          placeholder="Give your event a name"
-        />
-      </div>
-      <div>
+    <div>
+      <form class="event-details-form" id="event-details-form">
+        <div class>
+          <label class="input-label" for="input"
+            >What would you like to call your event?</label
+          >
+          <input
+            type="text"
+            class="input is-normal event-name-input mb-5"
+            id="event-name-input"
+            name="event-name"
+            placeholder="Give your event a name"
+          />
+        </div>
         <!--Event organizer name div -->
-        <div class="input-container">
+        <div>
+          <!-- <div class="input-container"> -->
           <label class="input-label" for="event-organiser"
             >Event organiser</label
           >
-          <input type="text" class="event-input" id="event-organiser" />
+          <input
+            type="text"
+            class="input is-normal event-input mb-5"
+            id="event-organiser"
+          />
         </div>
-        <!--Event email div -->
+
         <div class="input-container">
           <label class="input-label" for="organiser-mail"
             >Event organiser's email</label
           >
-          <input type="text" class="event-input" id="organiser-mail" />
+          <input
+            type="email"
+            class="input is-normal event-input mb-5"
+            id="organiser-mail"
+          />
         </div>
         <!--Event location div -->
-        <div class="input-container">
+        <div class="my-2 input-container">
           <label class="input-label" for="event-location"
             >Event location</label
           >
-          <input type="text" class="event-input" id="event-location" />
+          <input
+            type="email"
+            class="input is-normal event-input mb-5"
+            id="organiser-mail"
+          />
         </div>
         <!--Event date div -->
         <div class="input-container">
           <label class="input-label" for="event-date">Event date</label>
-          <input type="date" class="event-input" id="event-date" />
+          <input
+            type="date"
+            class="input is-normal mb-5"
+            id="event-date"
+          />
         </div>
         <!--Event description div  starts here-->
-        <div class="input-container">
+        <div class="my-4 input-container">
           <label class="input-label" for="event-description"
             >Detailed description of my event</label
           >
           <textarea
             id="event-description"
-            class="description"
+            class="input is-normal description"
             placeholder="Add description"
           ></textarea>
         </div>
         <!--button div -->
-        <div class="form-button-div">
+        <div class="form-button-div has-text-centered m-0">
           <button
-            class="button is-rounded is-small my-5"
+            class="button is-rounded is-medium has-text-centered is-primary is-responsive"
             type="submit"
             id="event-details-btn"
           >
             Save
           </button>
         </div>
-      </div>
-    </form>
+        <!-- </div> -->
+      </form>
+    </div>
   </div>
-  <!-- End of event-details-div -->
 </section>`);
   $("#event-details-btn").click(saveEventDetails);
 };

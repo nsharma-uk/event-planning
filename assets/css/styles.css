@@ -29,6 +29,10 @@ body {
   flex: 2;
 }
 
+i {
+  pointer-events: none;
+}
+
 section {
   border: solid 1px red;
 }
