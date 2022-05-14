@@ -257,14 +257,14 @@ const saveEventDetails = () => {
   const arrayName = $("#event-name-input").val();
   const arrayFromLs = getFromLocalStorage(arrayName, []);
   if (arrayFromLs.length === 0) {
-    alert("This Event already exists!");
-  } else {
     writeToLocalStorage(arrayName, eventDetails);
+  } else {
+    alert("This Event already exists!");
   }
 };
 
 const renderForm = () => {
-  removeContainer("#start-page-section");
+  removeContainer("start-page-section");
   $("#main").append(`<section class="section" id="event-details-section">
   <!--  event-details-div  starts here-->
   <div class="container has-text-centered" id="event-details-container">
