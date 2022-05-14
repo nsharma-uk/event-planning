@@ -6,12 +6,14 @@ const navbarMenu = $("#nav-links");
 const musicContainer = $("#music-card-container");
 const foodContainer = $("#food-card-container");
 
+const apiKey = "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4";
+
 //Spotify API info
 const spotifyOptions = {
   method: "GET",
   headers: {
     "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
-    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
+    "X-RapidAPI-Key": apiKey,
   },
 };
 const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
@@ -21,7 +23,7 @@ const edamamOptions = {
   method: "GET",
   headers: {
     "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
-    "X-RapidAPI-Key": "a447661e09msh17b913e41ecacfdp129f05jsn6e2975fac8c4",
+    "X-RapidAPI-Key": apiKey,
   },
 };
 const edamamBaseUrl = "https://edamam-recipe-search.p.rapidapi.com/search";
@@ -45,11 +47,18 @@ const clearLS = () => {
 };
 
 //removes the designated container - target by ID
-//may be reworked later
 const removeContainer = (containerId) => {
   if (containerId) {
     //remove the container itself and all its content
     $(`#${containerId}`).remove();
+  }
+};
+
+//empty the designated container - target by ID
+const emptyContainer = (containerId) => {
+  if (containerId) {
+    //remove the container itself and all its content
+    $(`#${containerId}`).empty();
   }
 };
 
