@@ -243,12 +243,30 @@ const handleFoodSubmit = async (event) => {
   }
 };
 
+//Handling start page click
+const handleStartClick = () => {
+  //bring up modal window with event details form
+  //submit form in modal
+  //save form details in local storage
+  //remove start container
+  //render food selection container (includes aside div)
+  //add click event to food form submit button --> handle button click (submit or surprise) --> handle food submit --> returns rendered cards
+  //on click of "add" symbol on the card, recipe name is added to the event's local storage object and the side list is re-rendered with updated local storage info
+  //on click of "continue" button, remove food container and render music container
+  //add click event to music form button --> handle music submit --> return rendered cards
+  //on click of "add" symbol on the card, recipe name is added to the event's local storage object and the side list is re-rendered with updated local storage info
+  //on click of "continue" button, remove music container and render event card template
+  //on click of "print" button, the print option opens (to look into!!!)
+};
+
 // On load
 const onReady = () => {
   //event listener for mobile burger bar menu for html pages -Youtube NetNinja Bulma
   burgerIcon.click(() => {
     navbarMenu.toggleClass("is-active");
   });
+
+  //add click event to start button
 };
 
 $(document).ready(onReady);
