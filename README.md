@@ -17,3 +17,6 @@ Further down the webpage we have a music selection drop down and selection box t
 once you have completed the dropdown form you can then go to saved events by selecting the 'create event card' tab in the bottom left hand corner and then in the saved tab in the drop down menu you can find and select the Event card of your choice.
 
 There is also a copyright 2022 logo to prevent people from plagirising our idea and a link to email the company if the customer has any queries.
+
+User story link:
+https://docs.google.com/document/d/1CCUwodEqHAyxCsGs5wl1IaE0MI2KdJNS7Z_-jXD1tPc/edit
