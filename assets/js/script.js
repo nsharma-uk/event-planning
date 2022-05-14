@@ -242,24 +242,73 @@ const handleFoodSubmit = async (event) => {
     renderError("Sorry something went wrong and we are working on fixing it.");
   }
 };
+const renderFoodSection = (eventName) => {
+  removeContainer("event-details-section");
+  $("#main").append(` <section class="section" id="food-section">
+      
+  <div class="container has-text-centered" id="food-container">
+    <form class="form" id="food-selection">
+      <p class="food-text-div">Please select your desired food for the event ${eventName}</p>
+      
+      <div class="food-select" id="food-select">
+        <select name="food-type" id="food-type">
+          <option value="japanese">Japanese</option>
+          <option value="ethiopian">Ethiopian</option>
+          <option value="turkish">Turkish</option>
+          <option value="mexican">Mexican</option>
+          <option value="chinese">Chinese</option>
+          <option value="indian">Indian</option>
+          <option value="thai">Thai</option>
+          <option value="italian">Italian</option>
+          <option value="brazilian">Brazilian</option>
+          <option value="korean">Korean</option>
+          <option value="indian">Indian</option>
+        </select>
+      </div>
+      <div>
+        <button class="button" type="submit" id="food-submit-btn">
+          Submit
+        </button>
+      </div>
+      <div>
+        <button
+          class="button is-rounded is-medium my-5"
+          type="submit"
+          id="surprise-me"
+        >
+          Surprise me!
+        </button>
+      </div>
+    </form>
 
+    <div class="card-container" id="food-card-container"></div></section>`);
+  $("#food-selection").click(handleFoodSubmit);
+};
 const saveEventDetails = () => {
-  const eventDetails = [
-    {
-      eventName: $("#event-name-input").val(),
-      eventOrganiser: $("#event-organiser").val(),
-      organiserEmail: $("#organiser-email").val(),
-      eventLocation: $("#event-location").val(),
-      eventDate: $("#event-date").val(),
-      eventDescription: $("#event-description").val(),
-    },
-  ];
-  const arrayName = $("#event-name-input").val();
-  const arrayFromLs = getFromLocalStorage(arrayName, []);
-  if (arrayFromLs.length === 0) {
-    writeToLocalStorage(arrayName, eventDetails);
-  } else {
+  const eventName = $("#event-name-input").val();
+  const eventOrganiser = $("#event-organiser").val();
+  const organiserEmail = $("#organiser-email").val();
+  const eventLocation = $("#event-location").val();
+  const eventDate = $("#event-date").val();
+  const eventDescription = $("#event-description").val();
+  const eventObj = {
+    eventName,
+    eventOrganiser,
+    organiserEmail,
+    eventLocation,
+    eventDate,
+    eventDescription,
+  };
+
+  const arrayFromLs = getFromLocalStorage("myEvents", []);
+
+  const event = arrayFromLs.find((event) => event.eventName === eventName);
+  if (event) {
     alert("This Event already exists!");
+  } else {
+    arrayFromLs.push(eventObj);
+    writeToLocalStorage("myEvents", arrayFromLs);
+    renderFoodSection(eventName);
   }
 };
 
