@@ -247,7 +247,7 @@ const handleFoodSubmit = async (event) => {
 const onReady = () => {
   //event listener for mobile burger bar menu for html pages -Youtube NetNinja Bulma
   burgerIcon.click(() => {
-    navbarMenu.classList.toggle("is-active");
+    navbarMenu.toggleClass("is-active");
   });
 };
 
