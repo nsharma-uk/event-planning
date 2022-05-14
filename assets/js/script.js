@@ -284,7 +284,8 @@ const renderFoodSection = (eventName) => {
     <div class="card-container" id="food-card-container"></div></section>`);
   $("#food-selection").click(handleFoodSubmit);
 };
-const saveEventDetails = () => {
+const saveEventDetails = (e) => {
+  e.preventDefault();
   const eventName = $("#event-name-input").val();
   const eventOrganiser = $("#event-organiser").val();
   const organiserEmail = $("#organiser-email").val();
@@ -302,8 +303,8 @@ const saveEventDetails = () => {
 
   const arrayFromLs = getFromLocalStorage("myEvents", []);
 
-  const event = arrayFromLs.find((event) => event.eventName === eventName);
-  if (event) {
+  const plannedEvent = arrayFromLs.find((s) => s.eventName === eventName);
+  if (plannedEvent) {
     alert("This Event already exists!");
   } else {
     arrayFromLs.push(eventObj);
