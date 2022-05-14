@@ -44,7 +44,10 @@ section {
 
 #first-page-button {
   width: 35%;
-  
+}
+
+.event-details-container {
+  width: 50%;
 }
 
 /*Start of footer styles*/

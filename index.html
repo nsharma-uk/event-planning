@@ -62,7 +62,7 @@
           </p>
           <div class="start-button-div has-text-centered">
             <button
-              class="button is-rounded is-medium has-text-centered is-responsive"
+              class="button is-rounded is-medium has-text-centered is-primary is-responsive"
               id="start-page-btn"
             >
               Start
@@ -74,73 +74,85 @@
       <!-- Event Registration -->
       <section class="section" id="event-details-section">
         <!--  event-details-div  starts here-->
-        <div class="container has-text-centered" id="event-details-container">
+        <div class="container is-mobile" id="event-details-container">
           <h2 id="event-details-message" class="title event-details-message">
             Enter details of your event
           </h2>
-          <form class="event-details-form" id="event-details-form">
-            <!-- Event name div -->
-            <div>
-              <label class="input-label" for="input">Event name</label>
+          <form class="event-details-form" id="event-details-form"></form>
+          <div>
+            
+            
+              <div class>
+                <label class="input-label" for="input"
+                >What would you like to call your event?</label
+              >
               <input
                 type="text"
-                class="event-name-input"
+                class="input is-normal event-name-input"
                 id="event-name-input"
                 name="event-name"
                 placeholder="Give your event a name"
-              />
-            </div>
-            <div>
-              <!--Event organizer name div -->
-              <div class="input-container">
+              /> </div>
+                <!--Event organizer name div -->
+              <div > 
+                <!-- <div class="input-container"> -->
                 <label class="input-label" for="event-organiser"
                   >Event organiser</label
                 >
-                <input type="text" class="event-input" id="event-organiser" />
-              </div>
-              <!--Event email div -->
-              <div class="input-container">
-                <label class="input-label" for="organiser-mail"
-                  >Event organiser's email</label
-                >
-                <input type="text" class="event-input" id="organiser-mail" />
-              </div>
-              <!--Event location div -->
-              <div class="input-container">
-                <label class="input-label" for="event-location"
-                  >Event location</label
-                >
-                <input type="text" class="event-input" id="event-location" />
-              </div>
-              <!--Event date div -->
-              <div class="input-container">
-                <label class="input-label" for="event-date">Event date</label>
-                <input type="date" class="event-input" id="event-date" />
-              </div>
-              <!--Event description div  starts here-->
-              <div class="input-container">
-                <label class="input-label" for="event-description"
-                  >Detailed description of my event</label
-                >
-                <textarea
-                  id="event-description"
-                  class="description"
-                  placeholder="Add description"
-                ></textarea>
-              </div>
-              <!--button div -->
-              <div class="form-button-div">
-                <button
-                  class="button is-rounded is-small my-5"
-                  type="submit"
-                  id="event-details-btn"
-                >
-                  Save
-                </button>
+                <input type="text" class="input is-normal event-input" id="event-organiser" />
               </div>
             </div>
-          </form>
-        </div>
+              
+              <!-- Event name div -->
+            
+              
+              
+                
+                <!--Event email div -->
+                </div>
+                <div class="my-2 input-container">
+                  <label class="input-label" for="organiser-mail"
+                    >Event organiser's email</label
+                  >
+                  <input type="email" class="input is-normal event-input" id="organiser-mail" />
+                </div>
+                <!--Event location div -->
+                <div class="my-2 input-container">
+                  <label class="input-label" for="event-location"
+                    >Event location</label
+                  >
+                  <input type="email" class="input is-normal event-input" id="organiser-mail" />
+                               </div>
+                <!--Event date div -->
+                <div class="my-4 input-container">
+                  <label class="input-label" for="event-date">Event date</label>
+                  <input type="date" class="event-input" id="event-date" />
+                </div>
+                <!--Event description div  starts here-->
+                <div class="my-4 input-container">
+                  <label class="input-label" for="event-description"
+                    >Detailed description of my event</label
+                  >
+                  <textarea
+                    id="event-description"
+                    class="input is-normal description"
+                    placeholder="Add description"
+                  ></textarea>
+                </div>
+                <!--button div -->
+                <div class="form-button-div">
+                  <button
+                    class="input is-normal button is-primary is-rounded is-normal my-5"
+                    type="submit"
+                    id="event-details-btn"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+       
         <!-- End of event-details-div -->
       </section>
 
