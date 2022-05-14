@@ -243,6 +243,102 @@ const handleFoodSubmit = async (event) => {
   }
 };
 
+const saveEventDetails = () => {
+  const eventDetails = [
+    {
+      eventName: $("#event-name-input").val(),
+      eventOrganiser: $("#event-organiser").val(),
+      organiserEmail: $("#organiser-email").val(),
+      eventLocation: $("#event-location").val(),
+      eventDate: $("#event-date").val(),
+      eventDescription: $("#event-description").val(),
+    },
+  ];
+  const arrayName = $("#event-name-input").val();
+  const arrayFromLs = getFromLocalStorage(arrayName, []);
+  if (arrayFromLs.length === 0) {
+    alert("This Event already exists!");
+  } else {
+    writeToLocalStorage(arrayName, eventDetails);
+  }
+};
+
+const renderForm = () => {
+  removeContainer("#start-page-section");
+  $("#main").append(`<section class="section" id="event-details-section">
+  <!--  event-details-div  starts here-->
+  <div class="container has-text-centered" id="event-details-container">
+    <h2 id="event-details-message" class="title event-details-message">
+      Enter details of your event
+    </h2>
+    <form class="event-details-form" id="event-details-form">
+      <!-- Event name div -->
+      <div>
+        <label class="input-label" for="input">Event name</label>
+        <input
+          type="text"
+          class="event-name-input"
+          id="event-name-input"
+          name="event-name"
+          placeholder="Give your event a name"
+        />
+      </div>
+      <div>
+        <!--Event organizer name div -->
+        <div class="input-container">
+          <label class="input-label" for="event-organiser"
+            >Event organiser</label
+          >
+          <input type="text" class="event-input" id="event-organiser" />
+        </div>
+        <!--Event email div -->
+        <div class="input-container">
+          <label class="input-label" for="organiser-mail"
+            >Event organiser's email</label
+          >
+          <input type="text" class="event-input" id="organiser-mail" />
+        </div>
+        <!--Event location div -->
+        <div class="input-container">
+          <label class="input-label" for="event-location"
+            >Event location</label
+          >
+          <input type="text" class="event-input" id="event-location" />
+        </div>
+        <!--Event date div -->
+        <div class="input-container">
+          <label class="input-label" for="event-date">Event date</label>
+          <input type="date" class="event-input" id="event-date" />
+        </div>
+        <!--Event description div  starts here-->
+        <div class="input-container">
+          <label class="input-label" for="event-description"
+            >Detailed description of my event</label
+          >
+          <textarea
+            id="event-description"
+            class="description"
+            placeholder="Add description"
+          ></textarea>
+        </div>
+        <!--button div -->
+        <div class="form-button-div">
+          <button
+            class="button is-rounded is-small my-5"
+            type="submit"
+            id="event-details-btn"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- End of event-details-div -->
+</section>`);
+  $("#event-details-btn").click(saveEventDetails);
+};
+
 //Handling start page click
 const handleStartClick = () => {
   //bring up modal window with event details form
@@ -267,6 +363,7 @@ const onReady = () => {
   });
 
   //add click event to start button
+  $("#start-page-btn").click(renderForm);
 };
 
 $(document).ready(onReady);
