@@ -44,7 +44,26 @@ section {
 
 #first-page-button {
   width: 35%;
-  
+}
+
+.event-details-container {
+  width: 50%;
+}
+.form-button-div {
+  width: 50%;
+  margin: 0;
+}
+
+/*card styling*/
+.api-card {
+  width: 15rem;
+  margin: 10px;
+}
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 /*Start of footer styles*/

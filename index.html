@@ -62,7 +62,7 @@
           </p>
           <div class="start-button-div has-text-centered">
             <button
-              class="button is-rounded is-medium has-text-centered is-responsive"
+              class="button is-rounded is-medium has-text-centered is-primary is-responsive"
               id="start-page-btn"
             >
               Start
@@ -72,77 +72,90 @@
       </section>
 
       <!-- Event Registration -->
-
-      <!-- <section class="section" id="event-details-section">
-         
-        <div class="container has-text-centered" id="event-details-container">
+      <section class="section" id="event-details-section">
+        <!--  event-details-div  starts here-->
+        <div class="container is-mobile" id="event-details-container">
           <h2 id="event-details-message" class="title event-details-message">
             Enter details of your event
           </h2>
-          <form class="event-details-form" id="event-details-form">
-           
-            <div>
-              <label class="input-label" for="input">Event name</label>
+          <div>
+          <form class="event-details-form" id="event-details-form"> 
+         
+            
+            
+              <div class>
+                <label class="input-label" for="input"
+                >What would you like to call your event?</label
+              >
               <input
                 type="text"
-                class="event-name-input"
+                class="input is-normal event-name-input mb-5"
                 id="event-name-input"
                 name="event-name"
                 placeholder="Give your event a name"
-              />
-            </div>
-            <div>
-              
-              <div class="input-container">
+              /> </div>
+                <!--Event organizer name div -->
+              <div > 
+                <!-- <div class="input-container"> -->
                 <label class="input-label" for="event-organiser"
                   >Event organiser</label
                 >
-                <input type="text" class="event-input" id="event-organiser" />
-              </div>
-              
-              <div class="input-container">
-                <label class="input-label" for="organiser-mail"
-                  >Event organiser's email</label
-                >
-                <input type="text" class="event-input" id="organiser-mail" />
-              </div>
-              
-              <div class="input-container">
-                <label class="input-label" for="event-location"
-                  >Event location</label
-                >
-                <input type="text" class="event-input" id="event-location" />
-              </div>
-            
-              <div class="input-container">
-                <label class="input-label" for="event-date">Event date</label>
-                <input type="date" class="event-input" id="event-date" />
-              </div>
-             
-              <div class="input-container">
-                <label class="input-label" for="event-description"
-                  >Detailed description of my event</label
-                >
-                <textarea
-                  id="event-description"
-                  class="description"
-                  placeholder="Add description"
-                ></textarea>
-              </div>
-             
-              <div class="form-button-div">
-                <button
-                  class="button is-rounded is-small my-5"
-                  type="submit"
-                  id="event-details-btn"
-                >
-                  Save
-                </button>
+                <input type="text" class="input is-normal event-input mb-5" id="event-organiser" />
               </div>
             </div>
-          </form>
+              
+              <!-- Event name div -->
+            
+              
+              
+                
+                <!--Event email div -->
+                
+                <div class="input-container">
+                  <label class="input-label" for="organiser-mail"
+                    >Event organiser's email</label
+                  >
+                  <input type="email" class="input is-normal event-input mb-5" id="organiser-mail" />
+                </div>
+                <!--Event location div -->
+                <div class="my-2 input-container">
+                  <label class="input-label" for="event-location"
+                    >Event location</label
+                  >
+                  <input type="email" class="input is-normal event-input mb-5" id="organiser-mail" />
+                               </div>
+                <!--Event date div -->
+                <div class="input-container">
+                  <label class="input-label" for="event-date">Event date</label>
+                  <input type="date" class="input is-normal mb-5" id="event-date" />
+                </div>
+                <!--Event description div  starts here-->
+                <div class="my-4 input-container">
+                  <label class="input-label" for="event-description"
+                    >Detailed description of my event</label
+                  >
+                  <textarea
+                    id="event-description"
+                    class="input is-normal description"
+                    placeholder="Add description"
+                  ></textarea>
+                </div>
+                <!--button div -->
+                <div class="form-button-div has-text-centered">
+                  <button
+                    class="button is-rounded is-medium has-text-centered is-primary is-responsive"
+                    type="submit"
+                    id="event-details-btn"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        
+       
+        <!-- End of event-details-div -->
       </section>
 
      
@@ -185,7 +198,7 @@
 
           <div class="card-container" id="food-card-container">
           
-            <div class="card" id="food-card-1">
+            <div class="card api-card" id="food-card-1">
               <div class="card-image">
                 <figure class="image is-4by3">
                   <img
@@ -214,7 +227,7 @@
               </footer>
             </div>
             
-            <div class="card" id="food-card-2">
+            <div class="card api-card" id="food-card-2">
               <div class="card-image">
                 <figure class="image is-4by3">
                   <img
@@ -272,7 +285,7 @@
             </div>
           </form>
           <div class="card-container" id="music-card-container">
-            <div class="card music-card" id="music-card-1">
+            <div class="card api-card" id="music-card-1">
               <div class="card-image">
                 <figure class="image is-4by3">
                   <img
