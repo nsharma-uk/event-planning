@@ -89,6 +89,19 @@ section {
   margin: 3px;
 }
 
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.event-card {
+  width: 15rem;
+  margin: 30px;
+  border-bottom: solid black 1px;
+}
+
 /*MEDIA QUERIES */
 @media screen and (max-width: 768px) {
   .nav-item {
@@ -102,3 +115,4 @@ section {
     text-align: center;
   }
 }
+/*End of header styling */
