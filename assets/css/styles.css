@@ -49,6 +49,10 @@ section {
 .event-details-container {
   width: 50%;
 }
+.form-button-div {
+  width: 50%;
+  margin: 0;
+}
 
 /*Start of footer styles*/
 .footer {
