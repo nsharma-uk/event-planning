@@ -93,6 +93,7 @@ const updateAsideList = (theseChosenItems) => {
 
 //stores selected item into the event object in local storage
 const handleItemSelection = (event) => {
+  //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
   const currentEventName = $("#event-select").text();
 
@@ -435,6 +436,7 @@ const handleMusicSubmit = async (event) => {
 
 //Handling food submit in food-container section - Edamam api call
 const handleFoodSubmit = async (event) => {
+  //need to add the handling of "surprise me"
   try {
     event.preventDefault();
 
@@ -680,7 +682,7 @@ const renderForm = () => {
             >Event location</label
           >
           <input
-            type="email"
+            type="text"
             class="input is-normal event-input mb-5"
             id="event-location"
           />
@@ -716,6 +718,7 @@ const renderForm = () => {
     </div>
   </div>
 </section>`);
+  //need to change to proper form validation (.submit and validation classes etc)
   $("#event-details-btn").click(saveEventDetails);
 };
 
