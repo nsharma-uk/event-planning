@@ -173,6 +173,7 @@
                 <option value="brazilian">Brazilian</option>
                 <option value="korean">Korean</option>
                 <option value="indian">Indian</option>
+                <option value="surprise-me">Surprise me!</option>
               </select>
 
               <button
@@ -247,17 +248,16 @@
         <div class="aside food-aside has-text-centered m-3" id="food-aside">
           <div class="aside-list my-5">
             <h4 class="aside-text m-5">Your selected food</h4>
-            <ul>
+            <ul class="selected-items-list" id="selected-items-list">
               <li>Burgers</li>
               <li>Pizza</li>
             </ul>
           </div>
           <div class="aside-event my-5">
             <h4 class="aside-text m-5">Confirm the event</h4>
-            <select class="event-select" name="event-select" id="event-select">
-              <option value="eventName1">Event Name 1</option>
-              <option value="eventName2">Event Name 2</option>
-            </select>
+            <p class="event-select" name="event-select" id="event-select">
+              Event Name
+            </p>
           </div>
           <div class="aside-btn my-5">
             <button
@@ -265,16 +265,7 @@
               type="button"
               id="food-save-btn"
             >
-              Save to event
-            </button>
-          </div>
-          <div class="event-card-btn my-5">
-            <button
-              class="button is-rounded is-small my-5"
-              type="button"
-              id="food-save-btn"
-            >
-              Go to Event Card
+              Save & Continue
             </button>
           </div>
         </div>
@@ -369,17 +360,16 @@
         <div class="aside food-aside has-text-centered m-3" id="food-aside">
           <div class="aside-list my-5">
             <h4 class="aside-text m-5">Your selected playlists</h4>
-            <ul>
+            <ul class="selected-items-list" id="selected-items-list">
               <li>Rock Mix</li>
               <li>90's rock</li>
             </ul>
           </div>
           <div class="aside-event my-5">
             <h4 class="aside-text m-5">Confirm the event</h4>
-            <select class="event-select" name="event-select" id="event-select">
-              <option value="eventName1">Event Name 1</option>
-              <option value="eventName2">Event Name 2</option>
-            </select>
+            <p class="event-select" name="event-select" id="event-select">
+              Event Name
+            </p>
           </div>
           <div class="aside-btn my-5">
             <button
@@ -387,16 +377,7 @@
               type="button"
               id="food-save-btn"
             >
-              Save to event
-            </button>
-          </div>
-          <div class="event-card-btn my-5">
-            <button
-              class="button is-rounded is-small my-5"
-              type="button"
-              id="food-save-btn"
-            >
-              Go to Event Card
+              Save & Continue
             </button>
           </div>
         </div>
@@ -511,18 +492,11 @@
             Print this event card
           </button>
           <button
-            class="button food-section-btn is-rounded is-big m-2"
-            id="food-section"
-            data-value="food-section"
+            class="button selection-btn is-rounded is-big m-2"
+            id="selection-btn"
+            data-value="selection-edit"
           >
-            Go to Food Selection
-          </button>
-          <button
-            class="button music-section-btn is-rounded is-big m-2"
-            id="music-section"
-            data-value="music-section"
-          >
-            Go to Music Selection
+            Edit Food/Music Selection
           </button>
         </div>
       </section> -->

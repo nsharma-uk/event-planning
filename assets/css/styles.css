@@ -21,11 +21,13 @@ html {
 body {
   min-height: 100vh;
   font-family: "Oxygen", sans-serif;
-  color: gunmental;
+  color: var(--gunmental);
   background-color: mintcream;
 }
 
 .main {
+  display: flex;
+  flex-direction: row;
   flex: 2;
 }
 
@@ -33,10 +35,14 @@ i {
   pointer-events: none;
 }
 
-section {
-  border: solid 1px red;
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-/*Start of header styling*/
+
+/*Header styling*/
 
 .nav-item {
   font-family: "Bubblegum Sans", cursive;
@@ -50,6 +56,7 @@ section {
   width: 35%;
 }
 
+/*Form page styling*/
 .event-details-container {
   width: 50%;
 }
@@ -97,13 +104,13 @@ section {
 }
 .small-card {
   width: 10rem;
-  margin: 10px;
+  margin: 6px;
 }
 .small-card-content {
   margin: 1rem;
 }
 
-/*Start of footer styles*/
+/*Footer styles*/
 .footer {
   padding: 10px 0;
   letter-spacing: 0.4m;
@@ -124,19 +131,6 @@ section {
   font-size: 30px;
   padding: 4px;
   margin: 3px;
-}
-
-.section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.event-card {
-  width: 15rem;
-  margin: 30px;
-  border-bottom: solid black 1px;
 }
 
 /*MEDIA QUERIES */
