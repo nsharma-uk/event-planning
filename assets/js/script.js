@@ -9,6 +9,25 @@ const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
 
 const edamamBaseUrl = "https://edamam-recipe-search.p.rapidapi.com/search";
 
+const surpriseMe = [
+  "surprise",
+  "cookie",
+  "chocolate",
+  "dessert",
+  "spicy",
+  "cake",
+  "tapas",
+  "sweet",
+  "salty",
+  "chilli",
+  "bites",
+  "burger",
+  "buns",
+  "bread",
+  "grill",
+  "cupcake",
+];
+
 let currentEventName = "";
 
 //UTILITY FUNCTIONS
@@ -557,7 +576,7 @@ const renderFoodSection = () => {
           <option value="italian">Italian</option>
           <option value="brazilian">Brazilian</option>
           <option value="korean">Korean</option>
-          <option value="indian">Indian</option>
+          <option value="french">Indian</option>
           <option value="surprise-me">Surprise me!</option>
         </select>
 
