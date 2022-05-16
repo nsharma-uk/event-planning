@@ -9,6 +9,25 @@ const spotifyBaseUrl = "https://spotify23.p.rapidapi.com/search/";
 
 const edamamBaseUrl = "https://edamam-recipe-search.p.rapidapi.com/search";
 
+const surpriseMe = [
+  "surprise",
+  "cookie",
+  "chocolate",
+  "dessert",
+  "spicy",
+  "cake",
+  "tapas",
+  "sweet",
+  "salty",
+  "chilli",
+  "bites",
+  "burger",
+  "buns",
+  "bread",
+  "grill",
+  "cupcake",
+];
+
 let currentEventName = "";
 
 //UTILITY FUNCTIONS
@@ -434,6 +453,20 @@ const handleMusicSubmit = async (event) => {
   }
 };
 
+//select a word at random from the surpriseMe array
+const getSurpriseWord = () => {
+  const surpriseWordIndex = Math.floor(Math.random() * surpriseMe.length);
+  return surpriseMe[surpriseWordIndex];
+};
+//get item selected by user from select list
+const getUserChoice = () => {
+  const userChoice = $("#food-select").find(":selected").attr("value");
+
+  return userChoice === "surprise-me"
+    ? getSurpriseWord()
+    : $("#food-select").find(":selected").attr("value");
+};
+
 //Handling food submit in food-container section - Edamam api call
 const handleFoodSubmit = async (event) => {
   //need to add the handling of "surprise me"
@@ -441,10 +474,7 @@ const handleFoodSubmit = async (event) => {
     event.preventDefault();
 
     // get form values for api
-    const searchQuery = $("#food-select")
-      .find(":selected")
-      .text()
-      .toLowerCase();
+    const searchQuery = getUserChoice();
 
     // validate form
     if (searchQuery) {
@@ -557,7 +587,7 @@ const renderFoodSection = () => {
           <option value="italian">Italian</option>
           <option value="brazilian">Brazilian</option>
           <option value="korean">Korean</option>
-          <option value="indian">Indian</option>
+          <option value="french">Indian</option>
           <option value="surprise-me">Surprise me!</option>
         </select>
 
