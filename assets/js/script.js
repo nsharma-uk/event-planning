@@ -149,7 +149,7 @@ const handleItemSelection = (event) => {
       } else {
         //remove from array and add new item to remain at 3 items max
         const addMoreItems = confirm(
-          "would you like to replace a selected item with this item."
+          "Would you like to replace the first item selected with this item?"
         );
 
         if (addMoreItems) {
@@ -162,7 +162,6 @@ const handleItemSelection = (event) => {
         }
       }
     }
-    const addNewItem = chosenItem;
   } else {
     //create key in object and allocate current selection value
     currentEventSelection = [];
