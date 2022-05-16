@@ -453,6 +453,20 @@ const handleMusicSubmit = async (event) => {
   }
 };
 
+//select a word at random from the surpriseMe array
+const getSurpriseWord = () => {
+  const surpriseWordIndex = Math.floor(Math.random() * surpriseMe.length);
+  return surpriseMe[surpriseWordIndex];
+};
+//get item selected by user from select list
+const getUserChoice = () => {
+  const userChoice = $("#food-select").find(":selected").attr("value");
+
+  return userChoice === "surprise-me"
+    ? getSurpriseWord()
+    : $("#food-select").find(":selected").attr("value");
+};
+
 //Handling food submit in food-container section - Edamam api call
 const handleFoodSubmit = async (event) => {
   //need to add the handling of "surprise me"
@@ -460,10 +474,7 @@ const handleFoodSubmit = async (event) => {
     event.preventDefault();
 
     // get form values for api
-    const searchQuery = $("#food-select")
-      .find(":selected")
-      .text()
-      .toLowerCase();
+    const searchQuery = getUserChoice();
 
     // validate form
     if (searchQuery) {
