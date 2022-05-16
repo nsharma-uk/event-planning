@@ -164,6 +164,17 @@ const handleItemSelection = (event) => {
   updateAsideList(currentEventSelection);
 };
 
+//checks that the click happens on an add button
+const handleItemClick = (event) => {
+  event.stopPropagation();
+  const target = $(event.target);
+  const targetAdd = $(event.target).attr("data-action");
+  console.log(targetAdd);
+  if (target.is("button") && targetAdd === "add") {
+    handleItemSelection(event);
+  }
+};
+
 //render small cards on event card to display selected playlists
 const renderSmallMusicCard = (selectedMusic) => {
   const createSmallCard = (each) => {
@@ -247,13 +258,13 @@ const renderMusicCards = (items) => {
           class="button is-ghost card-footer-item"
           type="button"
           data-value="${playlistTitle}"
-          data-pic="${playlistCover}" data-type="music"
+          data-pic="${playlistCover}" data-type="music" data-action="add"
         >
           <i class="fa-solid fa-plus"></i>
         </button>
         <a
           href=${linkUrl}
-          class="card-footer-item"
+          class="card-footer-item" target="_blank"
           ><i class="fa-brands fa-spotify"></i
         ></a>
       </footer>
@@ -267,7 +278,7 @@ const renderMusicCards = (items) => {
     const musicContainer = $("#music-card-container");
     emptyContainer("music-card-container");
     musicContainer.append(allCards);
-    musicContainer.click(handleItemSelection);
+    musicContainer.click(handleItemClick);
   } else {
     // render error
     renderError("No results found.", musicContainer);
@@ -304,12 +315,12 @@ const renderFoodCards = (items) => {
         <button class="button is-ghost card-footer-item"
         type="button"
           data-value="${recipeTitle}"
-          data-pic="${recipeImage}" data-type="food">
+          data-pic="${recipeImage}" data-type="food" data-action="add">
           <i class="fa-solid fa-plus"></i>
         </button>
         <a
           href=${linkUrl}
-          class="card-footer-item"
+          class="card-footer-item" target="_blank"
           ><i class="fa-solid fa-earth-americas"></i
         ></a>
       </footer>
@@ -323,7 +334,7 @@ const renderFoodCards = (items) => {
     const foodContainer = $("#food-card-container");
     emptyContainer("food-card-container");
     foodContainer.append(allCards);
-    foodContainer.click(handleItemSelection);
+    foodContainer.click(handleItemClick);
   } else {
     // render error
     renderError("No results found.", foodContainer);
@@ -335,6 +346,10 @@ const handleEditClick = () => {
   //empty main container
   //render food section
   //populate the aside list with the food selection already in storage in the event
+};
+
+const handlePrintCard = () => {
+  window.print();
 };
 
 const renderEventCard = () => {
@@ -354,7 +369,7 @@ const renderEventCard = () => {
   const organiserEmail = currentEvent.organiserEmail;
 
   $("#main").append(`<section class="event-card-section has-text-centered">
-  <div class="card-design event-card-container m-5">
+  <div class="card-design section-to-print event-card-container m-5">
     <h2>You are officially invited to my event: ${eventName}</h2>
     <div class="event-details">
       <p class="event-card-text key-info">
@@ -409,14 +424,16 @@ const renderEventCard = () => {
   renderSmallMusicCard(selectedMusic);
 
   $("#selection-btn").click(handleEditClick);
+  $("#print-btn").click(handlePrintCard);
   currentEventName = "";
 };
 
 //Handling form submit in music-container section - Spotify api call
 const handleMusicSubmit = async (event) => {
-  try {
-    event.preventDefault();
+  event.stopPropagation();
+  event.preventDefault();
 
+  try {
     // get form values
     const searchQuery = $("#music-type").val();
     const searchType = "playlists";
@@ -469,10 +486,10 @@ const getUserChoice = () => {
 
 //Handling food submit in food-container section - Edamam api call
 const handleFoodSubmit = async (event) => {
-  //need to add the handling of "surprise me"
-  try {
-    event.preventDefault();
+  event.stopPropagation();
+  event.preventDefault();
 
+  try {
     // get form values for api
     const searchQuery = getUserChoice();
 
@@ -505,6 +522,14 @@ const handleFoodSubmit = async (event) => {
       "Sorry something went wrong and we are working on fixing it.",
       foodContainer
     );
+  }
+};
+
+const handleMusicAsideClick = (e) => {
+  e.stopPropagation();
+  const target = $(e.target);
+  if (target.is("button")) {
+    renderEventCard();
   }
 };
 
@@ -559,7 +584,15 @@ const renderMusicSection = () => {
 
   $("#music-selection").submit(handleMusicSubmit);
 
-  $("#music-aside").click(renderEventCard);
+  $("#music-aside").click(handleMusicAsideClick);
+};
+
+const handleFoodAsideClick = (e) => {
+  e.stopPropagation();
+  const target = $(e.target);
+  if (target.is("button")) {
+    renderMusicSection();
+  }
 };
 
 //render the food section in the main container
@@ -628,11 +661,13 @@ const renderFoodSection = () => {
 
   $("#food-selection").submit(handleFoodSubmit);
 
-  $("#food-aside").click(renderMusicSection);
+  $("#food-aside").click(handleFoodAsideClick);
 };
 
 //function to save the event details form into local storage and trigger render Food section
 const saveEventDetails = (e) => {
+  debugger;
+  e.stopPropagation();
   e.preventDefault();
   const eventName = $("#event-name-input").val();
   const eventOrganiser = $("#event-organiser").val();
@@ -653,8 +688,8 @@ const saveEventDetails = (e) => {
 
   const plannedEvent = arrayFromLs.findIndex((s) => s.eventName === eventName);
 
-  if (plannedEvent > -1) {
-    alert("This Event already exists!");
+  if (plannedEvent > -1 || eventName === "") {
+    alert("Please amend the event name");
   } else {
     arrayFromLs.push(eventObj);
     writeToLocalStorage("myEvents", arrayFromLs);
@@ -662,6 +697,7 @@ const saveEventDetails = (e) => {
     currentEventName = eventName;
     renderFoodSection();
   }
+  return false;
 };
 
 //function to remove the start page and render the event details form
@@ -676,7 +712,7 @@ const renderForm = () => {
       <form class="event-details-form" id="event-details-form">
         <div class>
           <label class="input-label" for="input"
-            >What would you like to call your event?</label
+            >What would you like to call your event? <span> * (at least 3 characters)</span></label
           >
           <input
             type="text"
@@ -684,45 +720,51 @@ const renderForm = () => {
             id="event-name-input"
             name="event-name"
             placeholder="Give your event a name"
+            minlength="3"
+            required
           />
         </div>
         <div>
           <!-- <div class="input-container"> -->
           <label class="input-label" for="event-organiser"
-            >Event organiser</label
+            >Event organiser <span> * </span></label
           >
           <input
             type="text"
             class="input is-normal event-input mb-5"
             id="event-organiser"
+            required
           />
         </div>
         <div class="input-container">
           <label class="input-label" for="organiser-mail"
-            >Event organiser's email</label
+            >Event organiser's email <span> * </span></label
           >
           <input
             type="email"
             class="input is-normal event-input mb-5"
             id="organiser-mail"
+            required
           />
         </div>
         <div class="my-2 input-container">
           <label class="input-label" for="event-location"
-            >Event location</label
+            >Event location <span> * </span></label
           >
           <input
             type="text"
             class="input is-normal event-input mb-5"
             id="event-location"
+            required
           />
         </div>
         <div class="input-container">
-          <label class="input-label" for="event-date">Event date</label>
+          <label class="input-label" for="event-date">Event date <span> * </span></label>
           <input
             type="date"
             class="input is-normal mb-5"
             id="event-date"
+            required
           />
         </div>
         <div class="my-4 input-container">
@@ -748,8 +790,8 @@ const renderForm = () => {
     </div>
   </div>
 </section>`);
-  //need to change to proper form validation (.submit and validation classes etc)
-  $("#event-details-btn").click(saveEventDetails);
+
+  $("#event-details-form").submit(saveEventDetails);
 };
 
 //Handling start page click
