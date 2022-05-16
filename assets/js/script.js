@@ -140,6 +140,7 @@ const handleItemSelection = (event) => {
     if (eventExists) {
       //find a way to flag it on screen to the user
       console.log("Item is already selected");
+      alert("This item has already been selected");
     } else {
       if (currentEventSelection.length < 3) {
         currentEventSelection.push(chosenItem);
@@ -147,9 +148,21 @@ const handleItemSelection = (event) => {
         writeToLocalStorage("myEvents", myEvents);
       } else {
         //remove from array and add new item to remain at 3 items max
-        console.log("already 3 items selected");
+        const addMoreItems = confirm(
+          "would you like to replace a selected item with this item."
+        );
+
+        if (addMoreItems) {
+          currentEventSelection.shift();
+
+          currentEventSelection.push(chosenItem);
+
+          myEvents[currentEventIndex][targetType] = currentEventSelection;
+          writeToLocalStorage("myEvents", myEvents);
+        }
       }
     }
+    const addNewItem = chosenItem;
   } else {
     //create key in object and allocate current selection value
     currentEventSelection = [];
