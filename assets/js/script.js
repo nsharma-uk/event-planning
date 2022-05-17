@@ -396,7 +396,7 @@ const renderEventCard = () => {
 
   $("#main").append(`<section class="event-card-section has-text-centered">
   <div class="card-design section-to-print event-card-container m-5">
-    <h2>You are officially invited to the event: <span>${eventName}</span></h2>
+    <h2>You are officially invited to the event: <span class="h2-title">${eventName}</span></h2>
     <div class="event-details">
       <p class="event-card-text key-info">
         This event is scheduled on the <span>${eventDate}</span> and will take place at this location: <span>${eventLocation}</span>

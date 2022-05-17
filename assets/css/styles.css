@@ -122,14 +122,16 @@ i {
 .card-design {
   border: 1px solid black;
   padding: 3rem;
-  background-color: var(--calm-lavender);
+  /* background-color: var(--calm-lavender); */
+  background-image: url(../images/textured-background-letter.png);
 }
 
 .card-design * {
   font-size: 20px;
   font-weight: bold;
 }
-.event-card-section h2 {
+.event-card-section h2,
+.h2-title {
   font-size: 25px;
 }
 .event-card-section p {
@@ -141,7 +143,8 @@ i {
 .event-food-container,
 .event-music-container {
   margin: 0.5rem;
-  background-color: var(--event-selection);
+  padding: 0.25rem;
+  background-color: rgb(252, 252, 243);
 }
 
 .event-selection-container {
