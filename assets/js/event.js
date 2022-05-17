@@ -1,4 +1,5 @@
 //Global variables
+const foodContainer = $("#food-card-container");
 
 const burgerIcon = $("#burger");
 const navbarMenu = $("#nav-links");
@@ -90,6 +91,219 @@ const updateAsideList = (theseChosenItems) => {
   theseChosenItems.forEach(createSelectedItem);
 };
 
+//Constructing the URL for an API call
+const constructUrl = (baseUrl, params) => {
+  const queryParams = new URLSearchParams(params).toString();
+
+  return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+};
+
+//Fetching the data from an API
+const fetchData = async (url, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error("Failed to fetch data");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+//stores selected item into the event object in local storage
+const handleItemSelection = (event) => {
+  //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
+  event.stopPropagation();
+  const currentEventName = $("#event-select").text();
+
+  const targetName = $(event.target).attr("data-value");
+  const targetType = $(event.target).attr("data-type");
+  const targetPic = $(event.target).attr("data-pic");
+
+  const chosenItem = {
+    targetName,
+    targetPic,
+  };
+
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === currentEventName
+  );
+  const currentEvent = myEvents[currentEventIndex];
+  let currentEventSelection = currentEvent[targetType];
+
+  if (currentEventSelection) {
+    const eventExists = currentEventSelection.some(
+      (item) => item.targetName === chosenItem.targetName
+    );
+
+    if (eventExists) {
+      //find a way to flag it on screen to the user
+      console.log("Item is already selected");
+      alert("This item has already been selected");
+    } else {
+      if (currentEventSelection.length < 3) {
+        currentEventSelection.push(chosenItem);
+        myEvents[currentEventIndex][targetType] = currentEventSelection;
+        writeToLocalStorage("myEvents", myEvents);
+      } else {
+        //remove from array and add new item to remain at 3 items max
+        const addMoreItems = confirm(
+          "Would you like to replace the first item selected with this item?"
+        );
+
+        if (addMoreItems) {
+          currentEventSelection.shift();
+
+          currentEventSelection.push(chosenItem);
+
+          myEvents[currentEventIndex][targetType] = currentEventSelection;
+          writeToLocalStorage("myEvents", myEvents);
+        }
+      }
+    }
+  } else {
+    //create key in object and allocate current selection value
+    currentEventSelection = [];
+    currentEventSelection.push(chosenItem);
+    myEvents[currentEventIndex][targetType] = currentEventSelection;
+    writeToLocalStorage("myEvents", myEvents);
+  }
+
+  //maybe do not need assign to event at all anymore?? check with debugger
+
+  //re-render the selection list in the aside div
+  updateAsideList(currentEventSelection);
+};
+
+//checks that the click happens on an add button
+const handleItemClick = (event) => {
+  event.stopPropagation();
+  const target = $(event.target);
+  const targetAdd = $(event.target).attr("data-action");
+  console.log(targetAdd);
+  if (target.is("button") && targetAdd === "add") {
+    handleItemSelection(event);
+  }
+};
+
+//render music cards
+const renderMusicCards = (items) => {
+  if (items.length) {
+    const createCard = (item) => {
+      const playlistTitle = item.data.name;
+      const ownerName = item.data.owner.name;
+      const playlistCover = item.data.images.items[0].sources[0].url;
+      const linkUrl = item.data.uri;
+      //rendering with template string - TEMPORARY Template string
+      const playlistCard = `<div class="card api-card" id="music-card-${item.index}">
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img
+              src=${playlistCover}
+              alt="album cover image"
+            />
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4">${playlistTitle}</p>
+              <p class="subtitle is-6">${ownerName}</p>
+            </div>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <button
+            class="button is-ghost card-footer-item"
+            type="button"
+            data-value="${playlistTitle}"
+            data-pic="${playlistCover}" data-type="music" data-action="add"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <a
+            href=${linkUrl}
+            class="card-footer-item" target="_blank"
+            ><i class="fa-brands fa-spotify"></i
+          ></a>
+        </footer>
+      </div>`;
+
+      return playlistCard;
+    };
+
+    const allCards = items.map(createCard).join("");
+
+    const musicContainer = $("#music-card-container");
+    emptyContainer("music-card-container");
+    musicContainer.append(allCards);
+    musicContainer.click(handleItemClick);
+  } else {
+    // render error
+    renderError("No results found.", musicContainer);
+  }
+};
+
+//render food cards
+const renderFoodCards = (items) => {
+  if (items.length) {
+    const createCard = (item, i) => {
+      const recipeTitle = item.recipe.label;
+      const source = item.recipe.source;
+      const recipeImage = item.recipe.image;
+      const linkUrl = item.recipe.url;
+      //rendering with template string - TEMPORARY Template string
+      const foodCard = `<div class="card api-card" id="food-card-${i}">
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img
+              src=${recipeImage}
+              alt="recipe cover image"
+            />
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4">${recipeTitle}</p>
+              <p class="subtitle is-6">${source}</p>
+            </div>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <button class="button is-ghost card-footer-item"
+          type="button"
+            data-value="${recipeTitle}"
+            data-pic="${recipeImage}" data-type="food" data-action="add">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <a
+            href=${linkUrl}
+            class="card-footer-item" target="_blank"
+            ><i class="fa-solid fa-earth-americas"></i
+          ></a>
+        </footer>
+      </div>`;
+
+      return foodCard;
+    };
+
+    const allCards = items.map(createCard).join("");
+
+    const foodContainer = $("#food-card-container");
+    emptyContainer("food-card-container");
+    foodContainer.append(allCards);
+    foodContainer.click(handleItemClick);
+  } else {
+    // render error
+    renderError("No results found.", foodContainer);
+  }
+};
+
 //select a word at random from the surpriseMe array
 const getSurpriseWord = () => {
   const surpriseWordIndex = Math.floor(Math.random() * surpriseMe.length);
@@ -102,6 +316,48 @@ const getUserChoice = () => {
   return userChoice === "surprise-me"
     ? getSurpriseWord()
     : $("#food-select").find(":selected").attr("value");
+};
+
+//Handling form submit in music-container section - Spotify api call
+const handleMusicSubmit = async (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+
+  try {
+    // get form values
+    const searchQuery = $("#music-type").val();
+    const searchType = "playlists";
+
+    // validate form
+    if (searchQuery) {
+      // construct the URL
+      const baseUrl = spotifyBaseUrl;
+
+      const url = constructUrl(baseUrl, { q: searchQuery, type: searchType });
+
+      // construct fetch options
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+          "X-RapidAPI-Key": apiKey,
+        },
+      };
+
+      // fetch data from API
+      const data = await fetchData(url, options);
+
+      renderMusicCards(data?.playlists?.items || []);
+    } else {
+      // target input and set class is-danger
+      searchInput.addClass("is-danger");
+    }
+  } catch (error) {
+    renderError(
+      "Sorry something went wrong and we are working on fixing it.",
+      musicContainer
+    );
+  }
 };
 
 //Handling food submit in food-container section - Edamam api call
@@ -147,9 +403,10 @@ const handleFoodSubmit = async (event) => {
 
 const handleMusicAsideClick = (e) => {
   e.stopPropagation();
+
   const target = $(e.target);
   if (target.is("button")) {
-    renderEventCard();
+    window.location.reload(true);
   }
 };
 
@@ -204,6 +461,13 @@ const renderMusicSection = () => {
 
   $("#music-selection").submit(handleMusicSubmit);
 
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === tempName
+  );
+  const chosenMusicItems = myEvents[currentEventIndex].music;
+
+  updateAsideList(chosenMusicItems);
   $("#music-aside").click(handleMusicAsideClick);
 };
 
@@ -216,9 +480,9 @@ const handleFoodAsideClick = (e) => {
 };
 
 //render the food section in the main container
-const renderFoodSection = (name) => {
+const renderFoodSection = () => {
   emptyContainer("main");
-  const tempName = name;
+  const tempName = currentEventName;
 
   $("#main")
     .append(`<section class="section is-flex-direction-row" id="food-section">
@@ -345,15 +609,15 @@ const renderSmallFoodCard = (selectedFood) => {
 const handleEditClick = (e) => {
   e.stopPropagation();
   const eventName = $(event.target).attr("data-value");
+  currentEventName = eventName;
   //get event from local storage
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
     (obj) => obj.eventName === currentEventName
   );
-  const currentEvent = myEvents[currentEventIndex];
 
   //render food section
-  renderFoodSection(eventName);
+  renderFoodSection();
   //populate the aside list with the food selection already in storage in the event
 };
 
