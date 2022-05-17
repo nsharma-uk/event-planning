@@ -79,18 +79,150 @@ const renderError = (message, containerId) => {
   containerId.append(errorComponent);
 };
 
-const handleEditClick = (event) => {
+//render small cards on event card to display selected playlists
+const renderSmallMusicCard = (selectedMusic) => {
+  const createSmallCard = (each) => {
+    $("#small-music-card-container")
+      .append(`<div class="card small-card" id="small-card-1">
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img
+          src=${each.targetPic}
+          alt="recipe cover image"
+        />
+      </figure>
+    </div>
+    <div class="small-card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-6">${each.targetName}</p>
+        </div>
+      </div>
+    </div>
+    </div>`);
+  };
+
+  selectedMusic.forEach(createSmallCard);
+};
+
+//render small cards on event card to display selected recipes
+const renderSmallFoodCard = (selectedFood) => {
+  const createSmallCard = (each) => {
+    $("#small-food-card-container")
+      .append(`<div class="card small-card" id="small-card-1">
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img
+          src=${each.targetPic}
+          alt="recipe cover image"
+        />
+      </figure>
+    </div>
+    <div class="small-card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-6">${each.targetName}</p>
+        </div>
+      </div>
+    </div>
+    </div>`);
+  };
+
+  selectedFood.forEach(createSmallCard);
+};
+
+const handlePrintCard = () => {
+  window.print();
+};
+
+const renderEventCard = (name) => {
+  emptyContainer("main");
+
+  const currentEventName = name;
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === currentEventName
+  );
+  const currentEvent = myEvents[currentEventIndex];
+  const eventName = currentEvent.eventName;
+  const eventDate = currentEvent.eventDate;
+  const eventLocation = currentEvent.eventLocation;
+  const eventDescription = currentEvent.eventDescription;
+  const eventOrganiser = currentEvent.eventOrganiser;
+  const organiserEmail = currentEvent.organiserEmail;
+
+  $("#main").append(`<section class="event-card-section has-text-centered">
+    <div class="card-design section-to-print event-card-container m-5">
+      <h2>You are officially invited to my event: ${eventName}</h2>
+      <div class="event-details">
+        <p class="event-card-text key-info">
+          This event is scheduled on the ${eventDate} and will take place at this location: ${eventLocation}
+        </p>
+        <p class="event-card-text key-info">
+          Here is what you need to know about this event: ${eventDescription}
+        </p>
+        <p class="event-card-text key-info">Additional non dynamic text</p>
+      </div>
+  
+      <div class="event-selection-container">
+        <div class="event-food-container">
+          <p class="event-card-text key-info">
+            This is the food on offer at the event
+          </p>
+          <div class="small-card-container" id="small-food-card-container">
+          </div>
+        </div>
+        <div class="event-music-container">
+          <p class="event-card-text key-info">
+            We will be enjoying these playlists
+          </p>
+          <div class="small-card-container" id="small-music-card-container">
+          </div>
+        </div>
+      </div>
+      <div class="end-text" id="end-text">
+        <p>
+          This event is organised and managed by ${eventOrganiser}. To RSVP and if you have any questions, please use this email address: ${organiserEmail}
+        </p>
+      </div>
+    </div>
+    <div class="btn-div m-5">
+      <button class="button print-btn is-rounded is-big m-2" id="print-btn">
+        Print this event card
+      </button>
+      <button
+        class="button selection-btn is-rounded is-big m-2"
+        id="selection-btn"
+        data-value="selection-edit"
+      >
+        Edit Food/Music Selection
+      </button>
+    </div>
+    </section>`);
+
+  const selectedFood = myEvents[currentEventIndex].food;
+  const selectedMusic = myEvents[currentEventIndex].music;
+
+  renderSmallFoodCard(selectedFood);
+  renderSmallMusicCard(selectedMusic);
+
+  $("#selection-btn").click(handleEditClick);
+  $("#print-btn").click(handlePrintCard);
+};
+
+const handleEventCardClick = (event) => {
   event.stopPropagation();
   const target = $(event.target);
 
   if (target.is("button")) {
+    const eventName = $(event.target).attr("data-value");
+    renderEventCard(eventName);
   }
 };
 
 //render food cards
 const renderSavedEvents = (items) => {
   if (items.length) {
-    debugger;
     const createCard = (item, i) => {
       const eventName = item.eventName;
       const eventDate = item.eventDate;
@@ -106,8 +238,6 @@ const renderSavedEvents = (items) => {
         }
       }
 
-      console.log(eventFoodList);
-
       const eventMusic = item.music;
       const eventMusicList = [];
       if (!eventMusic) {
@@ -117,7 +247,6 @@ const renderSavedEvents = (items) => {
           eventMusicList.push(i.targetName);
         }
       }
-      console.log(eventMusicList);
 
       //rendering with template string - TEMPORARY Template string
       const eventCard = `<div class="event-card card" id="${eventName}">
@@ -139,7 +268,7 @@ const renderSavedEvents = (items) => {
         <button class="button is-rounded is-small my-2 event-card-btn" id="event-card-btn"
         type="button"
           data-value="${eventName}" data-action="edit">
-          Edit Food & Music</i>
+          See full event card</i>
         </button>
       </div>
     </div>`;
@@ -152,16 +281,13 @@ const renderSavedEvents = (items) => {
     const savedEventsContainer = $("#saved-events-container");
     emptyContainer("saved-events-container");
     savedEventsContainer.append(allCards);
-    savedEventsContainer.click(handleEditClick);
+    savedEventsContainer.click(handleEventCardClick);
   } else {
     // render error
     renderError("No results found.", savedEventsContainer);
   }
 };
 
-//renderSavedCards function:
-// 1 - for each event in the array, map out the required information to render a card and create dynamic string
-// 2 - join them all as a string and append to the main container
 const getSavedEvents = () => {
   return getFromLocalStorage("myEvents", []);
 };
@@ -175,9 +301,8 @@ const onReady = () => {
 
   //pull my events from local storage using key name "myEvents"
   const savedEvents = getSavedEvents();
-  console.log(savedEvents);
 
-  //call renderSavedEvents function
+  //call function to render the saved events in cards
   renderSavedEvents(savedEvents);
 
   //add event listener on the section to be able to select the cards
