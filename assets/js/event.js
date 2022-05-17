@@ -708,11 +708,13 @@ const handleEventCardClick = (e) => {
   }
 };
 
-//render food cards
+//render Saved events
 const renderSavedEvents = (items) => {
   if (items.length) {
     const createCard = (item, i) => {
-      const eventName = item.eventName;
+      const eventName = item.eventName.replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+      });
       const eventDate = item.eventDate;
       const eventLocation = item.eventLocation;
 
