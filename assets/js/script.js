@@ -416,16 +416,10 @@ const renderEventCard = () => {
     </div>
   </div>
   <div class="btn-div m-5">
-    <button class="button print-btn is-rounded is-big m-2" id="print-btn">
+    <button class="button print-btn is-rounded has-text-centered is-primary is-responsive is-big m-2" id="print-btn">
       Print this event card
     </button>
-    <button
-      class="button selection-btn is-rounded is-big m-2"
-      id="selection-btn"
-      data-value="selection-edit"
-    >
-      Edit Food/Music Selection
-    </button>
+    <a class="button selection-btn is-rounded has-text-centered is-primary is-responsive is-big m-2" id="selection-btn" href="./event.html">Go to my saved events</a>
   </div>
   </section>`);
 
@@ -549,8 +543,7 @@ const handleMusicAsideClick = (e) => {
 const renderMusicSection = () => {
   emptyContainer("main");
   const tempName = currentEventName;
-  $("#main")
-    .append(`<section class="section is-flex-direction-row" id="music-section">
+  $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
     <form class="form" id="music-selection">
       <p class="music-text-div">Please select your desired music</p>
@@ -560,7 +553,7 @@ const renderMusicSection = () => {
         <input type="text" class="music-input" id="music-type" />
 
         <button
-          class="button is-rounded is-small"
+          class="button is-rounded is-small has-text-centered is-primary is-responsive"
           type="submit"
           id="music-submit-btn"
         >
@@ -573,7 +566,7 @@ const renderMusicSection = () => {
   </div>
   <div class="aside music-aside has-text-centered m-3" id="music-aside">
     <div class="aside-list my-5">
-      <h4 class="aside-text m-5">Your selected playlists</h4>
+      <h4 class="aside-text p-5">Your selected playlists</h4>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -583,7 +576,7 @@ const renderMusicSection = () => {
     </div>
     <div class="aside-btn my-5">
       <button
-        class="button is-rounded is-small my-5"
+        class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
         type="button"
         id="music-save-btn"
         data-theme="music"
@@ -612,8 +605,7 @@ const renderFoodSection = () => {
   emptyContainer("main");
   const tempName = currentEventName;
 
-  $("#main")
-    .append(`<section class="section is-flex-direction-row" id="food-section">
+  $("#main").append(`<section class="section food-section" id="food-section">
   <div class="container has-text-centered" id="food-container">
     <form class="form" id="food-selection">
       <p class="food-text-div">Please select your desired food</p>
@@ -637,7 +629,7 @@ const renderFoodSection = () => {
         </select>
 
         <button
-          class="form-button button is-rounded is-small"
+          class="form-button button is-rounded is-small has-text-centered is-primary is-responsive"
           type="submit"
           id="food-submit-btn"
         >
@@ -660,7 +652,7 @@ const renderFoodSection = () => {
     </div>
     <div class="aside-btn my-5">
       <button
-        class="button is-rounded is-small my-5"
+        class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
         type="button"
         id="food-save-btn"
         data-theme="food"
