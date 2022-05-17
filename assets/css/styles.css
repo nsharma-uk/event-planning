@@ -131,12 +131,10 @@ i {
   margin: 1rem;
 }
 .selected-items-list li {
-  border-bottom: 1px solid darkgray;
+  background-color: var(--yellow-crayola);
+  margin-bottom: 2px;
 }
 
-.aside-text {
-  border-bottom: 1px solid darkgray;
-}
 /*Footer styles*/
 .footer {
   padding: 10px 0;
@@ -166,11 +164,21 @@ i {
     padding-bottom: 0;
     text-align: center;
   }
+  .section {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
 }
 
 @media screen and (max-width: 480px) {
   .nav-item {
     text-align: center;
+  }
+  .section {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
   }
 }
 
