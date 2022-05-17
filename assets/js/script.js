@@ -373,24 +373,38 @@ const renderEventCard = () => {
     (obj) => obj.eventName === tempName
   );
   const currentEvent = myEvents[currentEventIndex];
-  const eventName = currentEvent.eventName;
+  const eventName = currentEvent.eventName.replace(/\b[a-z]/g, function (
+    letter
+  ) {
+    return letter.toUpperCase();
+  });
   const eventDate = currentEvent.eventDate;
-  const eventLocation = currentEvent.eventLocation;
+  const eventLocation = currentEvent.eventLocation.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const eventDescription = currentEvent.eventDescription;
-  const eventOrganiser = currentEvent.eventOrganiser;
+  const eventOrganiser = currentEvent.eventOrganiser.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const organiserEmail = currentEvent.organiserEmail;
 
   $("#main").append(`<section class="event-card-section has-text-centered">
   <div class="card-design section-to-print event-card-container m-5">
-    <h2>You are officially invited to my event: ${eventName}</h2>
+    <h2>You are officially invited to the event: <span>${eventName}</span></h2>
     <div class="event-details">
       <p class="event-card-text key-info">
-        This event is scheduled on the ${eventDate} and will take place at this location: ${eventLocation}
+        This event is scheduled on the <span>${eventDate}</span> and will take place at this location: <span>${eventLocation}</span>
       </p>
       <p class="event-card-text key-info">
-        Here is what you need to know about this event: ${eventDescription}
+        And there is much more to know about this event <span>${eventDescription}</span>
       </p>
-      <p class="event-card-text key-info">Additional non dynamic text</p>
+      <p class="event-card-text key-info">It'll be a blast and we really hope to see you there!</p>
     </div>
 
     <div class="event-selection-container">
@@ -411,7 +425,7 @@ const renderEventCard = () => {
     </div>
     <div class="end-text" id="end-text">
       <p>
-        This event is organised and managed by ${eventOrganiser}. To RSVP and if you have any questions, please use this email address: ${organiserEmail}
+        This event is organised and managed by <span>${eventOrganiser}</span>. To RSVP and if you have any questions, please use this email address: <span>${organiserEmail} </span>
       </p>
     </div>
   </div>
@@ -670,7 +684,6 @@ const renderFoodSection = () => {
 
 //function to save the event details form into local storage and trigger render Food section
 const saveEventDetails = (e) => {
-  debugger;
   e.stopPropagation();
   e.preventDefault();
   const eventName = $("#event-name-input").val();

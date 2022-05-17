@@ -3,8 +3,11 @@
   --gunmetal: #292f36ff;
   --medium-turquoise: #4ecdc4ff;
   --mint-cream: #f7fff7ff;
+  --calm-lavender: rgb(241, 233, 252);
   --bittersweet: #ff6b6bff;
   --yellow-crayola: #ffe66dff;
+  --event-card-dynamic: darkslateblue;
+  --event-selection: darkgray;
 }
 
 /*whole document styling*/
@@ -42,6 +45,16 @@ i {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: nowrap;
+  min-height: 75vh;
+  width: 100%;
+}
+
+.event-card-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex-wrap: nowrap;
   min-height: 75vh;
   width: 100%;
@@ -109,7 +122,28 @@ i {
 .card-design {
   border: 1px solid black;
   padding: 3rem;
+  background-color: var(--calm-lavender);
 }
+
+.card-design * {
+  font-size: 20px;
+  font-weight: bold;
+}
+.event-card-section h2 {
+  font-size: 25px;
+}
+.event-card-section p {
+  padding-top: 1rem;
+}
+.event-card-section span {
+  color: var(--event-card-dynamic);
+}
+.event-food-container,
+.event-music-container {
+  margin: 0.5rem;
+  background-color: var(--event-selection);
+}
+
 .event-selection-container {
   display: flex;
   flex-direction: row;
