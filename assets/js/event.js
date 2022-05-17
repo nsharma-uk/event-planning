@@ -79,6 +79,217 @@ const renderError = (message, containerId) => {
   containerId.append(errorComponent);
 };
 
+//empty aside list, get update from local storage and renders list again
+const updateAsideList = (theseChosenItems) => {
+  $("#selected-items-list").empty();
+
+  const createSelectedItem = (each) => {
+    const selectedItemName = each.targetName;
+    $("#selected-items-list").append(`<li>${selectedItemName}</li>`);
+  };
+  theseChosenItems.forEach(createSelectedItem);
+};
+
+//select a word at random from the surpriseMe array
+const getSurpriseWord = () => {
+  const surpriseWordIndex = Math.floor(Math.random() * surpriseMe.length);
+  return surpriseMe[surpriseWordIndex];
+};
+//get item selected by user from select list
+const getUserChoice = () => {
+  const userChoice = $("#food-select").find(":selected").attr("value");
+
+  return userChoice === "surprise-me"
+    ? getSurpriseWord()
+    : $("#food-select").find(":selected").attr("value");
+};
+
+//Handling food submit in food-container section - Edamam api call
+const handleFoodSubmit = async (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+
+  try {
+    // get form values for api
+    const searchQuery = getUserChoice();
+
+    // validate form
+    if (searchQuery) {
+      // construct the URL
+      const baseUrl = edamamBaseUrl;
+
+      const url = constructUrl(baseUrl, { q: searchQuery });
+
+      // construct fetch options
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+          "X-RapidAPI-Key": apiKey,
+        },
+      };
+
+      // fetch data from API
+      const data = await fetchData(url, options);
+
+      renderFoodCards(data?.hits || []);
+    } else {
+      // target input and set class is-danger
+      searchInput.addClass("is-danger");
+    }
+  } catch (error) {
+    renderError(
+      "Sorry something went wrong and we are working on fixing it.",
+      foodContainer
+    );
+  }
+};
+
+const handleMusicAsideClick = (e) => {
+  e.stopPropagation();
+  const target = $(e.target);
+  if (target.is("button")) {
+    renderEventCard();
+  }
+};
+
+//render the music section in the main container
+const renderMusicSection = () => {
+  emptyContainer("main");
+  const tempName = currentEventName;
+  $("#main")
+    .append(`<section class="section is-flex-direction-row" id="music-section">
+    <div class="container has-text-centered" id="music-container">
+      <form class="form" id="music-selection">
+        <p class="music-text-div">Please select your desired music</p>
+        <div
+          class="form-field is-flex-direction-row is-align-content-center my-5"
+        >
+          <input type="text" class="music-input" id="music-type" />
+  
+          <button
+            class="button is-rounded is-small"
+            type="submit"
+            id="music-submit-btn"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <div class="card-container" id="music-card-container">
+      </div>
+    </div>
+    <div class="aside music-aside has-text-centered m-3" id="music-aside">
+      <div class="aside-list my-5">
+        <h4 class="aside-text m-5">Your selected playlists</h4>
+        <ul class="selected-items-list" id="selected-items-list">
+        </ul>
+      </div>
+      <div class="aside-event my-5">
+        <h4 class="aside-text m-5">For the event</h4>
+        <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+      </div>
+      <div class="aside-btn my-5">
+        <button
+          class="button is-rounded is-small my-5"
+          type="button"
+          id="music-save-btn"
+          data-theme="music"
+        >
+          Save & Continue
+        </button>
+      </div>
+    </div>
+    </section>`);
+
+  $("#music-selection").submit(handleMusicSubmit);
+
+  $("#music-aside").click(handleMusicAsideClick);
+};
+
+const handleFoodAsideClick = (e) => {
+  e.stopPropagation();
+  const target = $(e.target);
+  if (target.is("button")) {
+    renderMusicSection();
+  }
+};
+
+//render the food section in the main container
+const renderFoodSection = (name) => {
+  emptyContainer("main");
+  const tempName = name;
+
+  $("#main")
+    .append(`<section class="section is-flex-direction-row" id="food-section">
+    <div class="container has-text-centered" id="food-container">
+      <form class="form" id="food-selection">
+        <p class="food-text-div">Please select your desired food</p>
+  
+        <div
+          class="form-field is-flex-direction-row is-align-content-center my-5"
+        >
+          <select class="food-select" name="food-type" id="food-select">
+            <option value="japanese">Japanese</option>
+            <option value="ethiopian">Ethiopian</option>
+            <option value="turkish">Turkish</option>
+            <option value="mexican">Mexican</option>
+            <option value="chinese">Chinese</option>
+            <option value="indian">Indian</option>
+            <option value="thai">Thai</option>
+            <option value="italian">Italian</option>
+            <option value="brazilian">Brazilian</option>
+            <option value="korean">Korean</option>
+            <option value="french">Indian</option>
+            <option value="surprise-me">Surprise me!</option>
+          </select>
+  
+          <button
+            class="form-button button is-rounded is-small"
+            type="submit"
+            id="food-submit-btn"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <div class="card-container" id="food-card-container"> 
+      </div>
+    </div>
+    <div class="aside food-aside has-text-centered m-3" id="food-aside">
+      <div class="aside-list my-5">
+        <h4 class="aside-text m-5">Your selected food</h4>
+        <ul class="selected-items-list" id="selected-items-list">
+        </ul>
+      </div>
+      <div class="aside-event my-5">
+        <h4 class="aside-text m-5">For the event</h4>
+        <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+      </div>
+      <div class="aside-btn my-5">
+        <button
+          class="button is-rounded is-small my-5"
+          type="button"
+          id="food-save-btn"
+          data-theme="food"
+        >
+          Save & Continue
+        </button>
+      </div>
+    </div>
+    </section>`);
+
+  $("#food-selection").submit(handleFoodSubmit);
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === tempName
+  );
+  const chosenFoodItems = myEvents[currentEventIndex][food];
+  console.log(chosenFoodItems);
+  updateAsideList(chosenFoodItems);
+  $("#food-aside").click(handleFoodAsideClick);
+};
+
 //render small cards on event card to display selected playlists
 const renderSmallMusicCard = (selectedMusic) => {
   const createSmallCard = (each) => {
@@ -135,8 +346,14 @@ const handleEditClick = (e) => {
   e.stopPropagation();
   const eventName = $(event.target).attr("data-value");
   //get event from local storage
-  //empty main container
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === currentEventName
+  );
+  const currentEvent = myEvents[currentEventIndex];
+
   //render food section
+  renderFoodSection(eventName);
   //populate the aside list with the food selection already in storage in the event
 };
 
