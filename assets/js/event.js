@@ -610,11 +610,6 @@ const handleEditClick = (e) => {
   e.stopPropagation();
   const eventName = $(event.target).attr("data-value");
   currentEventName = eventName;
-  //get event from local storage
-  const myEvents = getFromLocalStorage("myEvents");
-  const currentEventIndex = myEvents.findIndex(
-    (obj) => obj.eventName === currentEventName
-  );
 
   //render food section
   renderFoodSection();
@@ -707,7 +702,6 @@ const handleEventCardClick = (e) => {
   e.preventDefault();
   const target = $(event.target);
   const targetId = $(event.target).attr("id");
-  console.log(target, targetId);
 
   if (targetId === "event-card-btn") {
     renderEventCard(e);
@@ -752,8 +746,8 @@ const renderSavedEvents = (items) => {
       </h2>
       <div class="event-details card my-5">
         <ul class="card-content m-0">
-          <li class="event-list-item" id="event-date-1">${eventDate}</li>
-          <li class="event-list-item" id="event-location-1">
+          <li class="event-list-item" id="event-date-1">Date : ${eventDate}</li>
+          <li class="event-list-item" id="event-location-1">Location : 
             ${eventLocation}
           </li>
           <li class="event-list-item" id="event-food">Selected food: ${eventFoodList}</li>
