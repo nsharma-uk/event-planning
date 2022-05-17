@@ -284,8 +284,8 @@ const renderFoodSection = (name) => {
   const currentEventIndex = myEvents.findIndex(
     (obj) => obj.eventName === tempName
   );
-  const chosenFoodItems = myEvents[currentEventIndex][food];
-  console.log(chosenFoodItems);
+  const chosenFoodItems = myEvents[currentEventIndex].food;
+
   updateAsideList(chosenFoodItems);
   $("#food-aside").click(handleFoodAsideClick);
 };
