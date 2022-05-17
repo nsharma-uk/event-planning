@@ -131,14 +131,23 @@ const renderSmallFoodCard = (selectedFood) => {
   selectedFood.forEach(createSmallCard);
 };
 
+const handleEditClick = (e) => {
+  e.stopPropagation();
+  const eventName = $(event.target).attr("data-value");
+  //get event from local storage
+  //empty main container
+  //render food section
+  //populate the aside list with the food selection already in storage in the event
+};
+
 const handlePrintCard = () => {
   window.print();
 };
 
-const renderEventCard = (name) => {
+const renderEventCard = (e) => {
   emptyContainer("main");
 
-  const currentEventName = name;
+  const currentEventName = $(e.target).attr("data-value");
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
     (obj) => obj.eventName === currentEventName
@@ -187,13 +196,15 @@ const renderEventCard = (name) => {
       </div>
     </div>
     <div class="btn-div m-5">
-      <button class="button print-btn is-rounded is-big m-2" id="print-btn">
+      <button class="button print-btn is-rounded is-big m-2" id="print-btn" type="button" data-action="print">
         Print this event card
       </button>
       <button
         class="button selection-btn is-rounded is-big m-2"
+        type="button"
         id="selection-btn"
-        data-value="selection-edit"
+        data-value="${eventName}"
+        data-action="edit"
       >
         Edit Food/Music Selection
       </button>
@@ -210,13 +221,15 @@ const renderEventCard = (name) => {
   $("#print-btn").click(handlePrintCard);
 };
 
-const handleEventCardClick = (event) => {
-  event.stopPropagation();
+const handleEventCardClick = (e) => {
+  e.stopPropagation();
+  e.preventDefault();
   const target = $(event.target);
+  const targetId = $(event.target).attr("id");
+  console.log(target, targetId);
 
-  if (target.is("button")) {
-    const eventName = $(event.target).attr("data-value");
-    renderEventCard(eventName);
+  if (targetId === "event-card-btn") {
+    renderEventCard(e);
   }
 };
 
@@ -243,7 +256,7 @@ const renderSavedEvents = (items) => {
       if (!eventMusic) {
         eventMusicList.push("No music selected yet");
       } else {
-        for (let i of eventFood) {
+        for (let i of eventMusic) {
           eventMusicList.push(i.targetName);
         }
       }
@@ -267,7 +280,7 @@ const renderSavedEvents = (items) => {
         </ul>
         <button class="button is-rounded is-small my-2 event-card-btn" id="event-card-btn"
         type="button"
-          data-value="${eventName}" data-action="edit">
+          data-value="${eventName}">
           See full event card</i>
         </button>
       </div>
@@ -281,7 +294,7 @@ const renderSavedEvents = (items) => {
     const savedEventsContainer = $("#saved-events-container");
     emptyContainer("saved-events-container");
     savedEventsContainer.append(allCards);
-    savedEventsContainer.click(handleEventCardClick);
+    $("#saved-events-container").click(handleEventCardClick);
   } else {
     // render error
     renderError("No results found.", savedEventsContainer);
@@ -304,9 +317,6 @@ const onReady = () => {
 
   //call function to render the saved events in cards
   renderSavedEvents(savedEvents);
-
-  //add event listener on the section to be able to select the cards
-  $("#saved-events-container").click(renderEventCard);
 };
 
 $(document).ready(onReady);
