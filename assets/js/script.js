@@ -537,6 +537,8 @@ const handleFoodSubmit = async (event) => {
   }
 };
 
+const chooseOneItem = () => currentEventSelection.length > 0;
+
 const handleMusicAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
@@ -598,12 +600,15 @@ const renderMusicSection = () => {
 
   $("#music-aside").click(handleMusicAsideClick);
 };
-
+// still working on adding condition
 const handleFoodAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
-  if (target.is("button")) {
+  if (chooseOneItem) {
+    target.is("button");
     renderMusicSection();
+  } else {
+    alert("choose one");
   }
 };
 
