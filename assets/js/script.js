@@ -373,27 +373,42 @@ const renderEventCard = () => {
     (obj) => obj.eventName === tempName
   );
   const currentEvent = myEvents[currentEventIndex];
-  const eventName = currentEvent.eventName;
+  const eventName = currentEvent.eventName.replace(/\b[a-z]/g, function (
+    letter
+  ) {
+    return letter.toUpperCase();
+  });
   const eventDate = currentEvent.eventDate;
-  const eventLocation = currentEvent.eventLocation;
+  const eventLocation = currentEvent.eventLocation.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const eventDescription = currentEvent.eventDescription;
-  const eventOrganiser = currentEvent.eventOrganiser;
+  const eventOrganiser = currentEvent.eventOrganiser.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const organiserEmail = currentEvent.organiserEmail;
 
   $("#main").append(`<section class="event-card-section has-text-centered">
   <div class="card-design section-to-print event-card-container m-5">
-    <h2>You are officially invited to my event: ${eventName}</h2>
+    <h2>You are officially invited to the event: <span class="h2-title">${eventName}</span></h2>
     <div class="event-details">
       <p class="event-card-text key-info">
-        This event is scheduled on the ${eventDate} and will take place at this location: ${eventLocation}
+        This event is scheduled on the <span>${eventDate}</span> and will take place at this location: <span>${eventLocation}</span>
       </p>
       <p class="event-card-text key-info">
-        Here is what you need to know about this event: ${eventDescription}
+        And there is much more to know about this event <span>${eventDescription}</span>
       </p>
-      <p class="event-card-text key-info">Additional non dynamic text</p>
+      <p class="event-card-text key-info">It'll be a blast and we really hope to see you there!</p>
     </div>
 
     <div class="event-selection-container">
+    <hr>
       <div class="event-food-container">
         <p class="event-card-text key-info">
           This is the food on offer at the event
@@ -401,6 +416,7 @@ const renderEventCard = () => {
         <div class="small-card-container" id="small-food-card-container">
         </div>
       </div>
+      <hr>
       <div class="event-music-container">
         <p class="event-card-text key-info">
           We will be enjoying these playlists
@@ -408,24 +424,19 @@ const renderEventCard = () => {
         <div class="small-card-container" id="small-music-card-container">
         </div>
       </div>
+      <hr>
     </div>
     <div class="end-text" id="end-text">
       <p>
-        This event is organised and managed by ${eventOrganiser}. To RSVP and if you have any questions, please use this email address: ${organiserEmail}
+        This event is organised and managed by <span>${eventOrganiser}</span>. To RSVP and if you have any questions, please use this email address: <span>${organiserEmail} </span>
       </p>
     </div>
   </div>
   <div class="btn-div m-5">
-    <button class="button print-btn is-rounded is-big m-2" id="print-btn">
+    <button class="button print-btn is-rounded has-text-centered is-primary is-responsive is-big m-2" id="print-btn">
       Print this event card
     </button>
-    <button
-      class="button selection-btn is-rounded is-big m-2"
-      id="selection-btn"
-      data-value="selection-edit"
-    >
-      Edit Food/Music Selection
-    </button>
+    <a class="button selection-btn is-rounded has-text-centered is-primary is-responsive is-big m-2" id="selection-btn" href="./event.html">Go to my saved events</a>
   </div>
   </section>`);
 
@@ -549,8 +560,7 @@ const handleMusicAsideClick = (e) => {
 const renderMusicSection = () => {
   emptyContainer("main");
   const tempName = currentEventName;
-  $("#main")
-    .append(`<section class="section is-flex-direction-row" id="music-section">
+  $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
     <form class="form" id="music-selection">
       <p class="music-text-div">Please select your desired music</p>
@@ -560,7 +570,7 @@ const renderMusicSection = () => {
         <input type="text" class="music-input" id="music-type" />
 
         <button
-          class="button is-rounded is-small"
+          class="button is-rounded is-small has-text-centered is-primary is-responsive"
           type="submit"
           id="music-submit-btn"
         >
@@ -573,7 +583,7 @@ const renderMusicSection = () => {
   </div>
   <div class="aside music-aside has-text-centered m-3" id="music-aside">
     <div class="aside-list my-5">
-      <h4 class="aside-text m-5">Your selected playlists</h4>
+      <h4 class="aside-text p-5">Your selected playlists</h4>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -583,7 +593,7 @@ const renderMusicSection = () => {
     </div>
     <div class="aside-btn my-5">
       <button
-        class="button is-rounded is-small my-5"
+        class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
         type="button"
         id="music-save-btn"
         data-theme="music"
@@ -612,8 +622,7 @@ const renderFoodSection = () => {
   emptyContainer("main");
   const tempName = currentEventName;
 
-  $("#main")
-    .append(`<section class="section is-flex-direction-row" id="food-section">
+  $("#main").append(`<section class="section food-section" id="food-section">
   <div class="container has-text-centered" id="food-container">
     <form class="form" id="food-selection">
       <p class="food-text-div">Please select your desired food</p>
@@ -637,7 +646,7 @@ const renderFoodSection = () => {
         </select>
 
         <button
-          class="form-button button is-rounded is-small"
+          class="form-button button is-rounded is-small has-text-centered is-primary is-responsive"
           type="submit"
           id="food-submit-btn"
         >
@@ -660,7 +669,7 @@ const renderFoodSection = () => {
     </div>
     <div class="aside-btn my-5">
       <button
-        class="button is-rounded is-small my-5"
+        class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
         type="button"
         id="food-save-btn"
         data-theme="food"
@@ -678,7 +687,6 @@ const renderFoodSection = () => {
 
 //function to save the event details form into local storage and trigger render Food section
 const saveEventDetails = (e) => {
-  debugger;
   e.stopPropagation();
   e.preventDefault();
   const eventName = $("#event-name-input").val();
