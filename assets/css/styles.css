@@ -128,8 +128,8 @@ i {
   width: 30%;
 }
 
-.event-card {
-  width: 100%;
+.print-card-container {
+  margin: auto;
 }
 
 /*Footer styles*/
