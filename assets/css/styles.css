@@ -117,6 +117,7 @@ i {
 }
 
 .saved-events-container {
+  margin: auto;
   width: 100%;
   margin: 5rem;
 }
