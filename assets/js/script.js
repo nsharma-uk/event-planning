@@ -537,7 +537,20 @@ const handleFoodSubmit = async (event) => {
   }
 };
 
-const chooseOneItem = () => currentEventSelection.length > 0;
+const chooseOneItem = (e) => {
+  const targetName = $(e.target).attr("data-event");
+  console.log(targetName);
+  const targetType = $(e.target).attr("data-theme");
+  console.log(targetType);
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === targetName
+  );
+
+  const chosenItems = myEvents[currentEventIndex][targetType];
+  console.log(chosenItems);
+  return chosenItems ? true : false;
+};
 
 const handleMusicAsideClick = (e) => {
   e.stopPropagation();
@@ -604,13 +617,16 @@ const renderMusicSection = () => {
 const handleFoodAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
-  if (chooseOneItem) {
-    console.log("true");
-    target.is("button");
-    renderMusicSection();
-  } else {
-    console.log("false");
-    alert("Please choose one food item");
+
+  if (target.is("button")) {
+    const status = chooseOneItem(e);
+    console.log(status);
+    if (status) {
+      target.is("button");
+      renderMusicSection();
+    } else {
+      alert("Please choose one food item");
+    }
   }
 };
 
@@ -671,6 +687,7 @@ const renderFoodSection = () => {
         type="button"
         id="food-save-btn"
         data-theme="food"
+        data-event=${tempName}
       >
         Save & Continue
       </button>
