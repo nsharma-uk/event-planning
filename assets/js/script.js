@@ -605,10 +605,12 @@ const handleFoodAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
   if (chooseOneItem) {
+    console.log("true");
     target.is("button");
     renderMusicSection();
   } else {
-    alert("choose one");
+    console.log("false");
+    alert("Please choose one food item");
   }
 };
 
