@@ -18,12 +18,16 @@ html {
   font-size: 16px;
 }
 
-body {
-  min-height: 100vh;
+.flex-wrapper {
   font-family: "Oxygen", sans-serif;
   color: var(--gunmental);
   background-color: mintcream;
-}
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  }
+
 
 .main {
   display: flex;
@@ -114,7 +118,7 @@ i {
 .footer {
   padding: 10px 0;
   letter-spacing: 0.4m;
-  width: auto;
+  width: 100%;
   margin: auto;
 }
 
