@@ -559,7 +559,7 @@ const chooseOneItem = (e) => {
     (obj) => obj.eventName === targetName
   );
 
-  const chosenItems = myEvents[currentEventIndex][targetType];
+  const chosenItems = myEvents[currentEventIndex].hasOwnProperty(targetType);
   console.log(chosenItems);
   return chosenItems ? true : false;
 };
@@ -569,10 +569,9 @@ const handleMusicAsideClick = (e) => {
   const target = $(e.target);
 
   if (target.is("button")) {
-    const add = chooseOneItem(e);
-    console.log(add);
-    if (add) {
-      target.is("button");
+    const status = chooseOneItem(e);
+    console.log(status);
+    if (status) {
       renderEventCard();
     } else {
       alert("Please choose one Playlist");
@@ -621,6 +620,7 @@ const renderMusicSection = () => {
         type="button"
         id="music-save-btn"
         data-theme="music"
+        data-event=${tempName}
       >
         Save & Continue
       </button>
@@ -641,7 +641,6 @@ const handleFoodAsideClick = (e) => {
     const status = chooseOneItem(e);
     console.log(status);
     if (status) {
-      target.is("button");
       renderMusicSection();
     } else {
       alert("Please choose one food item");
