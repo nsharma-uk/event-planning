@@ -373,11 +373,12 @@ const renderEventCard = () => {
     (obj) => obj.eventName === tempName
   );
   const currentEvent = myEvents[currentEventIndex];
-  const eventName = currentEvent.eventName.replace(/\b[a-z]/g, function (
-    letter
-  ) {
-    return letter.toUpperCase();
-  });
+  const eventName = currentEvent.eventName.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -566,8 +567,16 @@ const chooseOneItem = (e) => {
 const handleMusicAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
+
   if (target.is("button")) {
-    renderEventCard();
+    const add = chooseOneItem(e);
+    console.log(add);
+    if (add) {
+      target.is("button");
+      renderEventCard();
+    } else {
+      alert("Please choose one Playlist");
+    }
   }
 };
 
