@@ -712,9 +712,13 @@ const handleEventCardClick = (e) => {
 const renderSavedEvents = (items) => {
   if (items.length) {
     const createCard = (item, i) => {
-      const eventName = item.eventName.replace(/\b[a-z]/g, function (letter) {
-        return letter.toUpperCase();
-      });
+      const eventName = item.eventName;
+      const capitalisedEventName = item.eventName.replace(
+        /\b[a-z]/g,
+        function (letter) {
+          return letter.toUpperCase();
+        }
+      );
       const eventDate = item.eventDate;
       const eventLocation = item.eventLocation;
 
@@ -739,12 +743,12 @@ const renderSavedEvents = (items) => {
       }
 
       //rendering with template string - TEMPORARY Template string
-      const eventCard = `<div class="event-card card" id="${eventName}">
+      const eventCard = `<div class="event-card card pb-5" id="${eventName}">
       <h2
         class="title is-4 card-header-title has-text-centered"
         id="event-card-name"
       >
-        ${eventName}
+        ${capitalisedEventName}
       </h2>
       <div class="event-details card my-5">
         <ul class="card-content m-0">
@@ -755,7 +759,7 @@ const renderSavedEvents = (items) => {
           <li class="event-list-item" id="event-food">Selected food: ${eventFoodList}</li>
           <li class="event-list-item" id="event-music">Selected playlists: ${eventMusicList}</li>
         </ul>
-        <button class="button is-rounded is-small my-2 event-card-btn" id="event-card-btn"
+        <button class="button is-rounded is-small is-primary is-responsive event-card-btn mb-5" id="event-card-btn"
         type="button"
           data-value="${eventName}">
           See full event card</i>

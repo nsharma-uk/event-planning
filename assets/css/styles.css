@@ -110,6 +110,28 @@ i {
   margin: 1rem;
 }
 
+/* saved events */
+
+.title {
+  width: 100%;
+}
+
+.saved-events-container {
+  width: 100%;
+  margin: 5rem;
+}
+
+.event-card-btn {
+  margin: auto;
+  display: block;
+  height: 3rem;
+  width: 30%;
+}
+
+.event-card {
+  width: 100%;
+}
+
 /*Footer styles*/
 .footer {
   padding: 10px 0;
