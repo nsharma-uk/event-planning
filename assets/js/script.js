@@ -408,6 +408,7 @@ const renderEventCard = () => {
     </div>
 
     <div class="event-selection-container">
+    <hr>
       <div class="event-food-container">
         <p class="event-card-text key-info">
           This is the food on offer at the event
@@ -415,6 +416,7 @@ const renderEventCard = () => {
         <div class="small-card-container" id="small-food-card-container">
         </div>
       </div>
+      <hr>
       <div class="event-music-container">
         <p class="event-card-text key-info">
           We will be enjoying these playlists
@@ -422,6 +424,7 @@ const renderEventCard = () => {
         <div class="small-card-container" id="small-music-card-container">
         </div>
       </div>
+      <hr>
     </div>
     <div class="end-text" id="end-text">
       <p>

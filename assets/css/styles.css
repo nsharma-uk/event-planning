@@ -126,6 +126,8 @@ i {
   padding: 3rem;
   /* background-color: var(--calm-lavender); */
   background-image: url(../images/textured-background-letter.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .card-design * {
@@ -146,7 +148,10 @@ i {
 .event-music-container {
   margin: 0.5rem;
   padding: 0.25rem;
-  background-color: rgb(252, 252, 243);
+}
+hr {
+  margin: 2rem 0 2rem 0;
+  border: 1px solid var(--event-card-dynamic);
 }
 
 .event-selection-container {
