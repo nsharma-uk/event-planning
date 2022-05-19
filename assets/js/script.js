@@ -125,6 +125,15 @@ const renderError = (message, containerId) => {
   containerId.append(errorComponent);
 };
 
+const renderAlert = (message, containerId) => {
+  // create component
+  const errorComponent = `<div class="notification is-warning is-light m-3"><i class="fa-solid fa-circle-info"></i> ${message}
+  </div>`;
+
+  // append component to musicContainer
+  containerId.append(errorComponent);
+};
+
 //empty aside list, get update from local storage and renders list again
 const updateAsideList = (theseChosenItems, tempName) => {
   $("#aside-list").empty();
@@ -135,13 +144,14 @@ const updateAsideList = (theseChosenItems, tempName) => {
   const createSelectedItem = (each) => {
     const selectedItemName = each.targetName;
     const selectedItemId = each.targetId;
+    const selectedItemType = each.targetType;
     $("#selected-items-list")
-      .append(`<div class="list-item"><li>${selectedItemName}</li>
-    <button
+      .append(`<div class="list-item"><li>${selectedItemName}</li><button
       class="button item-btn is-rounded is-small has-text-centered is-danger is-responsive"
       type="button"
-      id=${selectedItemId}
-      data-theme="food"
+      data-id=${selectedItemId}
+      data-theme="clear"
+      data-type=${selectedItemType}
       data-event=${tempName}
     >
       X
@@ -166,6 +176,7 @@ const handleItemSelection = (event) => {
     targetId,
     targetName,
     targetPic,
+    targetType,
   };
 
   const myEvents = getFromLocalStorage("myEvents");
@@ -187,54 +198,18 @@ const handleItemSelection = (event) => {
   } else {
     if (currentEventSelection.length < 10) {
       currentEventSelection.push(chosenItem);
-      console.log(currentEventSelection);
+
       myEvents[currentEventIndex][targetType] = currentEventSelection;
       writeToLocalStorage("myEvents", myEvents);
     } else {
       //modal
-      const modalFood = ` <div class="modal is-active" id="food-modal">
-<div class="modal-background" id="food-modal-background"></div>
-<div
-  class="modal-card"
-  id="modal-food-content"
->
-<div class="modal-card-body">
-  <p class="mb-6">
-    Would you like to remove the first item selected and add this item?
-  </p>
-  </div>
 
-  <footer class="modal-card-foot">
-    <button class="button is-success" id="food-confirm">Yes</button>
-    <button class="button modal-close" aria-label="close" id="close">No</button>
-  </footer>
-  </div>
-</div>`;
-
-      $("#main").append(modalFood);
-      //add event listener to success button on line 170
-      const replaceFoodItem = () => {
-        // // currentEventSelection.shift();
-
-        currentEventSelection.shift();
-
-        currentEventSelection.push(chosenItem);
-
-        myEvents[currentEventIndex][targetType] = currentEventSelection;
-        writeToLocalStorage("myEvents", myEvents);
-
-        updateAsideList(currentEventSelection, currentEventName);
-        $("#food-modal").remove();
-      };
-      const closeModal = () => {
-        $("#food-modal").remove();
-      };
-
-      $("#food-confirm").click(replaceFoodItem);
-      $("#close").click(closeModal);
+      generateAlertModal(
+        "You've reached the limit of 10 items selected! Please remove some items from your selection to be able to add new ones."
+      );
     }
   }
-  console.log(currentEventSelection);
+
   //re-render the selection list in the aside div
   updateAsideList(currentEventSelection, currentEventName);
 };
@@ -309,8 +284,8 @@ const renderMusicCards = (items) => {
       const playlistTitle = item.data.name;
       const ownerName = item.data.owner.name;
       const playlistCover = item.data.images.items[0].sources[0].url;
-      const linkUrl = item.data.uri.substr(18);
-      //rendering with template string - TEMPORARY Template string
+      const linkUrl = item.data.uri.substr(17);
+      //rendering with template string
       const playlistCard = `<div class="card api-card" id="music-card-${item.index}">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -339,7 +314,7 @@ const renderMusicCards = (items) => {
           <i class="fa-solid fa-plus"></i>
         </button>
         <a
-          href="https://open.spotify.com/${linkUrl}"
+          href="https://open.spotify.com/playlist/${linkUrl}"
           class="card-footer-item" target="_blank"
           ><i class="fa-brands fa-spotify"></i
         ></a>
@@ -416,13 +391,6 @@ const renderFoodCards = (items) => {
     // render error
     renderError("No results found.", foodContainer);
   }
-};
-
-const handleEditClick = () => {
-  //get event from local storage
-  //empty main container
-  //render food section
-  //populate the aside list with the food selection already in storage in the event
 };
 
 const handlePrintCard = () => {
@@ -512,7 +480,6 @@ const renderEventCard = () => {
   renderSmallFoodCard(selectedFood);
   renderSmallMusicCard(selectedMusic);
 
-  $("#selection-btn").click(handleEditClick);
   $("#print-btn").click(handlePrintCard);
   currentEventName = "";
 };
@@ -625,37 +592,45 @@ const atLeastOneItem = (e) => {
   );
 
   const chosenItemsLength = myEvents[currentEventIndex][targetType].length;
-
   return chosenItemsLength;
 };
 
 // handles the click on "Save&Continue" button
 const handleAsideClick = (e) => {
   e.stopPropagation();
+
   const target = $(e.target);
   const targetType = $(e.target).attr("data-theme");
 
   if (target.is("button")) {
-    const status = atLeastOneItem(e);
-
     if (targetType === "food") {
+      const status = atLeastOneItem(e);
       status
         ? renderMusicSection()
         : generateAlertModal("Please choose at least one food item");
     } else if (targetType === "music") {
+      const status = atLeastOneItem(e);
       status
         ? renderEventCard()
         : generateAlertModal("Please choose at least one Playlist");
     } else if (targetType === "clear") {
-      const currentEventName = $(e.target).attr("data-event");
-      const itemToClear = $(e.target).attr("data-section");
+      const itemEventName = $(e.target).attr("data-event");
+      const itemType = $(e.target).attr("data-type");
+      const itemId = $(e.target).attr("data-id");
       const myEvents = getFromLocalStorage("myEvents");
       const currentEventIndex = myEvents.findIndex(
-        (obj) => obj.eventName === currentEventName
+        (obj) => obj.eventName === itemEventName
       );
-      myEvents[currentEventIndex][itemToClear] = [];
+      const itemTypeArray = myEvents[currentEventIndex][itemType];
+
+      const itemIndex = itemTypeArray.findIndex(
+        (obj) => obj.targetId === itemId
+      );
+      itemTypeArray.splice(itemIndex, 1);
+
+      myEvents[currentEventIndex][itemType] = itemTypeArray;
       writeToLocalStorage("myEvents", myEvents);
-      updateAsideList([]);
+      updateAsideList(itemTypeArray, itemEventName);
     }
   }
 };
@@ -682,12 +657,12 @@ const renderMusicSection = () => {
         </button>
       </div>
     </form>
-    <div class="card-container" id="music-card-container">
+    <div class="card-container m-3" id="music-card-container">
     </div>
   </div>
-  <div class="aside music-aside has-text-centered m-3" id="music-aside">
+  <div class="aside music-aside has-text-centered pl-5" id="music-aside">
     <div class="aside-list my-5" id="aside-list">
-      <h4 class="aside-text mt-5">Your selected items</h4>
+      <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -706,21 +681,14 @@ const renderMusicSection = () => {
         Save & Continue
       </button>
     </div>
-    <div class="aside-btn clear-btn my-5">
-      <button
-        class="button is-rounded is-small has-text-centered is-danger is-responsive my-5"
-        type="button"
-        id="clear-btn"
-        data-theme="clear"
-        data-section="music"
-        data-event=${tempName}
-      >
-        Clear Selection
-      </button>
-    </div>
   </div>
   </section>`);
 
+  const musicCardContainer = $("#music-card-container");
+  renderAlert(
+    "No search submitted yet. Please enter a music genre, a band or artist name and click submit in the form above.",
+    musicCardContainer
+  );
   $("#music-selection").submit(handleMusicSubmit);
 
   $("#music-aside").click(handleAsideClick);
@@ -763,12 +731,12 @@ const renderFoodSection = () => {
         </button>
       </div>
     </form>
-    <div class="card-container" id="food-card-container"> 
+    <div class="card-container m-3" id="food-card-container"> 
     </div>
   </div>
-  <div class="aside food-aside has-text-centered m-3" id="food-aside">
+  <div class="aside food-aside has-text-centered pl-5" id="food-aside">
     <div class="aside-list my-5" id="aside-list">
-      <h4 class="aside-text mt-5">Your selected items:</h4>
+      <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -787,20 +755,14 @@ const renderFoodSection = () => {
         Save & Continue
       </button>
     </div>
-    <div class="aside-btn clear-btn my-5">
-      <button
-        class="button is-rounded is-small has-text-centered is-danger is-responsive my-5"
-        type="button"
-        id="clear-btn"
-        data-theme="clear"
-        data-section="food"
-        data-event=${tempName}
-      >
-        Clear Selection
-      </button>
-    </div>
   </div>
   </section>`);
+
+  const foodCardContainer = $("#food-card-container");
+  renderAlert(
+    "No search submitted yet. Please choose a type of cuisine and click submit in the form above.",
+    foodCardContainer
+  );
 
   $("#food-selection").submit(handleFoodSubmit);
 
@@ -943,22 +905,6 @@ const renderForm = () => {
 </section>`);
 
   $("#event-details-form").submit(saveEventDetails);
-};
-
-//Handling start page click
-const handleStartClick = () => {
-  //bring up modal window with event details form
-  //submit form in modal
-  //save form details in local storage
-  //remove start container
-  //render food selection container (includes aside div)
-  //add click event to food form submit button --> handle button click (submit or surprise) --> handle food submit --> returns rendered cards
-  //on click of "add" symbol on the card, recipe name is added to the event's local storage object and the side list is re-rendered with updated local storage info
-  //on click of "continue" button, remove food container and render music container
-  //add click event to music form button --> handle music submit --> return rendered cards
-  //on click of "add" symbol on the card, recipe name is added to the event's local storage object and the side list is re-rendered with updated local storage info
-  //on click of "continue" button, remove music container and render event card template
-  //on click of "print" button, the print option opens (to look into!!!)
 };
 
 // On load
