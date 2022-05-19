@@ -44,6 +44,13 @@ i {
   pointer-events: none;
 }
 
+.page-name {
+  color: var(--gunmetal);
+}
+
+.page-name:hover {
+  color: var(--mint-cream);
+}
 .section {
   display: flex;
   flex-direction: row;
