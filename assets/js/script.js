@@ -101,6 +101,7 @@ const renderError = (message, containerId) => {
 
 //empty aside list, get update from local storage and renders list again
 const updateAsideList = (theseChosenItems) => {
+  console.log("aside", theseChosenItems);
   $("#selected-items-list").empty();
 
   const createSelectedItem = (each) => {
@@ -142,25 +143,50 @@ const handleItemSelection = (event) => {
   } else {
     if (currentEventSelection.length < 3) {
       currentEventSelection.push(chosenItem);
+      console.log(currentEventSelection);
       myEvents[currentEventIndex][targetType] = currentEventSelection;
       writeToLocalStorage("myEvents", myEvents);
     } else {
-      //remove from array and add new item to remain at 3 items max
-      const addAnotherItem = confirm(
-        "Would you like to remove the first item selected and add this item?"
-      );
+      //modal
+      const modalFood = ` <div class="modal is-active" id="food-modal">
+<div class="modal-background" id="food-modal-background"></div>
+<div
+  class="modal-card"
+  id="modal-food-content"
+>
+<div class="modal-card-body">
+  <p class="mb-6">
+    Would you like to remove the first item selected and add this item?
+  </p>
+  </div>
 
-      if (addAnotherItem) {
+  <footer class="modal-card-foot">
+    <button class="button is-success" id="food-confirm">Yes</button>
+    <button class="button modal-close" aria-label="close">No</button>
+  </footer>
+  </div>
+</div>`;
+
+      $("#main").append(modalFood);
+      //add event listener to success button on line 170
+      const replaceFoodItem = () => {
+        // // currentEventSelection.shift();
+        console.log("before shift", currentEventSelection);
         currentEventSelection.shift();
-
+        console.log("after shift", currentEventSelection);
         currentEventSelection.push(chosenItem);
-
+        console.log("after push", currentEventSelection);
         myEvents[currentEventIndex][targetType] = currentEventSelection;
         writeToLocalStorage("myEvents", myEvents);
-      }
+
+        updateAsideList(currentEventSelection);
+        $("#food-modal").remove();
+      };
+
+      $("#food-confirm").click(replaceFoodItem);
     }
   }
-
+  console.log(currentEventSelection);
   //re-render the selection list in the aside div
   updateAsideList(currentEventSelection);
 };
