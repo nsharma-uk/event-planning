@@ -373,11 +373,12 @@ const renderEventCard = () => {
     (obj) => obj.eventName === tempName
   );
   const currentEvent = myEvents[currentEventIndex];
-  const eventName = currentEvent.eventName.replace(/\b[a-z]/g, function (
-    letter
-  ) {
-    return letter.toUpperCase();
-  });
+  const eventName = currentEvent.eventName.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -548,11 +549,33 @@ const handleFoodSubmit = async (event) => {
   }
 };
 
+const chooseOneItem = (e) => {
+  const targetName = $(e.target).attr("data-event");
+  console.log(targetName);
+  const targetType = $(e.target).attr("data-theme");
+  console.log(targetType);
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === targetName
+  );
+
+  const chosenItems = myEvents[currentEventIndex].hasOwnProperty(targetType);
+  console.log(chosenItems);
+  return chosenItems ? true : false;
+};
+
 const handleMusicAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
+
   if (target.is("button")) {
-    renderEventCard();
+    const status = chooseOneItem(e);
+    console.log(status);
+    if (status) {
+      renderEventCard();
+    } else {
+      alert("Please choose one Playlist");
+    }
   }
 };
 
@@ -597,6 +620,7 @@ const renderMusicSection = () => {
         type="button"
         id="music-save-btn"
         data-theme="music"
+        data-event=${tempName}
       >
         Save & Continue
       </button>
@@ -608,12 +632,19 @@ const renderMusicSection = () => {
 
   $("#music-aside").click(handleMusicAsideClick);
 };
-
+// still working on adding condition
 const handleFoodAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
+
   if (target.is("button")) {
-    renderMusicSection();
+    const status = chooseOneItem(e);
+    console.log(status);
+    if (status) {
+      renderMusicSection();
+    } else {
+      alert("Please choose one food item");
+    }
   }
 };
 
@@ -673,6 +704,7 @@ const renderFoodSection = () => {
         type="button"
         id="food-save-btn"
         data-theme="food"
+        data-event=${tempName}
       >
         Save & Continue
       </button>
