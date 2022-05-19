@@ -23,7 +23,7 @@ html {
 
 .flex-wrapper {
   font-family: "Oxygen", sans-serif;
-  color: var(--gunmental);
+  color: var(--gunmetal);
   background-color: mintcream;
   display: flex;
   min-height: 100vh;
@@ -34,22 +34,28 @@ html {
 
 .main {
   display: flex;
-  flex-direction: row;
-  align-content: stretch;
+  flex-direction: column;
   flex: 2;
-  /* min-height: 75vh; */
 }
 
 i {
   pointer-events: none;
 }
 
+.page-name {
+  color: var(--gunmetal);
+}
+
+.page-name:hover {
+  color: var(--mint-cream);
+}
 .section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: nowrap;
   width: 100%;
+  flex: 1;
 }
 
 .event-card-section {
@@ -181,7 +187,7 @@ hr {
 
 /* saved events */
 
-.title {
+/* .title {
   width: 100%;
 }
 
@@ -200,7 +206,7 @@ hr {
 
 .print-card-container {
   margin: auto;
-}
+} */
 
 /*Footer styles*/
 .footer {

@@ -101,6 +101,7 @@ const renderError = (message, containerId) => {
 
 //empty aside list, get update from local storage and renders list again
 const updateAsideList = (theseChosenItems) => {
+  console.log("aside", theseChosenItems);
   $("#selected-items-list").empty();
 
   const createSelectedItem = (each) => {
@@ -132,46 +133,60 @@ const handleItemSelection = (event) => {
   const currentEvent = myEvents[currentEventIndex];
   let currentEventSelection = currentEvent[targetType];
 
-  if (currentEventSelection) {
-    const eventExists = currentEventSelection.some(
-      (item) => item.targetName === chosenItem.targetName
-    );
+  const itemExists = currentEventSelection.some(
+    (item) => item.targetName === chosenItem.targetName
+  );
 
-    if (eventExists) {
-      //find a way to flag it on screen to the user
-      console.log("Item is already selected");
-      alert("This item has already been selected");
+  if (itemExists) {
+    //find a way to flag it on screen to the user
+    alert("This item has already been selected");
+  } else {
+    if (currentEventSelection.length < 10) {
+      currentEventSelection.push(chosenItem);
+      console.log(currentEventSelection);
+      myEvents[currentEventIndex][targetType] = currentEventSelection;
+      writeToLocalStorage("myEvents", myEvents);
     } else {
-      if (currentEventSelection.length < 3) {
+      //modal
+      const modalFood = ` <div class="modal is-active" id="food-modal">
+<div class="modal-background" id="food-modal-background"></div>
+<div
+  class="modal-card"
+  id="modal-food-content"
+>
+<div class="modal-card-body">
+  <p class="mb-6">
+    Would you like to remove the first item selected and add this item?
+  </p>
+  </div>
+
+  <footer class="modal-card-foot">
+    <button class="button is-success" id="food-confirm">Yes</button>
+    <button class="button modal-close" aria-label="close">No</button>
+  </footer>
+  </div>
+</div>`;
+
+      $("#main").append(modalFood);
+      //add event listener to success button on line 170
+      const replaceFoodItem = () => {
+        // // currentEventSelection.shift();
+        console.log("before shift", currentEventSelection);
+        currentEventSelection.shift();
+        console.log("after shift", currentEventSelection);
         currentEventSelection.push(chosenItem);
+        console.log("after push", currentEventSelection);
         myEvents[currentEventIndex][targetType] = currentEventSelection;
         writeToLocalStorage("myEvents", myEvents);
-      } else {
-        //remove from array and add new item to remain at 3 items max
-        const addMoreItems = confirm(
-          "Would you like to replace the first item selected with this item?"
-        );
 
-        if (addMoreItems) {
-          currentEventSelection.shift();
+        updateAsideList(currentEventSelection);
+        $("#food-modal").remove();
+      };
 
-          currentEventSelection.push(chosenItem);
-
-          myEvents[currentEventIndex][targetType] = currentEventSelection;
-          writeToLocalStorage("myEvents", myEvents);
-        }
-      }
+      $("#food-confirm").click(replaceFoodItem);
     }
-  } else {
-    //create key in object and allocate current selection value
-    currentEventSelection = [];
-    currentEventSelection.push(chosenItem);
-    myEvents[currentEventIndex][targetType] = currentEventSelection;
-    writeToLocalStorage("myEvents", myEvents);
   }
-
-  //maybe do not need assign to event at all anymore?? check with debugger
-
+  console.log(currentEventSelection);
   //re-render the selection list in the aside div
   updateAsideList(currentEventSelection);
 };
@@ -181,7 +196,7 @@ const handleItemClick = (event) => {
   event.stopPropagation();
   const target = $(event.target);
   const targetAdd = $(event.target).attr("data-action");
-  console.log(targetAdd);
+
   if (target.is("button") && targetAdd === "add") {
     handleItemSelection(event);
   }
@@ -239,7 +254,7 @@ const renderSmallFoodCard = (selectedFood) => {
   selectedFood.forEach(createSmallCard);
 };
 
-//render music cards
+//render music cards in music container when selecting music (after API call)
 const renderMusicCards = (items) => {
   if (items.length) {
     const createCard = (item) => {
@@ -297,7 +312,7 @@ const renderMusicCards = (items) => {
   }
 };
 
-//render food cards
+//render food cards in food container when selecting food (after API call)
 const renderFoodCards = (items) => {
   if (items.length) {
     const createCard = (item, i) => {
@@ -373,12 +388,12 @@ const renderEventCard = () => {
     (obj) => obj.eventName === tempName
   );
   const currentEvent = myEvents[currentEventIndex];
-  const eventName = currentEvent.eventName.replace(
-    /\b[a-z]/g,
-    function (letter) {
-      return letter.toUpperCase();
-    }
-  );
+
+  const eventName = currentEvent.eventName.replace(/\b[a-z]/g, function (
+    letter
+  ) {
+    return letter.toUpperCase();
+  });
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -549,32 +564,46 @@ const handleFoodSubmit = async (event) => {
   }
 };
 
-const chooseOneItem = (e) => {
+//checks that there is at least 1 food/music item selected before moving on
+const atLeastOneItem = (e) => {
   const targetName = $(e.target).attr("data-event");
-  console.log(targetName);
   const targetType = $(e.target).attr("data-theme");
-  console.log(targetType);
+
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
     (obj) => obj.eventName === targetName
   );
 
-  const chosenItems = myEvents[currentEventIndex].hasOwnProperty(targetType);
-  console.log(chosenItems);
-  return chosenItems ? true : false;
+  const chosenItems = myEvents[currentEventIndex][targetType];
+
+  return chosenItems && chosenItems.length != 0;
 };
 
-const handleMusicAsideClick = (e) => {
+// handles the click on "Save&Continue" button
+const handleAsideClick = (e) => {
   e.stopPropagation();
   const target = $(e.target);
+  const targetType = $(e.target).attr("data-theme");
 
   if (target.is("button")) {
-    const status = chooseOneItem(e);
-    console.log(status);
-    if (status) {
-      renderEventCard();
-    } else {
-      alert("Please choose one Playlist");
+    const status = atLeastOneItem(e);
+
+    if (targetType === "food") {
+      status
+        ? renderMusicSection()
+        : alert("Please choose at least one food item");
+    } else if (targetType === "music") {
+      status ? renderEventCard() : alert("Please choose at least one Playlist");
+    } else if (targetType === "clear") {
+      const currentEventName = $(e.target).attr("data-event");
+      const itemToClear = $(e.target).attr("data-section");
+      const myEvents = getFromLocalStorage("myEvents");
+      const currentEventIndex = myEvents.findIndex(
+        (obj) => obj.eventName === currentEventName
+      );
+      myEvents[currentEventIndex][itemToClear] = [];
+      writeToLocalStorage("myEvents", myEvents);
+      updateAsideList([]);
     }
   }
 };
@@ -606,7 +635,8 @@ const renderMusicSection = () => {
   </div>
   <div class="aside music-aside has-text-centered m-3" id="music-aside">
     <div class="aside-list my-5">
-      <h4 class="aside-text p-5">Your selected playlists</h4>
+      <h4 class="aside-text mt-5">Your selected playlists</h4>
+      <h5 class="aside-subtext mb-5">(min 1 item - max 3 items)</h5>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -625,27 +655,24 @@ const renderMusicSection = () => {
         Save & Continue
       </button>
     </div>
+    <div class="aside-btn clear-btn my-5">
+      <button
+        class="button is-rounded is-small has-text-centered is-danger is-responsive my-5"
+        type="button"
+        id="clear-btn"
+        data-theme="clear"
+        data-section="music"
+        data-event=${tempName}
+      >
+        Clear Selection
+      </button>
+    </div>
   </div>
   </section>`);
 
   $("#music-selection").submit(handleMusicSubmit);
 
-  $("#music-aside").click(handleMusicAsideClick);
-};
-// still working on adding condition
-const handleFoodAsideClick = (e) => {
-  e.stopPropagation();
-  const target = $(e.target);
-
-  if (target.is("button")) {
-    const status = chooseOneItem(e);
-    console.log(status);
-    if (status) {
-      renderMusicSection();
-    } else {
-      alert("Please choose one food item");
-    }
-  }
+  $("#music-aside").click(handleAsideClick);
 };
 
 //render the food section in the main container
@@ -672,7 +699,7 @@ const renderFoodSection = () => {
           <option value="italian">Italian</option>
           <option value="brazilian">Brazilian</option>
           <option value="korean">Korean</option>
-          <option value="french">Indian</option>
+          <option value="french">French</option>
           <option value="surprise-me">Surprise me!</option>
         </select>
 
@@ -690,7 +717,8 @@ const renderFoodSection = () => {
   </div>
   <div class="aside food-aside has-text-centered m-3" id="food-aside">
     <div class="aside-list my-5">
-      <h4 class="aside-text m-5">Your selected food</h4>
+      <h4 class="aside-text mt-5">Your selected food</h4>
+      <h5 class="aside-subtext mb-5">(min 1 item - max 3 items)</h5>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -698,7 +726,7 @@ const renderFoodSection = () => {
       <h4 class="aside-text m-5">For the event</h4>
       <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
     </div>
-    <div class="aside-btn my-5">
+    <div class="aside-btn save-btn my-5">
       <button
         class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
         type="button"
@@ -709,12 +737,24 @@ const renderFoodSection = () => {
         Save & Continue
       </button>
     </div>
+    <div class="aside-btn clear-btn my-5">
+      <button
+        class="button is-rounded is-small has-text-centered is-danger is-responsive my-5"
+        type="button"
+        id="clear-btn"
+        data-theme="clear"
+        data-section="food"
+        data-event=${tempName}
+      >
+        Clear Selection
+      </button>
+    </div>
   </div>
   </section>`);
 
   $("#food-selection").submit(handleFoodSubmit);
 
-  $("#food-aside").click(handleFoodAsideClick);
+  $("#food-aside").click(handleAsideClick);
 };
 
 //function to save the event details form into local storage and trigger render Food section
@@ -727,6 +767,9 @@ const saveEventDetails = (e) => {
   const eventLocation = $("#event-location").val();
   const eventDate = $("#event-date").val();
   const eventDescription = $("#event-description").val();
+  const food = [];
+  const music = [];
+
   const eventObj = {
     eventName,
     eventOrganiser,
@@ -734,17 +777,21 @@ const saveEventDetails = (e) => {
     eventLocation,
     eventDate,
     eventDescription,
+    food,
+    music,
   };
 
-  const arrayFromLs = getFromLocalStorage("myEvents", []);
+  const myEventsFromLs = getFromLocalStorage("myEvents", []);
 
-  const plannedEvent = arrayFromLs.findIndex((s) => s.eventName === eventName);
+  const plannedEvent = myEventsFromLs.findIndex(
+    (s) => s.eventName === eventName
+  );
 
   if (plannedEvent > -1 || eventName === "") {
     alert("Please amend the event name");
   } else {
-    arrayFromLs.push(eventObj);
-    writeToLocalStorage("myEvents", arrayFromLs);
+    myEventsFromLs.push(eventObj);
+    writeToLocalStorage("myEvents", myEventsFromLs);
 
     currentEventName = eventName;
     renderFoodSection();
