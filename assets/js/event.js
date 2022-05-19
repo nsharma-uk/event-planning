@@ -636,8 +636,9 @@ const renderEventCard = (e) => {
   const eventOrganiser = currentEvent.eventOrganiser;
   const organiserEmail = currentEvent.organiserEmail;
 
-  $("#main").append(`<section class="event-card-section has-text-centered">
-    <div class="card-design section-to-print event-card-container m-5">
+  $("#main")
+    .append(`<section class="print-card-container event-card-section has-text-centered ">
+    <div class="card-design print-card event-card-container m-5">
       <h2>You are officially invited to my event: ${eventName}</h2>
       <div class="event-details">
         <p class="event-card-text key-info">
@@ -672,11 +673,11 @@ const renderEventCard = (e) => {
       </div>
     </div>
     <div class="btn-div m-5">
-      <button class="button print-btn is-rounded is-big m-2" id="print-btn" type="button" data-action="print">
+      <button class="button print-btn is-rounded is-big is-primary is-responsive m-2" id="print-btn" type="button" data-action="print">
         Print this event card
       </button>
       <button
-        class="button selection-btn is-rounded is-big m-2"
+        class="button selection-btn is-rounded is-big is-primary is-responsive m-2"
         type="button"
         id="selection-btn"
         data-value="${eventName}"
@@ -708,11 +709,17 @@ const handleEventCardClick = (e) => {
   }
 };
 
-//render food cards
+//render Saved events
 const renderSavedEvents = (items) => {
   if (items.length) {
     const createCard = (item, i) => {
       const eventName = item.eventName;
+      const capitalisedEventName = item.eventName.replace(
+        /\b[a-z]/g,
+        function (letter) {
+          return letter.toUpperCase();
+        }
+      );
       const eventDate = item.eventDate;
       const eventLocation = item.eventLocation;
 
@@ -737,12 +744,12 @@ const renderSavedEvents = (items) => {
       }
 
       //rendering with template string - TEMPORARY Template string
-      const eventCard = `<div class="event-card card" id="${eventName}">
+      const eventCard = `<div class="event-card card pb-5" id="${eventName}">
       <h2
         class="title is-4 card-header-title has-text-centered"
         id="event-card-name"
       >
-        ${eventName}
+        ${capitalisedEventName}
       </h2>
       <div class="event-details card my-5">
         <ul class="card-content m-0">
@@ -753,7 +760,7 @@ const renderSavedEvents = (items) => {
           <li class="event-list-item" id="event-food">Selected food: ${eventFoodList}</li>
           <li class="event-list-item" id="event-music">Selected playlists: ${eventMusicList}</li>
         </ul>
-        <button class="button is-rounded is-small my-2 event-card-btn" id="event-card-btn"
+        <button class="button is-rounded is-small is-primary is-responsive event-card-btn mb-5" id="event-card-btn"
         type="button"
           data-value="${eventName}">
           See full event card</i>
