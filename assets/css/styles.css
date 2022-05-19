@@ -88,10 +88,10 @@ i {
 
 .start-page-section {
   background-image: url(../images/event-start-pic2.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-x;
+  animation: animatedBackground 20s linear infinite alternate;
 }
-
 
 /*Form page styling*/
 
@@ -239,5 +239,14 @@ hr {
     position: absolute;
     left: 0;
     top: 0;
+  }
+}
+
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
   }
 }
