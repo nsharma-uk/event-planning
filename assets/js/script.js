@@ -65,6 +65,31 @@ const emptyContainer = (containerId) => {
   }
 };
 
+const generateAlertModal = (message) => {
+  const modal = ` <div class="modal is-active" id="modal">
+    <div class="modal-background" id="modal-background"></div>
+    <div
+      class="modal-card"
+      id="modal-event-details"
+    >
+    <div class="modal-card-body">
+      <p class="mb-6">
+        ${message}
+      </p>
+      </div>
+      <footer class="modal-card-foot">
+      <button class="button is-success" id="confirm">Yes</button>
+      <button class="button modal-close" aria-label="close">No</button>
+      </footer>
+      </div>
+    </div>`;
+  $("#main").append(modal);
+  const closeModal = () => {
+    $("#modal").remove();
+  };
+  $("#confirm").click(closeModal);
+};
+
 //END UTILITY FUNCTIONS
 
 //Constructing the URL for an API call
@@ -101,7 +126,6 @@ const renderError = (message, containerId) => {
 
 //empty aside list, get update from local storage and renders list again
 const updateAsideList = (theseChosenItems) => {
-  console.log("aside", theseChosenItems);
   $("#selected-items-list").empty();
 
   const createSelectedItem = (each) => {
@@ -117,11 +141,13 @@ const handleItemSelection = (event) => {
   event.stopPropagation();
   const currentEventName = $("#event-select").text();
 
+  const targetId = $(event.target).attr("data-id");
   const targetName = $(event.target).attr("data-value");
   const targetType = $(event.target).attr("data-type");
   const targetPic = $(event.target).attr("data-pic");
 
   const chosenItem = {
+    targetId,
     targetName,
     targetPic,
   };
@@ -134,12 +160,14 @@ const handleItemSelection = (event) => {
   let currentEventSelection = currentEvent[targetType];
 
   const itemExists = currentEventSelection.some(
-    (item) => item.targetName === chosenItem.targetName
+    (item) => item.targetId === chosenItem.targetId
   );
 
   if (itemExists) {
     //find a way to flag it on screen to the user
-    alert("This item has already been selected");
+    generateAlertModal(
+      "This item has already been selected. Please pick another one."
+    );
   } else {
     if (currentEventSelection.length < 10) {
       currentEventSelection.push(chosenItem);
@@ -171,11 +199,11 @@ const handleItemSelection = (event) => {
       //add event listener to success button on line 170
       const replaceFoodItem = () => {
         // // currentEventSelection.shift();
-        console.log("before shift", currentEventSelection);
+
         currentEventSelection.shift();
-        console.log("after shift", currentEventSelection);
+
         currentEventSelection.push(chosenItem);
-        console.log("after push", currentEventSelection);
+
         myEvents[currentEventIndex][targetType] = currentEventSelection;
         writeToLocalStorage("myEvents", myEvents);
 
@@ -261,7 +289,7 @@ const renderMusicCards = (items) => {
       const playlistTitle = item.data.name;
       const ownerName = item.data.owner.name;
       const playlistCover = item.data.images.items[0].sources[0].url;
-      const linkUrl = item.data.uri;
+      const linkUrl = item.data.uri.substr(18);
       //rendering with template string - TEMPORARY Template string
       const playlistCard = `<div class="card api-card" id="music-card-${item.index}">
       <div class="card-image">
@@ -284,13 +312,14 @@ const renderMusicCards = (items) => {
         <button
           class="button is-ghost card-footer-item"
           type="button"
+          data-id="${linkUrl}"
           data-value="${playlistTitle}"
           data-pic="${playlistCover}" data-type="music" data-action="add"
         >
           <i class="fa-solid fa-plus"></i>
         </button>
         <a
-          href=${linkUrl}
+          href="https://open.spotify.com/${linkUrl}"
           class="card-footer-item" target="_blank"
           ><i class="fa-brands fa-spotify"></i
         ></a>
@@ -319,7 +348,7 @@ const renderFoodCards = (items) => {
       const recipeTitle = item.recipe.label;
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
-      const linkUrl = item.recipe.url;
+      const linkUri = item.recipe.uri;
       //rendering with template string - TEMPORARY Template string
       const foodCard = `<div class="card api-card" id="food-card-${i}">
       <div class="card-image">
@@ -341,12 +370,13 @@ const renderFoodCards = (items) => {
       <footer class="card-footer">
         <button class="button is-ghost card-footer-item"
         type="button"
+          data-id="${linkUri}"
           data-value="${recipeTitle}"
           data-pic="${recipeImage}" data-type="food" data-action="add">
           <i class="fa-solid fa-plus"></i>
         </button>
         <a
-          href=${linkUrl}
+          href=${linkUri}
           class="card-footer-item" target="_blank"
           ><i class="fa-solid fa-earth-americas"></i
         ></a>
@@ -591,9 +621,11 @@ const handleAsideClick = (e) => {
     if (targetType === "food") {
       status
         ? renderMusicSection()
-        : alert("Please choose at least one food item");
+        : generateAlertModal("Please choose at least one food item");
     } else if (targetType === "music") {
-      status ? renderEventCard() : alert("Please choose at least one Playlist");
+      status
+        ? renderEventCard()
+        : generateAlertModal("Please choose at least one Playlist");
     } else if (targetType === "clear") {
       const currentEventName = $(e.target).attr("data-event");
       const itemToClear = $(e.target).attr("data-section");
@@ -615,7 +647,7 @@ const renderMusicSection = () => {
   $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
     <form class="form" id="music-selection">
-      <p class="music-text-div">Please select your desired music</p>
+      <p class="music-text-div">Please select your desired music and click "Submit"</p>
       <div
         class="form-field is-flex-direction-row is-align-content-center my-5"
       >
@@ -683,7 +715,7 @@ const renderFoodSection = () => {
   $("#main").append(`<section class="section food-section" id="food-section">
   <div class="container has-text-centered" id="food-container">
     <form class="form" id="food-selection">
-      <p class="food-text-div">Please select your desired food</p>
+      <p class="food-text-div">Please select your desired food type in the list and click "Submit"</p>
 
       <div
         class="form-field is-flex-direction-row is-align-content-center my-5"
@@ -761,12 +793,12 @@ const renderFoodSection = () => {
 const saveEventDetails = (e) => {
   e.stopPropagation();
   e.preventDefault();
-  const eventName = $("#event-name-input").val();
-  const eventOrganiser = $("#event-organiser").val();
-  const organiserEmail = $("#organiser-mail").val();
-  const eventLocation = $("#event-location").val();
+  const eventName = $("#event-name-input").val().toLowerCase().trim();
+  const eventOrganiser = $("#event-organiser").val().toLowerCase().trim();
+  const organiserEmail = $("#organiser-mail").val().toLowerCase().trim();
+  const eventLocation = $("#event-location").val().toLowerCase().trim();
   const eventDate = $("#event-date").val();
-  const eventDescription = $("#event-description").val();
+  const eventDescription = $("#event-description").val().trim();
   const food = [];
   const music = [];
 
@@ -786,9 +818,11 @@ const saveEventDetails = (e) => {
   const plannedEvent = myEventsFromLs.findIndex(
     (s) => s.eventName === eventName
   );
-
-  if (plannedEvent > -1 || eventName === "") {
-    alert("Please amend the event name");
+  if (plannedEvent > -1) {
+    //modal "This event already exists"
+    const message =
+      "This event already exists. Please choose a different event name or go to My saved Events.";
+    generateAlertModal(message);
   } else {
     myEventsFromLs.push(eventObj);
     writeToLocalStorage("myEvents", myEventsFromLs);
