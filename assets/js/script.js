@@ -79,7 +79,7 @@ const generateAlertModal = (message) => {
       </div>
       <footer class="modal-card-foot">
       <button class="button is-success" id="confirm">Yes</button>
-      <button class="button modal-close" aria-label="close">No</button>
+      <button class="button modal-close" aria-label="close" id="close">No</button>
       </footer>
       </div>
     </div>`;
@@ -88,6 +88,7 @@ const generateAlertModal = (message) => {
     $("#modal").remove();
   };
   $("#confirm").click(closeModal);
+  $("#close").click(closeModal);
 };
 
 //END UTILITY FUNCTIONS
@@ -125,12 +126,27 @@ const renderError = (message, containerId) => {
 };
 
 //empty aside list, get update from local storage and renders list again
-const updateAsideList = (theseChosenItems) => {
-  $("#selected-items-list").empty();
-
+const updateAsideList = (theseChosenItems, tempName) => {
+  $("#aside-list").empty();
+  const remainingItems = 10 - theseChosenItems.length;
+  $("#aside-list")
+    .append(`<h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">${remainingItems} remaining slots </p><ul class="selected-items-list" id="selected-items-list">
+  </ul>`);
   const createSelectedItem = (each) => {
     const selectedItemName = each.targetName;
-    $("#selected-items-list").append(`<li>${selectedItemName}</li>`);
+    const selectedItemId = each.targetId;
+    $("#selected-items-list")
+      .append(`<div class="list-item"><li>${selectedItemName}</li>
+    <button
+      class="button item-btn is-rounded is-small has-text-centered is-danger is-responsive"
+      type="button"
+      id=${selectedItemId}
+      data-theme="food"
+      data-event=${tempName}
+    >
+      X
+    </button>
+  </div>`);
   };
   theseChosenItems.forEach(createSelectedItem);
 };
@@ -190,7 +206,7 @@ const handleItemSelection = (event) => {
 
   <footer class="modal-card-foot">
     <button class="button is-success" id="food-confirm">Yes</button>
-    <button class="button modal-close" aria-label="close">No</button>
+    <button class="button modal-close" aria-label="close" id="close">No</button>
   </footer>
   </div>
 </div>`;
@@ -207,16 +223,20 @@ const handleItemSelection = (event) => {
         myEvents[currentEventIndex][targetType] = currentEventSelection;
         writeToLocalStorage("myEvents", myEvents);
 
-        updateAsideList(currentEventSelection);
+        updateAsideList(currentEventSelection, currentEventName);
+        $("#food-modal").remove();
+      };
+      const closeModal = () => {
         $("#food-modal").remove();
       };
 
       $("#food-confirm").click(replaceFoodItem);
+      $("#close").click(closeModal);
     }
   }
   console.log(currentEventSelection);
   //re-render the selection list in the aside div
-  updateAsideList(currentEventSelection);
+  updateAsideList(currentEventSelection, currentEventName);
 };
 
 //checks that the click happens on an add button
@@ -604,9 +624,9 @@ const atLeastOneItem = (e) => {
     (obj) => obj.eventName === targetName
   );
 
-  const chosenItems = myEvents[currentEventIndex][targetType];
+  const chosenItemsLength = myEvents[currentEventIndex][targetType].length;
 
-  return chosenItems && chosenItems.length != 0;
+  return chosenItemsLength;
 };
 
 // handles the click on "Save&Continue" button
@@ -666,9 +686,8 @@ const renderMusicSection = () => {
     </div>
   </div>
   <div class="aside music-aside has-text-centered m-3" id="music-aside">
-    <div class="aside-list my-5">
-      <h4 class="aside-text mt-5">Your selected playlists</h4>
-      <h5 class="aside-subtext mb-5">(min 1 item - max 3 items)</h5>
+    <div class="aside-list my-5" id="aside-list">
+      <h4 class="aside-text mt-5">Your selected items</h4>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
@@ -748,9 +767,8 @@ const renderFoodSection = () => {
     </div>
   </div>
   <div class="aside food-aside has-text-centered m-3" id="food-aside">
-    <div class="aside-list my-5">
-      <h4 class="aside-text mt-5">Your selected food</h4>
-      <h5 class="aside-subtext mb-5">(min 1 item - max 3 items)</h5>
+    <div class="aside-list my-5" id="aside-list">
+      <h4 class="aside-text mt-5">Your selected items:</h4>
       <ul class="selected-items-list" id="selected-items-list">
       </ul>
     </div>
