@@ -141,7 +141,7 @@ const handleItemSelection = (event) => {
     //find a way to flag it on screen to the user
     alert("This item has already been selected");
   } else {
-    if (currentEventSelection.length < 3) {
+    if (currentEventSelection.length < 10) {
       currentEventSelection.push(chosenItem);
       console.log(currentEventSelection);
       myEvents[currentEventIndex][targetType] = currentEventSelection;
@@ -575,7 +575,6 @@ const atLeastOneItem = (e) => {
   );
 
   const chosenItems = myEvents[currentEventIndex][targetType];
-  console.log(chosenItems);
 
   return chosenItems && chosenItems.length != 0;
 };
@@ -596,7 +595,6 @@ const handleAsideClick = (e) => {
     } else if (targetType === "music") {
       status ? renderEventCard() : alert("Please choose at least one Playlist");
     } else if (targetType === "clear") {
-      debugger;
       const currentEventName = $(e.target).attr("data-event");
       const itemToClear = $(e.target).attr("data-section");
       const myEvents = getFromLocalStorage("myEvents");
