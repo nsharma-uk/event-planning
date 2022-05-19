@@ -179,6 +179,29 @@ hr {
   margin-bottom: 2px;
 }
 
+/* saved events */
+
+.title {
+  width: 100%;
+}
+
+.saved-events-container {
+  margin: auto;
+  width: 100%;
+  margin: 5rem;
+}
+
+.event-card-btn {
+  margin: auto;
+  display: block;
+  height: 3rem;
+  width: 30%;
+}
+
+.print-card-container {
+  margin: auto;
+}
+
 /*Footer styles*/
 .footer {
   padding: 10px 0;
