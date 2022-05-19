@@ -709,9 +709,40 @@ const handleEventCardClick = (e) => {
   }
 };
 
+const deleteSavedEvent = (event) => {
+  // add confirm here
+
+  const target = event.target;
+
+  // get the array from LS
+  const getData = localStorage.getItem("myEvents");
+
+  // PARSE IT
+  const parsedData = JSON.parse(localStorage.getItem("myEvents"));
+
+  // delete the item at target.id (index)
+  const temp = parsedData.splice(target.id, 1);
+
+  // saved the updated array back in LS with the same key
+  localStorage.setItem("myEvents", JSON.stringify(parsedData));
+
+  // delete the existing cards
+  $("#container2").remove();
+
+  // rerender you screen
+  //pull my events from local storage using key name "myEvents"
+  const savedEvents = getSavedEvents();
+
+  //call function to render the saved events in cards
+  renderSavedEvents(savedEvents);
+};
+
 //render Saved events
 const renderSavedEvents = (items) => {
+  $("#saved-events-container").append(`<div id="container2"></div>`);
+
   if (items.length) {
+    // would create the card and append it to the parent
     const createCard = (item, i) => {
       const eventName = item.eventName;
       const capitalisedEventName = item.eventName.replace(
@@ -743,8 +774,15 @@ const renderSavedEvents = (items) => {
         }
       }
 
+      //const savedEventsContainer = $("#saved-events-container");
+      //emptyContainer("saved-events-container");
+      //savedEventsContainer.append(allCards);
+
+      console.log("we're appedning :" + i);
+
       //rendering with template string - TEMPORARY Template string
-      const eventCard = `<div class="event-card card pb-5" id="${eventName}">
+      $("#container2")
+        .append(`<div class="event-card card pb-5" id="${eventName}">
       <h2
         class="title is-4 card-header-title has-text-centered"
         id="event-card-name"
@@ -760,23 +798,44 @@ const renderSavedEvents = (items) => {
           <li class="event-list-item" id="event-food">Selected food: ${eventFoodList}</li>
           <li class="event-list-item" id="event-music">Selected playlists: ${eventMusicList}</li>
         </ul>
+        <div class="delete-button columns is-centered" id="delete-button">
         <button class="button is-rounded is-small is-primary is-responsive event-card-btn mb-5" id="event-card-btn"
         type="button"
           data-value="${eventName}">
           See full event card</i>
         </button>
+        <button id="${i}" class="button is-rounded is-small is-danger is-responsive event-card-btn mb-5 delete-button" 
+        type="button"
+          data-value="${eventName}">
+          Delete</i>
+        </button>
+        </div>
       </div>
-    </div>`;
+    </div>`);
+      $("#saved-events-container").click(handleEventCardClick);
+      $(`#${i}`).click(deleteSavedEvent);
 
-      return eventCard;
+      //return eventCard;
     };
 
-    const allCards = items.map(createCard).join("");
+    items.forEach((item, i) => {
+      //console.log("the item is: " + JSON.stringify(item));
+      //console.log("the index is  : " + i);
+      createCard(item, i);
+    });
 
-    const savedEventsContainer = $("#saved-events-container");
-    emptyContainer("saved-events-container");
-    savedEventsContainer.append(allCards);
-    $("#saved-events-container").click(handleEventCardClick);
+    //const allCards = items.map(createCard).join("");
+
+    //const savedEventsContainer = $("#saved-events-container");
+    //emptyContainer("saved-events-container");
+    //savedEventsContainer.append(allCards);
+    // get the parent element of all cards
+    // loop through all of its children
+    // get the id of card delete button from the card
+    // aadd the click event listener for each button
+
+    //$("#saved-events-container").click(handleEventCardClick);
+    //$("#delete-button").click(deleteSavedEvent);
   } else {
     // render error
     renderError("No results found.", savedEventsContainer);
