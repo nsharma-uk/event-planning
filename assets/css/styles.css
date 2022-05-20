@@ -43,6 +43,27 @@ i {
   pointer-events: none;
 }
 
+/*Header styling*/
+
+.nav-item {
+  font-family: "Bubblegum Sans", cursive;
+}
+
+/*End of header styling */
+
+/*start page styling*/
+
+#first-page-button {
+  width: 35%;
+}
+
+.start-page-section {
+  background-image: url(../images/event-start-pic2.png);
+  background-position: center;
+  background-repeat: repeat-x;
+  animation: animatedBackground 20s linear infinite alternate;
+}
+
 .page-name {
   color: var(--gunmetal);
 }
@@ -72,35 +93,17 @@ i {
 .food-container,
 .music-container {
   max-width: 75%;
- 
+}
+
+.music-text-div {
+  color: mintcream;
 }
 
 .food-aside,
 .music-aside {
   min-width: 20%;
   backdrop-filter: blur(10px);
-  color:mintcream
-}
-
-/*Header styling*/
-
-.nav-item {
-  font-family: "Bubblegum Sans", cursive;
-}
-
-/*End of header styling */
-
-/*start page styling*/
-
-#first-page-button {
-  width: 35%;
-}
-
-.start-page-section {
-  background-image: url(../images/event-start-pic2.png);
-  background-position: center;
-  background-repeat: repeat-x;
-  animation: animatedBackground 20s linear infinite alternate;
+  color: mintcream;
 }
 
 /*Form page styling*/
@@ -123,12 +126,12 @@ i {
   min-height: 600px;
   max-height: 600px;
   overflow-y: auto;
-  background-color: var(--extra-light-cream);
-  border: 1px solid var(--medium-turquoise);
+  backdrop-filter: blur(10px);
 }
 .notification {
   width: 100%;
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 /*Styles for Food & Music Aside section*/
@@ -137,18 +140,21 @@ i {
   background-image: url(../images/dj.jpg);
   background-position: center;
   background-repeat: repeat-x;
-  }
+}
+
+#food-card-container {
+  backdrop-filter: blur(10px);
+}
+
 
 .food-aside,
 .music-aside {
-  border-left: 1px solid var(--medium-turquoise);
   backdrop-filter: blur(10px);
 }
 .remaining-count {
   font-size: smaller;
   font-style: italic;
   padding-bottom: 1rem;
-
 }
 .selected-items-list {
   min-height: 300px;
