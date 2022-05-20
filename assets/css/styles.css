@@ -218,12 +218,13 @@ i {
   border: 1px solid black;
   padding: 3rem;
   /* background-color: var(--calm-lavender); */
-  background-image: url(../images/textured-background-letter.png);
+  background-image: url(../images/glitter.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .card-design * {
+  font-family: "Fuzzy Bubbles", cursive;
   font-size: 20px;
   font-weight: bold;
 }
