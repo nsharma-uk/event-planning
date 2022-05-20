@@ -115,3 +115,15 @@ Mobile viewport:
 </details>
 
 ## Block diagrams
+
+## Limitations & Future developments
+
+Limitations
+
+- event name has to be unique
+- no checks applied on Event location
+
+Future improvement:
+
+- trigger search on select change and remove submit button
+- add "Go to my saved events" into the modal when an event already exists
