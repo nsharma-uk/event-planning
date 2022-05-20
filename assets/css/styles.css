@@ -8,6 +8,7 @@
   --yellow-crayola: #ffe66dff;
   --event-card-dynamic: darkslateblue;
   --event-selection: darkgray;
+  --extra-light-cream: rgb(253, 253, 253);
 }
 
 /*whole document styling*/
@@ -42,6 +43,27 @@ i {
   pointer-events: none;
 }
 
+/*Header styling*/
+
+.nav-item {
+  font-family: "Bubblegum Sans", cursive;
+}
+
+/*End of header styling */
+
+/*landing page styling*/
+
+#first-page-button {
+  width: 35%;
+}
+
+.start-page-section {
+  background-image: url(../images/event-start-pic2.png);
+  background-position: center;
+  background-repeat: repeat-x;
+  animation: animatedBackground 20s linear infinite alternate;
+}
+
 .page-name {
   color: var(--gunmetal);
 }
@@ -49,6 +71,7 @@ i {
 .page-name:hover {
   color: var(--mint-cream);
 }
+
 .section {
   display: flex;
   flex-direction: row;
@@ -57,6 +80,134 @@ i {
   width: 100%;
   flex: 1;
 }
+
+/*end of landing page styling*/
+
+/*start of details page styling*/
+
+#event-details-section {
+  background-image: url(../images/celebration.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+#event-details-message {
+  color: var(--calm-lavender);
+}
+
+#event-details-form {
+  margin: auto;
+  width: 45%;
+  color: var(--calm-lavender);
+}
+
+.form-button-div {
+  width: 100%;
+  margin: 0;
+}
+
+/*End of event details page styling*/
+
+/*Start of food and music pages styling*/
+.food-section {
+  background-image: url(../images/food.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+.music-section {
+  background-image: url(../images/dj.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+#food-card-container {
+  backdrop-filter: blur(50px);
+}
+
+.food-container,
+.music-container {
+  max-width: 75%;
+}
+
+.music-text-div,
+.food-text-div {
+  color: mintcream;
+}
+
+/*API card container on food and music pages styling*/
+
+.api-card {
+  width: 15rem;
+  margin: 10px;
+}
+
+.card-content {
+  margin-bottom: 41px;
+  position: relative;
+}
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.empty {
+  color: var(--bittersweet);
+  padding-top: 1.5rem;
+  font-weight: bold;
+}
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  min-height: 600px;
+  max-height: 600px;
+  overflow-y: auto;
+  backdrop-filter: blur(50px);
+}
+.notification {
+  width: 100%;
+  text-align: center;
+  backdrop-filter: blur(50px);
+}
+
+/*Styles for Food & Music Aside section*/
+
+.food-aside,
+.music-aside {
+  min-width: 20%;
+  backdrop-filter: blur(50px);
+  color: mintcream;
+}
+
+.remaining-count {
+  font-size: smaller;
+  font-style: italic;
+  padding-bottom: 1rem;
+}
+.selected-items-list {
+  min-height: 300px;
+}
+.list-item li {
+  color: var(--medium-turquoise);
+  font-weight: bold;
+  padding: 0 0.5rem 0 0.5rem;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+.event-select {
+  font-weight: bold;
+}
+
+/*event card page styling*/
 
 .event-card-section {
   display: flex;
@@ -68,75 +219,16 @@ i {
   width: 100%;
 }
 
-.food-container,
-.music-container {
-  max-width: 75%;
-}
-
-.food-aside,
-.music-aside {
-  min-width: 20%;
-}
-
-/*Header styling*/
-
-.nav-item {
-  font-family: "Bubblegum Sans", cursive;
-}
-
-/*End of header styling */
-
-/*start page styling*/
-
-#first-page-button {
-  width: 35%;
-}
-
-.start-page-section {
-  background-image: url(../images/event-start-pic2.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/*Form page styling*/
-
-.form-button-div {
-  width: 100%;
-  margin: 0;
-}
-
-/*card styling*/
-.api-card {
-  width: 15rem;
-  margin: 10px;
-}
-.card-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  max-height: 600px;
-  overflow-y: auto;
-}
-.card-content {
-  margin-bottom: 41px;
-  position: relative;
-}
-.card-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 .card-design {
   border: 1px solid black;
   padding: 3rem;
-  /* background-color: var(--calm-lavender); */
-  background-image: url(../images/textured-background-letter.png);
+  background-image: url(../images/glitter.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .card-design * {
+  font-family: "Fuzzy Bubbles", cursive;
   font-size: 20px;
   font-weight: bold;
 }
@@ -147,6 +239,11 @@ i {
 .event-card-section p {
   padding-top: 1rem;
 }
+
+.event-card-section {
+  background-color: var(--gunmetal);
+}
+
 .event-card-section span {
   color: var(--event-card-dynamic);
 }
@@ -155,10 +252,13 @@ i {
   margin: 0.5rem;
   padding: 0.25rem;
 }
+
 hr {
   margin: 2rem 0 2rem 0;
   border: 1px solid var(--event-card-dynamic);
 }
+
+/*small music and food cards on event cards*/
 
 .event-selection-container {
   display: flex;
@@ -166,9 +266,11 @@ hr {
   justify-content: space-evenly;
   align-items: stretch;
 }
+
 .small-card-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: stretch;
@@ -180,16 +282,12 @@ hr {
 .small-card-content {
   margin: 1rem;
 }
-.selected-items-list li {
-  background-color: var(--yellow-crayola);
-  margin-bottom: 2px;
-}
 
 /* saved events */
 
-/* .title {
+.title {
   width: 100%;
-} 
+}
 
 /* .saved-events-container {
   margin: auto;
@@ -209,7 +307,11 @@ hr {
 }
 
 .delete-button {
-  margin: 0 auto;
+  margin: auto;
+}
+
+.print-card-container {
+  margin: auto;
 }
 
 /*Footer styles*/
@@ -243,7 +345,7 @@ hr {
   }
   .section {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: space-between;
   }
 }
@@ -271,5 +373,14 @@ hr {
     position: absolute;
     left: 0;
     top: 0;
+  }
+}
+
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
   }
 }
