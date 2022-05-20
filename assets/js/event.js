@@ -93,6 +93,39 @@ const generateAlertModal = (message) => {
   $("#close").click(closeModal);
 };
 
+const generateDeleteModal = (message, e) => {
+  const modal = ` <div class="modal is-active" id="modal">
+    <div class="modal-background" id="modal-background"></div>
+    <div
+      class="modal-card"
+      id="modal-event-details"
+    >
+    <div class="modal-card-body">
+      <p class="mb-6">
+        ${message}
+      </p>
+      </div>
+      <footer class="modal-card-foot">
+      <button class="button is-success" id="confirm">Yes</button>
+      <button class="button is-success" id="cancel">No</button>
+      <button class="button modal-close" aria-label="close" id="close">No</button>
+      </footer>
+      </div>
+    </div>`;
+
+  $("#main").append(modal);
+
+  const sendConfirmation = (e) => {
+    $("#modal").remove();
+    deleteSavedEvent(e);
+  };
+  const closeModal = () => {
+    $("#modal").remove();
+  };
+  $("#confirm").click(sendConfirmation);
+  $("#cancel").click(closeModal);
+  $("#close").click(closeModal);
+};
 //END UTILITY FUNCTIONS
 
 //Functions
@@ -169,13 +202,12 @@ const updateAsideList = (theseChosenItems, tempName) => {
 const handleItemSelection = (event) => {
   //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
-  const currentEventName = $("#event-select").text().toLowerCase();
+  const currentEventName = $("#event-select").attr("name");
 
   const targetId = $(event.target).attr("data-id");
   const targetName = $(event.target).attr("data-value");
   const targetType = $(event.target).attr("data-type");
   const targetPic = $(event.target).attr("data-pic");
-  console.log(targetType);
 
   const chosenItem = {
     targetId,
@@ -189,9 +221,8 @@ const handleItemSelection = (event) => {
     (obj) => obj.eventName === currentEventName
   );
   const currentEvent = myEvents[currentEventIndex];
-  console.log(currentEvent);
+
   const currentEventSelection = currentEvent[targetType];
-  console.log(currentEventSelection);
 
   const itemExists = currentEventSelection.some(
     (item) => item.targetId === chosenItem.targetId
@@ -464,6 +495,7 @@ const handleAsideClick = (e) => {
 
   const target = $(e.target);
   const targetType = $(e.target).attr("data-theme");
+  const expectedEventName = $("#event-select").text();
 
   if (target.is("button")) {
     if (targetType === "food") {
@@ -477,7 +509,6 @@ const handleAsideClick = (e) => {
         ? renderEventCard(e)
         : generateAlertModal("Please choose at least one Playlist");
     } else if (targetType === "clear") {
-      debugger;
       const itemEventName = $(e.target).attr("data-event").toLowerCase();
       const itemType = $(e.target).attr("data-type");
       const itemId = $(e.target).attr("data-id");
@@ -504,6 +535,14 @@ const renderMusicSection = (e) => {
   emptyContainer("main");
   window.scrollTo(0, 0);
   const tempName = $(e.target).attr("data-event");
+
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === tempName
+  );
+  const chosenMusicItems = myEvents[currentEventIndex].music;
+  const displayName = myEvents[currentEventIndex].eventDisplayName;
+
   $("#main").append(`<section class="section music-section" id="music-section">
     <div class="container has-text-centered" id="music-container">
       <form class="form" id="music-selection">
@@ -533,7 +572,7 @@ const renderMusicSection = (e) => {
       </div>
       <div class="aside-event my-5">
         <h4 class="aside-text m-5">For the event</h4>
-        <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+        <p class="event-select" name=${tempName} id="event-select">${displayName}</p>
       </div>
       <div class="aside-btn my-5">
         <button
@@ -557,12 +596,6 @@ const renderMusicSection = (e) => {
 
   $("#music-selection").submit(handleMusicSubmit);
 
-  const myEvents = getFromLocalStorage("myEvents");
-  const currentEventIndex = myEvents.findIndex(
-    (obj) => obj.eventName === tempName
-  );
-  const chosenMusicItems = myEvents[currentEventIndex].music;
-
   updateAsideList(chosenMusicItems, tempName);
   $("#music-aside").click(handleAsideClick);
 };
@@ -571,7 +604,15 @@ const renderMusicSection = (e) => {
 const renderFoodSection = (e) => {
   emptyContainer("main");
   window.scrollTo(0, 0);
-  const tempName = $(e.target).attr("data-event");
+  const tempName = currentEventName;
+
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex(
+    (obj) => obj.eventName === tempName
+  );
+
+  const chosenFoodItems = myEvents[currentEventIndex].food;
+  const displayName = myEvents[currentEventIndex].eventDisplayName;
 
   $("#main").append(`<section class="section food-section" id="food-section">
     <div class="container has-text-centered" id="food-container">
@@ -616,7 +657,7 @@ const renderFoodSection = (e) => {
       </div>
       <div class="aside-event my-5">
         <h4 class="aside-text m-5">For the event</h4>
-        <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+        <p class="event-select" name=${tempName} id="event-select">${displayName}</p>
       </div>
       <div class="aside-btn save-btn my-5">
         <button
@@ -624,7 +665,7 @@ const renderFoodSection = (e) => {
           type="button"
           id="food-save-btn"
           data-theme="food"
-          data-event=${tempName}
+          data-event="${tempName}"
         >
           Save & Continue
         </button>
@@ -639,13 +680,6 @@ const renderFoodSection = (e) => {
   );
 
   $("#food-selection").submit(handleFoodSubmit);
-  const myEvents = getFromLocalStorage("myEvents");
-  const currentEventIndex = myEvents.findIndex(
-    (obj) => obj.eventName === tempName
-  );
-
-  const chosenFoodItems = eventFood;
-  console.log(chosenFoodItems);
 
   updateAsideList(chosenFoodItems, tempName);
   $("#food-aside").click(handleAsideClick);
@@ -705,7 +739,7 @@ const renderSmallFoodCard = (selectedFood) => {
 
 const handleEditClick = (e) => {
   e.stopPropagation();
-  const eventName = $(event.target).attr("data-value");
+  const eventName = $(event.target).attr("data-event");
   currentEventName = eventName;
 
   //render food section
@@ -728,6 +762,7 @@ const renderEventCard = (e) => {
   );
   const currentEvent = myEvents[currentEventIndex];
   const eventName = currentEvent.eventName;
+  const eventDisplayName = currentEvent.eventDisplayName;
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -747,7 +782,7 @@ const renderEventCard = (e) => {
   $("#main")
     .append(`<section class="print-card-container event-card-section has-text-centered ">
     <div class="card-design section-to-print event-card-container m-5">
-      <h2>You are officially invited to the event: <span class="h2-title">${eventName.replace(
+      <h2>You are officially invited to the event: <span class="h2-title">${eventDisplayName.replace(
         /\b[a-z]/g,
         function (letter) {
           return letter.toUpperCase();
@@ -815,15 +850,13 @@ const renderEventCard = (e) => {
   $("#print-btn").click(handlePrintCard);
   eventFood = selectedFood;
   eventMusic = selectedMusic;
-  console.log(eventFood);
-  console.log(eventMusic);
 };
 
 const handleEventCardClick = (e) => {
   e.stopPropagation();
   e.preventDefault();
-  const target = $(event.target);
-  const targetId = $(event.target).attr("id");
+  const target = $(e.target);
+  const targetId = $(e.target).attr("id");
 
   if (targetId === "event-card-btn") {
     renderEventCard(e);
@@ -858,14 +891,9 @@ const deleteSavedEvent = (event) => {
   renderSavedEvents(savedEvents);
 };
 
-// const confirmDeleteEvent =()=>{
-//   const confirmDelete = confirm("Are you sure you want to delete this?");
-//   if (confirmDelete) {
-//     $("#container2").remove();
-//   } else {
-//     return false;
-//   }
-// }
+// const confirmDeleteEvent = (e) => {
+//   generateDeleteModal("Are you sure you want to delete this event?", e);
+// };
 
 //render Saved events
 const renderSavedEvents = (items) => {
@@ -875,11 +903,12 @@ const renderSavedEvents = (items) => {
     // would create the card and append it to the parent
     const createCard = (item, i) => {
       const eventName = item.eventName;
-      const capitalisedEventName = item.eventName.replace(/\b[a-z]/g, function (
-        letter
-      ) {
-        return letter.toUpperCase();
-      });
+      const capitalisedEventName = item.eventDisplayName.replace(
+        /\b[a-z]/g,
+        function (letter) {
+          return letter.toUpperCase();
+        }
+      );
       const eventDate = item.eventDate;
       const eventLocation = item.eventLocation;
 
@@ -904,8 +933,7 @@ const renderSavedEvents = (items) => {
       }
 
       //rendering with template string - TEMPORARY Template string
-      $("#container2")
-        .append(`<div class="event-card card pb-5" id="${eventName}">
+      $("#container2").append(`<div class="event-card card" id="${eventName}">
       <h2
         class="title is-4 card-header-title has-text-centered"
         id="event-card-name"
@@ -935,7 +963,7 @@ const renderSavedEvents = (items) => {
         </div>
       </div>
     </div>`);
-      $("#event-card-btn").click(handleEventCardClick);
+
       $(`#${i}`).click(deleteSavedEvent);
     };
 
@@ -943,20 +971,9 @@ const renderSavedEvents = (items) => {
       createCard(item, i);
     });
 
-    //const allCards = items.map(createCard).join("");
-
-    //const savedEventsContainer = $("#saved-events-container");
-    //emptyContainer("saved-events-container");
-    //savedEventsContainer.append(allCards);
-    // get the parent element of all cards
-    // loop through all of its children
-    // get the id of card delete button from the card
-    // aadd the click event listener for each button
-
-    //$("#saved-events-container").click(handleEventCardClick);
-    //$("#delete-button").click(deleteSavedEvent);
+    $("#saved-events-container").click(handleEventCardClick);
   } else {
-    // render error
+    const savedEventsContainer = $("#saved-events-container");
     renderError("No results found.", savedEventsContainer);
   }
 };

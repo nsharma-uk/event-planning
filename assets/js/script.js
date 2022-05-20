@@ -29,6 +29,7 @@ const surpriseMe = [
 ];
 
 let currentEventName = "";
+let currentDisplayName = "";
 
 //UTILITY FUNCTIONS
 
@@ -165,7 +166,7 @@ const updateAsideList = (theseChosenItems, tempName) => {
 const handleItemSelection = (event) => {
   //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
-  const currentEventName = $("#event-select").text();
+  const currentEventName = $("#event-select").attr("name");
 
   const targetId = $(event.target).attr("data-id");
   const targetName = $(event.target).attr("data-value");
@@ -402,6 +403,7 @@ const renderEventCard = () => {
   window.scrollTo(0, 0);
 
   const tempName = currentEventName;
+  const displayName = currentDisplayName;
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
     (obj) => obj.eventName === tempName
@@ -427,7 +429,7 @@ const renderEventCard = () => {
 
   $("#main").append(`<section class="event-card-section has-text-centered">
   <div class="card-design section-to-print event-card-container m-5">
-    <h2>You are officially invited to the event: <span class="h2-title">${eventName.replace(
+    <h2>You are officially invited to the event: <span class="h2-title">${displayName.replace(
       /\b[a-z]/g,
       function (letter) {
         return letter.toUpperCase();
@@ -484,6 +486,7 @@ const renderEventCard = () => {
 
   $("#print-btn").click(handlePrintCard);
   currentEventName = "";
+  currentDisplayName = "";
 };
 
 //Handling form submit in music-container section - Spotify api call
@@ -642,6 +645,7 @@ const renderMusicSection = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
   const tempName = currentEventName;
+  const tempDisplay = currentDisplayName;
   $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
     <form class="form" id="music-selection">
@@ -671,7 +675,7 @@ const renderMusicSection = () => {
     </div>
     <div class="aside-event my-5">
       <h4 class="aside-text m-5">For the event</h4>
-      <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+      <p class="event-select" name=${tempName} id="event-select">${tempDisplay}</p>
     </div>
     <div class="aside-btn my-5">
       <button
@@ -702,6 +706,7 @@ const renderFoodSection = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
   const tempName = currentEventName;
+  const tempDisplay = currentDisplayName;
 
   $("#main").append(`<section class="section food-section" id="food-section">
   <div class="container has-text-centered" id="food-container">
@@ -746,7 +751,7 @@ const renderFoodSection = () => {
     </div>
     <div class="aside-event my-5">
       <h4 class="aside-text m-5">For the event</h4>
-      <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+      <p class="event-select" name=${tempName} id="event-select">${tempDisplay}</p>
     </div>
     <div class="aside-btn save-btn my-5">
       <button
@@ -777,7 +782,12 @@ const renderFoodSection = () => {
 const saveEventDetails = (e) => {
   e.stopPropagation();
   e.preventDefault();
-  const eventName = $("#event-name-input").val().toLowerCase().trim();
+  const eventName = $("#event-name-input")
+    .val()
+    .toLowerCase()
+    .trim()
+    .replace(/ /g, "-");
+  const eventDisplayName = $("#event-name-input").val().toLowerCase().trim();
   const eventOrganiser = $("#event-organiser").val().toLowerCase().trim();
   const organiserEmail = $("#organiser-mail").val().toLowerCase().trim();
   const eventLocation = $("#event-location").val().toLowerCase().trim();
@@ -788,6 +798,7 @@ const saveEventDetails = (e) => {
 
   const eventObj = {
     eventName,
+    eventDisplayName,
     eventOrganiser,
     organiserEmail,
     eventLocation,
@@ -812,6 +823,7 @@ const saveEventDetails = (e) => {
     writeToLocalStorage("myEvents", myEventsFromLs);
 
     currentEventName = eventName;
+    currentDisplayName = eventDisplayName;
     renderFoodSection();
   }
   return false;
