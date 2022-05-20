@@ -65,4 +65,53 @@ Desktop viewport:
 
 Mobile viewport:
 
+<details>
+<summary>Mobile - Start page </summary>
+
+![Mobile - Start page](./assets/images/mobile-start-page.png)
+
+</details>
+
+<details>
+<summary>Mobile - Event details form </summary>
+
+![Mobile - Event details form](./assets/images/mobile-event-details-form.png)
+
+</details>
+
+<details>
+<summary>Mobile - Food selection - Empty page before first search </summary>
+
+![Mobile - Food selection - Empty page before first search](./assets/images/mobile-food-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Mobile - Food selection - Search and Selection ongoing </summary>
+
+![Mobile - Food selection - Search and Selection ongoing](./assets/images/mobile-food-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Mobile - Music selection - Empty page before first search </summary>
+
+![Mobile - Music selection - Empty page before first search](./assets/images/mobile-music-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Mobile - Music selection - Search and Selection ongoing </summary>
+
+![DMobile - Music selection - Search and Selection ongoing](./assets/images/mobile-music-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Mobile - Event card </summary>
+
+![Mobile - Event card - Full page](./assets/images/mobile-event-card-full-view.png)
+
+</details>
+
 ## Block diagrams
