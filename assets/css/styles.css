@@ -25,7 +25,7 @@ html {
 .flex-wrapper {
   font-family: "Oxygen", sans-serif;
   color: var(--gunmetal);
-  background-color: mintcream;
+  background-color: var(--gunmetal);
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -285,8 +285,9 @@ hr {
 
 /* saved events */
 
-.title {
+.saved-page-title {
   width: 100%;
+  color: mintcream;
 }
 
 /* .saved-events-container {

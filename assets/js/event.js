@@ -933,7 +933,8 @@ const renderSavedEvents = (items) => {
       }
 
       //rendering with template string - TEMPORARY Template string
-      $("#container2").append(`<div class="event-card card" id="${eventName}">
+      $("#container2")
+        .append(`<div class="event-card m-3 card" id="${eventName}">
       <h2
         class="title is-4 card-header-title has-text-centered"
         id="event-card-name"
