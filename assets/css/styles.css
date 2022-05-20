@@ -51,7 +51,7 @@ i {
 
 /*End of header styling */
 
-/*start page styling*/
+/*landing page styling*/
 
 #first-page-button {
   width: 35%;
@@ -81,7 +81,9 @@ i {
   flex: 1;
 }
 
-/* Event details page*/
+/*end of landing page styling*/
+
+/*start of details page styling*/
 
 #event-details-section {
   background-image: url(../images/celebration.jpg);
@@ -89,7 +91,17 @@ i {
   background-repeat: repeat-x;
 }
 
-/*End of event details page */
+#event-details-message {
+  color: var(--calm-lavender);
+}
+
+#event-details-form {
+  margin: auto;
+  width: 45%;
+  color: var(--calm-lavender);
+}
+
+/*End of event details page styling*/
 
 .event-card-section {
   display: flex;
@@ -205,6 +217,8 @@ i {
   font-weight: bold;
 }
 
+/*event card page styling*/
+
 .card-content {
   margin-bottom: 41px;
   position: relative;
@@ -217,7 +231,6 @@ i {
 .card-design {
   border: 1px solid black;
   padding: 3rem;
-  /* background-color: var(--calm-lavender); */
   background-image: url(../images/glitter.jpg);
   background-repeat: no-repeat;
   background-size: cover;

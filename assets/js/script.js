@@ -822,11 +822,11 @@ const renderForm = () => {
   removeContainer("start-page-section");
   $("#main").append(`<section class="section" id="event-details-section">
   <div class="container is-mobile" id="event-details-container">
-    <h2 id="event-details-message" class="title event-details-message">
+    <h2 id="event-details-message" class="title has-text-centered event-details-message ">
       Enter details of your event
     </h2>
     <div>
-      <form class="event-details-form" id="event-details-form">
+      <form class="event-details-form is-size-6" id="event-details-form">
         <div class>
           <label class="input-label" for="input"
             >What would you like to call your event? <span> * (at least 3 characters)</span></label
