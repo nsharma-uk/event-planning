@@ -95,7 +95,7 @@ i {
   max-width: 75%;
 }
 
-.music-text-div {
+.music-text-div, .food-text-div {
   color: mintcream;
 }
 
@@ -136,6 +136,12 @@ i {
 
 /*Styles for Food & Music Aside section*/
 
+.food-section {
+  background-image: url(../images/food.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
 .music-section {
   background-image: url(../images/dj.jpg);
   background-position: center;
@@ -145,7 +151,6 @@ i {
 #food-card-container {
   backdrop-filter: blur(10px);
 }
-
 
 .food-aside,
 .music-aside {
