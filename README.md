@@ -1,34 +1,68 @@
-# event-planning
-
 # Event-planning website
 
-## Main
+## Links to the project
 
-At the top of the webpage there is a title 'Event Card Planner'
-Two tabs in the dashboard 'Home' and 'My Saved events'
-the home page takes you to the home menu screen which the audience sees as the first page of the website.
-the saved events card page will enable the audience to find and select their memorable events/ chosen cuisine/ music
+Deployed URL:
 
-you can also find a details section on this page which the audience can add their details and event summary to enable us to create an event.
+Github repository:
 
-Going down the page you can find a drop down selection for the type of food you would like alternatively you can select the 'surprise me' box to have something chosen for you at random.
+## User Story
 
-Further down the webpage we have a music selection drop down and selection box to type the name of the song/ singer you would like to listen to or add to your event.
+## Wireframes
 
-once you have completed the dropdown form you can then go to saved events by selecting the 'create event card' tab in the bottom left hand corner and then in the saved tab in the drop down menu you can find and select the Event card of your choice.
+## Screenshots of the project
 
-There is also a copyright 2022 logo to prevent people from plagirising our idea and a link to email the company if the customer has any queries.
+Desktop viewport:
 
-User story link:
+<details>
+<summary>Desktop - Start page </summary>
 
-## Deployed URL
+![Desktop - Start page](./assets/images/desktop-start-page.png)
 
-You can find the application link [here](/........)
+</details>
 
-## Screenshots
+<details>
+<summary>Desktop - Event details form </summary>
 
-![application screenshot](./assets/images/copy-right-section-and-create-event-card-tab.png)
-![application screenshot](./assets/images/dropdown-section-of-music%20.png)
-![application screenshot](./assets/images/event-card-browser-navbar-with-burger.png)
-![application screenshot](./assets/images/event-planning-main-page.png)
-![application screenshot](./assets/images/eventcard-navbar-with-dropdown-.png)
+![Desktop - Event details form](./assets/images/desktop-event-details-form.png)
+
+</details>
+
+<details>
+<summary>Desktop - Food selection - Empty page before first search </summary>
+
+![Desktop - Food selection - Empty page before first search](./assets/images/desktop-food-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Desktop - Food selection - Search and Selection ongoing </summary>
+
+![Desktop - Food selection - Search and Selection ongoing](./assets/images/desktop-food-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Desktop - Music selection - Empty page before first search </summary>
+
+![Desktop - Music selection - Empty page before first search](./assets/images/desktop-music-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Desktop - Music selection - Search and Selection ongoing </summary>
+
+![Desktop - Music selection - Search and Selection ongoing](./assets/images/desktop-music-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Desktop - Event card </summary>
+
+![Desktop - Event card - Full page](./assets/images/desktop-event-card-full-view.png)
+
+</details>
+
+Mobile viewport:
+
+## Block diagrams
