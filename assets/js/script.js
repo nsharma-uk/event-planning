@@ -820,6 +820,7 @@ const saveEventDetails = (e) => {
 //function to remove the start page and render the event details form
 const renderForm = () => {
   removeContainer("start-page-section");
+  const currentDate = moment().format("YYYY-MM-DD");
   $("#main").append(`<section class="section" id="event-details-section">
   <div class="container is-mobile" id="event-details-container">
     <h2 id="event-details-message" class="title has-text-centered event-details-message ">
@@ -880,7 +881,7 @@ const renderForm = () => {
           <input
             type="date"
             class="input is-normal mb-5"
-            id="event-date"
+            id="event-date" min=${currentDate}
             required
           />
         </div>
