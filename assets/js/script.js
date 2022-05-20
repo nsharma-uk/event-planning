@@ -127,7 +127,7 @@ const renderError = (message, containerId) => {
 
 const renderAlert = (message, containerId) => {
   // create component
-  const errorComponent = `<div class="notification is-warning is-light m-3"><i class="fa-solid fa-circle-info"></i> ${message}
+  const errorComponent = `<div class="empty is-light m-3"><i class="fa-solid fa-circle-info"></i> ${message}
   </div>`;
 
   // append component to musicContainer
@@ -407,11 +407,12 @@ const renderEventCard = () => {
   );
   const currentEvent = myEvents[currentEventIndex];
 
-  const eventName = currentEvent.eventName.replace(/\b[a-z]/g, function (
-    letter
-  ) {
-    return letter.toUpperCase();
-  });
+  const eventName = currentEvent.eventName.replace(
+    /\b[a-z]/g,
+    function (letter) {
+      return letter.toUpperCase();
+    }
+  );
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,

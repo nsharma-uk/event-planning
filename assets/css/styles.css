@@ -72,7 +72,6 @@ i {
   color: var(--mint-cream);
 }
 
-
 .section {
   display: flex;
   flex-direction: row;
@@ -90,7 +89,6 @@ i {
   background-repeat: repeat-x;
 }
 
-
 /*End of event details page */
 
 .event-card-section {
@@ -103,29 +101,26 @@ i {
   width: 100%;
 }
 
-
 .food-section {
   background-image: url(../images/food.jpg);
   background-position: center;
   background-repeat: repeat-x;
 }
 
-
-
-
 .food-container,
 .music-container {
   max-width: 75%;
 }
 
-.music-text-div, .food-text-div {
+.music-text-div,
+.food-text-div {
   color: mintcream;
 }
 
 .food-aside,
 .music-aside {
   min-width: 20%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
   color: mintcream;
 }
 
@@ -141,6 +136,12 @@ i {
   width: 15rem;
   margin: 10px;
 }
+
+.empty {
+  color: var(--bittersweet);
+  padding-top: 1.5rem;
+  font-weight: bold;
+}
 .card-container {
   display: flex;
   flex-direction: row;
@@ -149,12 +150,12 @@ i {
   min-height: 600px;
   max-height: 600px;
   overflow-y: auto;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 }
 .notification {
   width: 100%;
   text-align: center;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 }
 
 /*Styles for Food & Music Aside section*/
@@ -172,12 +173,12 @@ i {
 }
 
 #food-card-container {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 }
 
 .food-aside,
 .music-aside {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 }
 .remaining-count {
   font-size: smaller;
@@ -233,6 +234,11 @@ i {
 .event-card-section p {
   padding-top: 1rem;
 }
+
+.event-card-section {
+  background-color: var(--gunmetal);
+}
+
 .event-card-section span {
   color: var(--event-card-dynamic);
 }
