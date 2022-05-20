@@ -71,6 +71,8 @@ i {
 .page-name:hover {
   color: var(--mint-cream);
 }
+
+
 .section {
   display: flex;
   flex-direction: row;
@@ -79,6 +81,17 @@ i {
   width: 100%;
   flex: 1;
 }
+
+/* Event details page*/
+
+#event-details-section {
+  background-image: url(../images/celebration.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+
+/*End of event details page */
 
 .event-card-section {
   display: flex;
@@ -89,6 +102,16 @@ i {
   min-height: 75vh;
   width: 100%;
 }
+
+
+.food-section {
+  background-image: url(../images/food.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+
+
 
 .food-container,
 .music-container {
