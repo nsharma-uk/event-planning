@@ -72,11 +72,14 @@ i {
 .food-container,
 .music-container {
   max-width: 75%;
+ 
 }
 
 .food-aside,
 .music-aside {
   min-width: 20%;
+  backdrop-filter: blur(10px);
+  color:mintcream
 }
 
 /*Header styling*/
@@ -129,14 +132,23 @@ i {
 }
 
 /*Styles for Food & Music Aside section*/
+
+.music-section {
+  background-image: url(../images/dj.jpg);
+  background-position: center;
+  background-repeat: repeat-x;
+  }
+
 .food-aside,
 .music-aside {
   border-left: 1px solid var(--medium-turquoise);
+  backdrop-filter: blur(10px);
 }
 .remaining-count {
   font-size: smaller;
   font-style: italic;
   padding-bottom: 1rem;
+
 }
 .selected-items-list {
   min-height: 300px;
