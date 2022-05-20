@@ -399,6 +399,7 @@ const handlePrintCard = () => {
 
 const renderEventCard = () => {
   emptyContainer("main");
+  window.scrollTo(0, 0);
 
   const tempName = currentEventName;
   const myEvents = getFromLocalStorage("myEvents");
@@ -639,6 +640,7 @@ const handleAsideClick = (e) => {
 //render the music section in the main container
 const renderMusicSection = () => {
   emptyContainer("main");
+  window.scrollTo(0, 0);
   const tempName = currentEventName;
   $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
@@ -698,6 +700,7 @@ const renderMusicSection = () => {
 //render the food section in the main container
 const renderFoodSection = () => {
   emptyContainer("main");
+  window.scrollTo(0, 0);
   const tempName = currentEventName;
 
   $("#main").append(`<section class="section food-section" id="food-section">
