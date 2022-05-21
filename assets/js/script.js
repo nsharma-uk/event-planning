@@ -29,6 +29,7 @@ const surpriseMe = [
 ];
 
 let currentEventName = "";
+let currentDisplayName = "";
 
 //UTILITY FUNCTIONS
 
@@ -165,7 +166,7 @@ const updateAsideList = (theseChosenItems, tempName) => {
 const handleItemSelection = (event) => {
   //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
-  const currentEventName = $("#event-select").text();
+  const currentEventName = $("#event-select").attr("name");
 
   const targetId = $(event.target).attr("data-id");
   const targetName = $(event.target).attr("data-value");
@@ -343,7 +344,7 @@ const renderFoodCards = (items) => {
       const recipeTitle = item.recipe.label;
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
-      const linkUri = item.recipe.uri;
+      const linkUri = item.recipe.url;
       //rendering with template string - TEMPORARY Template string
       const foodCard = `<div class="card api-card" id="food-card-${i}">
       <div class="card-image">
@@ -402,18 +403,14 @@ const renderEventCard = () => {
   window.scrollTo(0, 0);
 
   const tempName = currentEventName;
+  const displayName = currentDisplayName;
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
     (obj) => obj.eventName === tempName
   );
   const currentEvent = myEvents[currentEventIndex];
 
-  const eventName = currentEvent.eventName.replace(
-    /\b[a-z]/g,
-    function (letter) {
-      return letter.toUpperCase();
-    }
-  );
+  const eventName = currentEvent.eventName;
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -432,7 +429,12 @@ const renderEventCard = () => {
 
   $("#main").append(`<section class="event-card-section has-text-centered">
   <div class="card-design section-to-print event-card-container m-5">
-    <h2>You are officially invited to the event: <span class="h2-title">${eventName}</span></h2>
+    <h2>You are officially invited to the event: <span class="h2-title">${displayName.replace(
+      /\b[a-z]/g,
+      function (letter) {
+        return letter.toUpperCase();
+      }
+    )}</span></h2>
     <div class="event-details">
       <p class="event-card-text key-info">
         This event is scheduled on the <span>${eventDate}</span> and will take place at this location: <span>${eventLocation}</span>
@@ -484,6 +486,7 @@ const renderEventCard = () => {
 
   $("#print-btn").click(handlePrintCard);
   currentEventName = "";
+  currentDisplayName = "";
 };
 
 //Handling form submit in music-container section - Spotify api call
@@ -642,6 +645,7 @@ const renderMusicSection = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
   const tempName = currentEventName;
+  const tempDisplay = currentDisplayName;
   $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
     <form class="form" id="music-selection">
@@ -671,7 +675,7 @@ const renderMusicSection = () => {
     </div>
     <div class="aside-event my-5">
       <h4 class="aside-text m-5">For the event</h4>
-      <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+      <p class="event-select" name=${tempName} id="event-select">${tempDisplay}</p>
     </div>
     <div class="aside-btn my-5">
       <button
@@ -702,6 +706,7 @@ const renderFoodSection = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
   const tempName = currentEventName;
+  const tempDisplay = currentDisplayName;
 
   $("#main").append(`<section class="section food-section" id="food-section">
   <div class="container has-text-centered" id="food-container">
@@ -746,7 +751,7 @@ const renderFoodSection = () => {
     </div>
     <div class="aside-event my-5">
       <h4 class="aside-text m-5">For the event</h4>
-      <p class="event-select" name=${tempName} id="event-select">${tempName}</p>
+      <p class="event-select" name=${tempName} id="event-select">${tempDisplay}</p>
     </div>
     <div class="aside-btn save-btn my-5">
       <button
@@ -777,7 +782,12 @@ const renderFoodSection = () => {
 const saveEventDetails = (e) => {
   e.stopPropagation();
   e.preventDefault();
-  const eventName = $("#event-name-input").val().toLowerCase().trim();
+  const eventName = $("#event-name-input")
+    .val()
+    .toLowerCase()
+    .trim()
+    .replace(/ /g, "-");
+  const eventDisplayName = $("#event-name-input").val().toLowerCase().trim();
   const eventOrganiser = $("#event-organiser").val().toLowerCase().trim();
   const organiserEmail = $("#organiser-mail").val().toLowerCase().trim();
   const eventLocation = $("#event-location").val().toLowerCase().trim();
@@ -788,6 +798,7 @@ const saveEventDetails = (e) => {
 
   const eventObj = {
     eventName,
+    eventDisplayName,
     eventOrganiser,
     organiserEmail,
     eventLocation,
@@ -812,6 +823,7 @@ const saveEventDetails = (e) => {
     writeToLocalStorage("myEvents", myEventsFromLs);
 
     currentEventName = eventName;
+    currentDisplayName = eventDisplayName;
     renderFoodSection();
   }
   return false;
@@ -820,6 +832,7 @@ const saveEventDetails = (e) => {
 //function to remove the start page and render the event details form
 const renderForm = () => {
   removeContainer("start-page-section");
+  const currentDate = moment().format("YYYY-MM-DD");
   $("#main").append(`<section class="section" id="event-details-section">
   <div class="container is-mobile" id="event-details-container">
     <h2 id="event-details-message" class="title has-text-centered event-details-message ">
@@ -829,7 +842,7 @@ const renderForm = () => {
       <form class="event-details-form is-size-6" id="event-details-form">
         <div class>
           <label class="input-label" for="input"
-            >What would you like to call your event? <span> * (at least 3 characters)</span></label
+            >What would you like to call your event? <span> * (at least 3 characters - max 60)</span></label
           >
           <input
             type="text"
@@ -838,6 +851,7 @@ const renderForm = () => {
             name="event-name"
             placeholder="Give your event a name"
             minlength="3"
+            maxlength="60"
             required
           />
         </div>
@@ -850,6 +864,7 @@ const renderForm = () => {
             type="text"
             class="input is-normal event-input mb-5"
             id="event-organiser"
+            maxlength="30"
             required
           />
         </div>
@@ -872,6 +887,7 @@ const renderForm = () => {
             type="text"
             class="input is-normal event-input mb-5"
             id="event-location"
+            maxlength="30"
             required
           />
         </div>
@@ -880,7 +896,7 @@ const renderForm = () => {
           <input
             type="date"
             class="input is-normal mb-5"
-            id="event-date"
+            id="event-date" min=${currentDate}
             required
           />
         </div>
@@ -892,6 +908,7 @@ const renderForm = () => {
             id="event-description"
             class="input is-normal description"
             placeholder="Add description"
+            maxlength="1000"
           ></textarea>
         </div>
         <div class="form-button-div has-text-centered m-0">
