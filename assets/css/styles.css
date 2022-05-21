@@ -98,6 +98,10 @@ i {
   margin-bottom: rem;
 }
 
+.description {
+  min-height: 7rem;
+}
+
 #event-details-form {
   margin: auto;
   width: 45%;
