@@ -98,6 +98,10 @@ i {
   margin-bottom: rem;
 }
 
+.description {
+  min-height: 7rem;
+}
+
 #event-details-form {
   margin: auto;
   width: 45%;
@@ -240,15 +244,20 @@ i {
 }
 
 .card-design * {
-  font-family: "Fuzzy Bubbles", cursive;
   font-size: 20px;
   font-weight: bold;
 }
-.event-card-section h2,
-.h2-title {
+.event-card-section h2 {
+  color: var(--gunmetal);
   font-size: 25px;
 }
+
+.h2-title {
+  color: var(--gunmetal);
+  font-size: 40px;
+}
 .event-card-section p {
+  color: var(--gunmetal);
   padding-top: 1rem;
 }
 
@@ -256,9 +265,6 @@ i {
   background-image: url(../images/celebration.jpg);
 }
 
-.event-card-section span {
-  color: var(--event-card-dynamic);
-}
 .event-food-container,
 .event-music-container {
   margin: 0.5rem;
@@ -268,10 +274,6 @@ i {
 hr {
   margin: 2rem 0 2rem 0;
   border: 1px solid var(--event-card-dynamic);
-}
-
-.event-card-btn {
-  font-family: "Fuzzy Bubbles", cursive;
 }
 
 /*small music and food cards on event cards*/
@@ -309,7 +311,6 @@ hr {
   width: 60%;
   margin: auto;
   padding-bottom: 3rem;
-  font-family: "Fuzzy Bubbles", cursive;
 }
 
 .event-page-card {
