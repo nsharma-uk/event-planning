@@ -28,10 +28,6 @@ const surpriseMe = [
   "cupcake",
 ];
 
-let currentEventId = "";
-let eventFood = [];
-let eventMusic = [];
-
 //UTILITY FUNCTIONS
 
 //extract info from local storage (get)
@@ -355,7 +351,7 @@ const renderFoodCards = (items) => {
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
       const linkUri = item.recipe.url;
-      //rendering with template string - TEMPORARY Template string
+
       const foodCard = `<div class="card api-card" id="food-card-${i}">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -503,7 +499,7 @@ const handleFoodSubmit = async (event) => {
 
 //checks that there is at least 1 food/music item selected before moving on
 const atLeastOneItem = (e) => {
-  const targetId = $(e.target).attr("data-event").toLowerCase();
+  const targetId = $(e.target).attr("data-event");
   const targetType = $(e.target).attr("data-theme");
 
   const myEvents = getFromLocalStorage("myEvents");
@@ -576,7 +572,7 @@ const renderMusicSection = (e) => {
           <input type="text" class="music-input" id="music-type" />
   
           <button
-            class="button is-rounded is-small has-text-centered is-primary is-responsive"
+            class="button is-rounded is-medium has-text-centered is-primary is-responsive"
             type="submit"
             id="music-submit-btn"
           >
@@ -584,7 +580,7 @@ const renderMusicSection = (e) => {
           </button>
         </div>
       </form>
-      <div class="card-container m-3" id="music-card-container">
+      <div class="card-container mt-3" id="music-card-container">
       </div>
     </div>
     <div class="aside music-aside has-text-centered" id="music-aside">
@@ -599,7 +595,7 @@ const renderMusicSection = (e) => {
       </div>
       <div class="aside-btn my-5">
         <button
-          class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
+          class="button is-rounded is-medium has-text-centered is-primary is-responsive my-5"
           type="button"
           id="music-save-btn"
           data-theme="music"
@@ -624,10 +620,10 @@ const renderMusicSection = (e) => {
 };
 
 //render the food section in the main container
-const renderFoodSection = (e) => {
+const renderFoodSection = (eventId) => {
   emptyContainer("main");
   window.scrollTo(0, 0);
-  const tempId = currentEventId;
+  const tempId = eventId;
 
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex((obj) => obj.eventId === tempId);
@@ -643,7 +639,7 @@ const renderFoodSection = (e) => {
         <div
           class="form-field is-flex-direction-row is-align-content-center my-5"
         >
-          <select class="food-select" name="food-type" id="food-select">
+          <select class="food-select mb-5" name="food-type" id="food-select">
             <option value="japanese">Japanese</option>
             <option value="ethiopian">Ethiopian</option>
             <option value="turkish">Turkish</option>
@@ -659,7 +655,7 @@ const renderFoodSection = (e) => {
           </select>
   
           <button
-            class="form-button button is-rounded is-small has-text-centered is-primary is-responsive"
+            class="form-button button is-rounded is-medium has-text-centered is-primary is-responsive"
             type="submit"
             id="food-submit-btn"
           >
@@ -667,7 +663,7 @@ const renderFoodSection = (e) => {
           </button>
         </div>
       </form>
-      <div class="card-container m-3" id="food-card-container"> 
+      <div class="card-container mt-3" id="food-card-container"> 
       </div>
     </div>
     <div class="aside food-aside has-text-centered" id="food-aside">
@@ -682,7 +678,7 @@ const renderFoodSection = (e) => {
       </div>
       <div class="aside-btn save-btn my-5">
         <button
-          class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
+          class="button is-rounded is-medium has-text-centered is-primary is-responsive my-5"
           type="button"
           id="food-save-btn"
           data-theme="food"
@@ -761,10 +757,10 @@ const renderSmallFoodCard = (selectedFood) => {
 const handleEditClick = (e) => {
   e.stopPropagation();
   const eventId = $(event.target).attr("data-event");
-  currentEventId = eventId;
+  // currentEventId = eventId;
 
   //render food section
-  renderFoodSection(e);
+  renderFoodSection(eventId);
   //populate the aside list with the food selection already in storage in the event
 };
 
@@ -870,8 +866,6 @@ const renderEventCard = (e) => {
 
   $("#selection-btn").click(handleEditClick);
   $("#print-btn").click(handlePrintCard);
-  eventFood = selectedFood;
-  eventMusic = selectedMusic;
 };
 
 const handleEventCardClick = (e) => {

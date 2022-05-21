@@ -28,9 +28,6 @@ const surpriseMe = [
   "cupcake",
 ];
 
-let currentEventId = "";
-let currentDisplayName = "";
-
 //UTILITY FUNCTIONS
 
 //extract info from local storage (get)
@@ -345,7 +342,7 @@ const renderFoodCards = (items) => {
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
       const linkUri = item.recipe.url;
-      //rendering with template string - TEMPORARY Template string
+
       const foodCard = `<div class="card api-card" id="food-card-${i}">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -398,17 +395,18 @@ const handlePrintCard = () => {
   window.print();
 };
 
-const renderEventCard = () => {
+const renderEventCard = (e) => {
   emptyContainer("main");
   window.scrollTo(0, 0);
 
-  const tempId = currentEventId;
-  const displayName = currentDisplayName;
+  const tempId = $(e.target).attr("data-event");
+
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex((obj) => obj.eventId === tempId);
   const currentEvent = myEvents[currentEventIndex];
 
   const eventId = currentEvent.eventId;
+  const eventDisplayName = currentEvent.eventDisplayName;
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -428,7 +426,7 @@ const renderEventCard = () => {
   $("#main").append(`<section class="event-card-section has-text-centered">
   <div class="card-design section-to-print event-card-container m-5">
     <h2> You are invited to : </h2>
-    <p class="event-name"><span class="h2-title">${displayName.replace(
+    <p class="event-name"><span class="h2-title">${eventDisplayName.replace(
       /\b[a-z]/g,
       function (letter) {
         return letter.toUpperCase();
@@ -484,8 +482,6 @@ const renderEventCard = () => {
   renderSmallMusicCard(selectedMusic);
 
   $("#print-btn").click(handlePrintCard);
-  currentEventId = "";
-  currentDisplayName = "";
 };
 
 //Handling form submit in music-container section - Spotify api call
@@ -610,12 +606,12 @@ const handleAsideClick = (e) => {
     if (targetType === "food") {
       const status = atLeastOneItem(e);
       status
-        ? renderMusicSection()
+        ? renderMusicSection(e)
         : generateAlertModal("Please choose at least one food item");
     } else if (targetType === "music") {
       const status = atLeastOneItem(e);
       status
-        ? renderEventCard()
+        ? renderEventCard(e)
         : generateAlertModal("Please choose at least one Playlist");
     } else if (targetType === "clear") {
       const itemEventId = $(e.target).attr("data-event");
@@ -640,11 +636,15 @@ const handleAsideClick = (e) => {
 };
 
 //render the music section in the main container
-const renderMusicSection = () => {
+const renderMusicSection = (e) => {
   emptyContainer("main");
   window.scrollTo(0, 0);
-  const tempId = currentEventId;
-  const tempDisplay = currentDisplayName;
+  const tempId = $(e.target).attr("data-event");
+
+  const myEvents = getFromLocalStorage("myEvents");
+  const currentEventIndex = myEvents.findIndex((obj) => obj.eventId === tempId);
+  const tempDisplay = myEvents[currentEventIndex].eventDisplayName;
+
   $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
     <form class="form" id="music-selection">
@@ -701,11 +701,11 @@ const renderMusicSection = () => {
 };
 
 //render the food section in the main container
-const renderFoodSection = () => {
+const renderFoodSection = (eventId, eventDisplayName) => {
   emptyContainer("main");
   window.scrollTo(0, 0);
-  const tempId = currentEventId;
-  const tempDisplay = currentDisplayName;
+  const tempId = eventId;
+  const tempDisplay = eventDisplayName;
 
   $("#main").append(`<section class="section food-section" id="food-section">
   <div class="container has-text-centered" id="food-container">
@@ -815,9 +815,7 @@ const saveEventDetails = (e) => {
     myEventsFromLs.push(eventObj);
     writeToLocalStorage("myEvents", myEventsFromLs);
 
-    currentEventId = eventId;
-    currentDisplayName = eventDisplayName;
-    renderFoodSection();
+    renderFoodSection(eventId, eventDisplayName);
   }
   return false;
 };
