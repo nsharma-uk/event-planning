@@ -5,6 +5,20 @@
 Event Card creator - this project takes you through steps to create your event card. The user goes through a form where they can enter the event details, a food selection and a music selection, and all their information is then rendered on an event card template that they can print.
 The created events are saved in local storage and the user can consult and edit them by going on the "My Saved Events" page.
 
+## Team members
+
+[Smeea Arshad](https://github.com/smeea-2018)
+
+[Gurmanpreet Nagra](https://github.com/Mkn01)
+
+[Amelie Pira](https://github.com/Am0031)
+
+[Abu Saddique](https://github.com/abusaddique95)
+
+[Aisha Saleh](https://github.com/Saleha22)
+
+[Nayan Sharma](https://github.com/nsharma-uk)
+
 ## Links to the project
 
 Deployed URL: [https://am0031.github.io/event-planning/](https://am0031.github.io/event-planning/)
