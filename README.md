@@ -13,6 +13,71 @@ Github repository: [https://github.com/Am0031/event-planning](https://github.com
 
 ## User Story
 
+```
+AS A user
+I WANT to create an event card by gathering the details of the event, creating a menu and a music playlist and see my bespoke event card
+SO THAT I can print it to share/email it with my guest list.
+```
+
+## Detailed User Journey
+
+```
+GIVEN I am a user who wants to create an event card
+WHEN I land on the webpage
+THEN I see a start page with a start button
+
+WHEN I click on the start button
+THEN I am presented with a form where I can enter my event details
+
+WHEN I click on the form's save button
+THEN my details are saved and I am presented with the page for food selection
+
+WHEN I click on the food submit button
+THEN I am presented with a variety of recipes matching my chosen criteria
+
+WHEN I click on a recipe
+THEN I can see it being added to my selection list
+
+WHEN I click on Save and Continue
+THEN my food selection is saved and I am presented with the page for music selection
+
+WHEN I click on the music submit button
+THEN I am presented with a variety of playlists matching my chosen criteria
+
+WHEN I click on a playlist
+THEN I can see it being added to my selection list
+
+WHEN I click on Save and Continue
+THEN my music selection is saved and I am presented with the bespoke event card
+
+WHEN I click on the print button
+THEN I can print my bespoke event card
+
+WHEN I click on the button "Go to my saved events"
+THEN I am taken to the "My saved events" page where I can see cards of my saved events
+
+WHEN I click on "My saved events" link in the menu
+THEN I am taken to the "My saved events" page where I can see cards of my saved events
+
+WHEN I click on the button "Delete"
+THEN I am presented with a confirm message to make sure I actually want to delete this event (if answered yes, the event is deleted from the saved events)
+
+WHEN I click on the button "See full event card"
+THEN I am presented with the bespoke event card
+
+WHEN I click on the button "Edit Food/Music"
+THEN I am presented with the page for food selection, and then music selection
+
+WHEN I complete the editing
+THEN I am presented with the bespoke card again, which I can print, edit again or go to my saved events page
+```
+
+## Technologies
+
+- Core files: HTML, CSS and Javascript
+- Libraries: jQuery, Bulma, Google fonts, FontAwesome, Ionicon, Moment.js, UUID
+- API: Edamam, Spotify
+
 ## Wireframes
 
 <details>
@@ -103,6 +168,13 @@ Desktop viewport:
 
 </details>
 
+<details>
+<summary>Desktop - Saved events page </summary>
+
+![Desktop - Saved Events page](./assets/images/desktop-saved-events-page.png)
+
+</details>
+
 Mobile viewport:
 
 <details>
@@ -120,37 +192,30 @@ Mobile viewport:
 </details>
 
 <details>
-<summary>Mobile - Food selection - Empty page before first search </summary>
-
-![Mobile - Food selection - Empty page before first search](./assets/images/mobile-food-selection-empty.png)
-
-</details>
-
-<details>
-<summary>Mobile - Food selection - Search and Selection ongoing </summary>
+<summary>Mobile - Food/Music selection </summary>
 
 ![Mobile - Food selection - Search and Selection ongoing](./assets/images/mobile-food-selection-ongoing.png)
 
 </details>
 
 <details>
-<summary>Mobile - Music selection - Empty page before first search </summary>
-
-![Mobile - Music selection - Empty page before first search](./assets/images/mobile-music-selection-empty.png)
-
-</details>
-
-<details>
-<summary>Mobile - Music selection - Search and Selection ongoing </summary>
-
-![DMobile - Music selection - Search and Selection ongoing](./assets/images/mobile-music-selection-ongoing.png)
-
-</details>
-
-<details>
 <summary>Mobile - Event card </summary>
 
-![Mobile - Event card - Full page](./assets/images/mobile-event-card-full-view.png)
+![Mobile - Event card - Full page](./assets/images/mobile-event-card.png)
+
+</details>
+
+<details>
+<summary>Mobile - Saved events page </summary>
+
+![Mobile - Saved Events page](./assets/images/mobile-saved-events-page.png)
+
+</details>
+
+<details>
+<summary>Mobile - Burger menu open </summary>
+
+![Mobile - Burger menu open](./assets/images/mobile-burger-open.png)
 
 </details>
 
@@ -162,6 +227,7 @@ Mobile viewport:
 
 Future improvement:
 
+- refactore for cleaner code
 - trigger search on select change and remove submit button
 - up the limit of items received from API
-- add more editing options
+- add more editing options for the user

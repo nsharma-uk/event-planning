@@ -410,6 +410,9 @@ hr {
   .event-card-btn {
     width: 90%;
   }
+  .saved-events-container {
+    width: 90%;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -437,6 +440,9 @@ hr {
     justify-content: center;
   }
   .event-card-btn {
+    width: 90%;
+  }
+  .saved-events-container {
     width: 90%;
   }
 }
