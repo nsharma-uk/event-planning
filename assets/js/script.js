@@ -664,10 +664,10 @@ const renderMusicSection = () => {
         </button>
       </div>
     </form>
-    <div class="card-container m-3" id="music-card-container">
+    <div class="card-container mt-3" id="music-card-container">
     </div>
   </div>
-  <div class="aside music-aside has-text-centered pl-5" id="music-aside">
+  <div class="aside music-aside has-text-centered ml-5" id="music-aside">
     <div class="aside-list my-5" id="aside-list">
       <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
       <ul class="selected-items-list" id="selected-items-list">
@@ -716,7 +716,7 @@ const renderFoodSection = () => {
       <div
         class="form-field is-flex-direction-row is-align-content-center my-5"
       >
-        <select class="food-select" name="food-type" id="food-select">
+        <select class="food-select mb-5" name="food-type" id="food-select">
           <option value="japanese">Japanese</option>
           <option value="ethiopian">Ethiopian</option>
           <option value="turkish">Turkish</option>
@@ -730,7 +730,6 @@ const renderFoodSection = () => {
           <option value="french">French</option>
           <option value="surprise-me">Surprise me!</option>
         </select>
-
         <button
           class="form-button button is-rounded is-small has-text-centered is-primary is-responsive"
           type="submit"
@@ -740,10 +739,10 @@ const renderFoodSection = () => {
         </button>
       </div>
     </form>
-    <div class="card-container m-3" id="food-card-container"> 
+    <div class="card-container mt-3" id="food-card-container"> 
     </div>
   </div>
-  <div class="aside food-aside has-text-centered pl-5" id="food-aside">
+  <div class="aside food-aside has-text-centered ml-5" id="food-aside">
     <div class="aside-list my-5" id="aside-list">
       <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
       <ul class="selected-items-list" id="selected-items-list">
