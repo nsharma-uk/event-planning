@@ -28,7 +28,7 @@ const surpriseMe = [
   "cupcake",
 ];
 
-let currentEventName = "";
+let currentEventId = "";
 let currentDisplayName = "";
 
 //UTILITY FUNCTIONS
@@ -136,7 +136,7 @@ const renderAlert = (message, containerId) => {
 };
 
 //empty aside list, get update from local storage and renders list again
-const updateAsideList = (theseChosenItems, tempName) => {
+const updateAsideList = (theseChosenItems, tempId) => {
   $("#aside-list").empty();
   const remainingItems = 10 - theseChosenItems.length;
   $("#aside-list")
@@ -153,7 +153,7 @@ const updateAsideList = (theseChosenItems, tempName) => {
       data-id=${selectedItemId}
       data-theme="clear"
       data-type=${selectedItemType}
-      data-event=${tempName}
+      data-event=${tempId}
     >
       X
     </button>
@@ -166,7 +166,7 @@ const updateAsideList = (theseChosenItems, tempName) => {
 const handleItemSelection = (event) => {
   //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
-  const currentEventName = $("#event-select").attr("name");
+  const currentEventId = $("#event-select").attr("name");
 
   const targetId = $(event.target).attr("data-id");
   const targetName = $(event.target).attr("data-value");
@@ -182,7 +182,7 @@ const handleItemSelection = (event) => {
 
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
-    (obj) => obj.eventName === currentEventName
+    (obj) => obj.eventId === currentEventId
   );
   const currentEvent = myEvents[currentEventIndex];
   let currentEventSelection = currentEvent[targetType];
@@ -212,7 +212,7 @@ const handleItemSelection = (event) => {
   }
 
   //re-render the selection list in the aside div
-  updateAsideList(currentEventSelection, currentEventName);
+  updateAsideList(currentEventSelection, currentEventId);
 };
 
 //checks that the click happens on an add button
@@ -402,15 +402,13 @@ const renderEventCard = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
 
-  const tempName = currentEventName;
+  const tempId = currentEventId;
   const displayName = currentDisplayName;
   const myEvents = getFromLocalStorage("myEvents");
-  const currentEventIndex = myEvents.findIndex(
-    (obj) => obj.eventName === tempName
-  );
+  const currentEventIndex = myEvents.findIndex((obj) => obj.eventId === tempId);
   const currentEvent = myEvents[currentEventIndex];
 
-  const eventName = currentEvent.eventName;
+  const eventId = currentEvent.eventId;
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
     /\b[a-z]/g,
@@ -486,7 +484,7 @@ const renderEventCard = () => {
   renderSmallMusicCard(selectedMusic);
 
   $("#print-btn").click(handlePrintCard);
-  currentEventName = "";
+  currentEventId = "";
   currentDisplayName = "";
 };
 
@@ -589,12 +587,12 @@ const handleFoodSubmit = async (event) => {
 
 //checks that there is at least 1 food/music item selected before moving on
 const atLeastOneItem = (e) => {
-  const targetName = $(e.target).attr("data-event");
+  const targetId = $(e.target).attr("data-event");
   const targetType = $(e.target).attr("data-theme");
 
   const myEvents = getFromLocalStorage("myEvents");
   const currentEventIndex = myEvents.findIndex(
-    (obj) => obj.eventName === targetName
+    (obj) => obj.eventId === targetId
   );
 
   const chosenItemsLength = myEvents[currentEventIndex][targetType].length;
@@ -620,12 +618,12 @@ const handleAsideClick = (e) => {
         ? renderEventCard()
         : generateAlertModal("Please choose at least one Playlist");
     } else if (targetType === "clear") {
-      const itemEventName = $(e.target).attr("data-event");
+      const itemEventId = $(e.target).attr("data-event");
       const itemType = $(e.target).attr("data-type");
       const itemId = $(e.target).attr("data-id");
       const myEvents = getFromLocalStorage("myEvents");
       const currentEventIndex = myEvents.findIndex(
-        (obj) => obj.eventName === itemEventName
+        (obj) => obj.eventId === itemEventId
       );
       const itemTypeArray = myEvents[currentEventIndex][itemType];
 
@@ -636,7 +634,7 @@ const handleAsideClick = (e) => {
 
       myEvents[currentEventIndex][itemType] = itemTypeArray;
       writeToLocalStorage("myEvents", myEvents);
-      updateAsideList(itemTypeArray, itemEventName);
+      updateAsideList(itemTypeArray, itemEventId);
     }
   }
 };
@@ -645,7 +643,7 @@ const handleAsideClick = (e) => {
 const renderMusicSection = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
-  const tempName = currentEventName;
+  const tempId = currentEventId;
   const tempDisplay = currentDisplayName;
   $("#main").append(`<section class="section music-section" id="music-section">
   <div class="container has-text-centered" id="music-container">
@@ -676,7 +674,7 @@ const renderMusicSection = () => {
     </div>
     <div class="aside-event my-5">
       <h4 class="aside-text m-5">For the event</h4>
-      <p class="event-select" name=${tempName} id="event-select">${tempDisplay}</p>
+      <p class="event-select" name=${tempId} id="event-select">${tempDisplay}</p>
     </div>
     <div class="aside-btn my-5">
       <button
@@ -684,7 +682,7 @@ const renderMusicSection = () => {
         type="button"
         id="music-save-btn"
         data-theme="music"
-        data-event=${tempName}
+        data-event=${tempId}
       >
         Save & Continue
       </button>
@@ -706,7 +704,7 @@ const renderMusicSection = () => {
 const renderFoodSection = () => {
   emptyContainer("main");
   window.scrollTo(0, 0);
-  const tempName = currentEventName;
+  const tempId = currentEventId;
   const tempDisplay = currentDisplayName;
 
   $("#main").append(`<section class="section food-section" id="food-section">
@@ -751,7 +749,7 @@ const renderFoodSection = () => {
     </div>
     <div class="aside-event my-5">
       <h4 class="aside-text m-5">For the event</h4>
-      <p class="event-select" name=${tempName} id="event-select">${tempDisplay}</p>
+      <p class="event-select" name=${tempId} id="event-select">${tempDisplay}</p>
     </div>
     <div class="aside-btn save-btn my-5">
       <button
@@ -759,7 +757,7 @@ const renderFoodSection = () => {
         type="button"
         id="food-save-btn"
         data-theme="food"
-        data-event=${tempName}
+        data-event=${tempId}
       >
         Save & Continue
       </button>
@@ -782,7 +780,7 @@ const renderFoodSection = () => {
 const saveEventDetails = (e) => {
   e.stopPropagation();
   e.preventDefault();
-  const eventName = uuid.v4();
+  const eventId = uuid.v4();
 
   const eventDisplayName = $("#event-name-input").val().toLowerCase().trim();
   const eventOrganiser = $("#event-organiser").val().toLowerCase().trim();
@@ -794,7 +792,7 @@ const saveEventDetails = (e) => {
   const music = [];
 
   const eventObj = {
-    eventName,
+    eventId,
     eventDisplayName,
     eventOrganiser,
     organiserEmail,
@@ -807,9 +805,7 @@ const saveEventDetails = (e) => {
 
   const myEventsFromLs = getFromLocalStorage("myEvents", []);
 
-  const plannedEvent = myEventsFromLs.findIndex(
-    (s) => s.eventName === eventName
-  );
+  const plannedEvent = myEventsFromLs.findIndex((s) => s.eventId === eventId);
   if (plannedEvent > -1) {
     //modal "This event already exists"
     const message =
@@ -819,7 +815,7 @@ const saveEventDetails = (e) => {
     myEventsFromLs.push(eventObj);
     writeToLocalStorage("myEvents", myEventsFromLs);
 
-    currentEventName = eventName;
+    currentEventId = eventId;
     currentDisplayName = eventDisplayName;
     renderFoodSection();
   }
