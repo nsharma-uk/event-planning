@@ -93,7 +93,7 @@ const generateAlertModal = (message) => {
   $("#close").click(closeModal);
 };
 
-const generateDeleteModal = (message, e) => {
+const generateDeleteModal = (message, event) => {
   const modal = ` <div class="modal is-active" id="modal">
     <div class="modal-background" id="modal-background"></div>
     <div
@@ -115,10 +115,36 @@ const generateDeleteModal = (message, e) => {
 
   $("#main").append(modal);
 
-  const sendConfirmation = (e) => {
+  const sendConfirmation = () => {
     $("#modal").remove();
-    deleteSavedEvent(e);
+    // my logic to remove the item from LS
+    const target = event.target;
+    console.log("the event is: " + event.target.id);
+
+    // get the array from LS
+    const getData = localStorage.getItem("myEvents");
+
+    // PARSE IT
+    const parsedData = JSON.parse(localStorage.getItem("myEvents"));
+
+    // delete the item at target.id (index)
+    const temp = parsedData.splice(target.id, 1);
+
+    // saved the updated array back in LS with the same key
+    localStorage.setItem("myEvents", JSON.stringify(parsedData));
+
+    // delete the existing cards
+    $("#container2").remove();
+
+    // rerender you screen
+    //pull my events from local storage using key name "myEvents"
+    const savedEvents = getSavedEvents();
+
+    //call function to render the saved events in cards
+    renderSavedEvents(savedEvents);
+    //deleteSavedEvent(e);
   };
+
   const closeModal = () => {
     $("#modal").remove();
   };
@@ -865,35 +891,12 @@ const handleEventCardClick = (e) => {
 
 const deleteSavedEvent = (event) => {
   // add confirm here
-
-  const target = event.target;
-
-  // get the array from LS
-  const getData = localStorage.getItem("myEvents");
-
-  // PARSE IT
-  const parsedData = JSON.parse(localStorage.getItem("myEvents"));
-
-  // delete the item at target.id (index)
-  const temp = parsedData.splice(target.id, 1);
-
-  // saved the updated array back in LS with the same key
-  localStorage.setItem("myEvents", JSON.stringify(parsedData));
-
-  // delete the existing cards
-  $("#container2").remove();
-
-  // rerender you screen
-  //pull my events from local storage using key name "myEvents"
-  const savedEvents = getSavedEvents();
-
-  //call function to render the saved events in cards
-  renderSavedEvents(savedEvents);
+  // we can pass the whole object or just the id
+  const confirmation = generateDeleteModal(
+    "Are you sure you want to delete this event?",
+    event
+  );
 };
-
-// const confirmDeleteEvent = (e) => {
-//   generateDeleteModal("Are you sure you want to delete this event?", e);
-// };
 
 //render Saved events
 const renderSavedEvents = (items) => {
