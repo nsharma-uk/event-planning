@@ -328,7 +328,7 @@ const renderFoodCards = (items) => {
       const recipeTitle = item.recipe.label;
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
-      const linkUri = item.recipe.uri;
+      const linkUri = item.recipe.url;
       //rendering with template string - TEMPORARY Template string
       const foodCard = `<div class="card api-card" id="food-card-${i}">
       <div class="card-image">

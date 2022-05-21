@@ -1,34 +1,164 @@
-# event-planning
-
 # Event-planning website
 
-## Main
+## Links to the project
 
-At the top of the webpage there is a title 'Event Card Planner'
-Two tabs in the dashboard 'Home' and 'My Saved events'
-the home page takes you to the home menu screen which the audience sees as the first page of the website.
-the saved events card page will enable the audience to find and select their memorable events/ chosen cuisine/ music
+Deployed URL: [https://am0031.github.io/event-planning/](https://am0031.github.io/event-planning/)
 
-you can also find a details section on this page which the audience can add their details and event summary to enable us to create an event.
+Github repository: [https://github.com/Am0031/event-planning](https://github.com/Am0031/event-planning)
 
-Going down the page you can find a drop down selection for the type of food you would like alternatively you can select the 'surprise me' box to have something chosen for you at random.
+## User Story
 
-Further down the webpage we have a music selection drop down and selection box to type the name of the song/ singer you would like to listen to or add to your event.
+## Wireframes
 
-once you have completed the dropdown form you can then go to saved events by selecting the 'create event card' tab in the bottom left hand corner and then in the saved tab in the drop down menu you can find and select the Event card of your choice.
+<details>
+<summary>Wireframe - Start page </summary>
 
-There is also a copyright 2022 logo to prevent people from plagirising our idea and a link to email the company if the customer has any queries.
+![Desktop - Start page](./assets/images/wireframe-start-page.png)
 
-User story link:
+</details>
 
-## Deployed URL
+<details>
+<summary>Wireframe - Form page </summary>
 
-You can find the application link [here](/........)
+![Desktop - Start page](./assets/images/wireframe-form-page.png)
 
-## Screenshots
+</details>
 
-![application screenshot](./assets/images/copy-right-section-and-create-event-card-tab.png)
-![application screenshot](./assets/images/dropdown-section-of-music%20.png)
-![application screenshot](./assets/images/event-card-browser-navbar-with-burger.png)
-![application screenshot](./assets/images/event-planning-main-page.png)
-![application screenshot](./assets/images/eventcard-navbar-with-dropdown-.png)
+<details>
+<summary>Wireframe - Food/Selection page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-selection-page.png)
+
+</details>
+
+<details>
+<summary>Wireframe - Event Card page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-event-card-page.png)
+
+</details>
+
+<details>
+<summary>Wireframe - Saved Events page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-saved-events-page.png)
+
+</details>
+
+## Screenshots of the project
+
+Desktop viewport:
+
+<details>
+<summary>Desktop - Start page </summary>
+
+![Desktop - Start page](./assets/images/desktop-start-page.png)
+
+</details>
+
+<details>
+<summary>Desktop - Event details form </summary>
+
+![Desktop - Event details form](./assets/images/desktop-event-details-form.png)
+
+</details>
+
+<details>
+<summary>Desktop - Food selection - Empty page before first search </summary>
+
+![Desktop - Food selection - Empty page before first search](./assets/images/desktop-food-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Desktop - Food selection - Search and Selection ongoing </summary>
+
+![Desktop - Food selection - Search and Selection ongoing](./assets/images/desktop-food-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Desktop - Music selection - Empty page before first search </summary>
+
+![Desktop - Music selection - Empty page before first search](./assets/images/desktop-music-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Desktop - Music selection - Search and Selection ongoing </summary>
+
+![Desktop - Music selection - Search and Selection ongoing](./assets/images/desktop-music-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Desktop - Event card </summary>
+
+![Desktop - Event card - Full page](./assets/images/desktop-event-card-full-view.png)
+
+</details>
+
+Mobile viewport:
+
+<details>
+<summary>Mobile - Start page </summary>
+
+![Mobile - Start page](./assets/images/mobile-start-page.png)
+
+</details>
+
+<details>
+<summary>Mobile - Event details form </summary>
+
+![Mobile - Event details form](./assets/images/mobile-event-details-form.png)
+
+</details>
+
+<details>
+<summary>Mobile - Food selection - Empty page before first search </summary>
+
+![Mobile - Food selection - Empty page before first search](./assets/images/mobile-food-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Mobile - Food selection - Search and Selection ongoing </summary>
+
+![Mobile - Food selection - Search and Selection ongoing](./assets/images/mobile-food-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Mobile - Music selection - Empty page before first search </summary>
+
+![Mobile - Music selection - Empty page before first search](./assets/images/mobile-music-selection-empty.png)
+
+</details>
+
+<details>
+<summary>Mobile - Music selection - Search and Selection ongoing </summary>
+
+![DMobile - Music selection - Search and Selection ongoing](./assets/images/mobile-music-selection-ongoing.png)
+
+</details>
+
+<details>
+<summary>Mobile - Event card </summary>
+
+![Mobile - Event card - Full page](./assets/images/mobile-event-card-full-view.png)
+
+</details>
+
+## Block diagrams
+
+## Limitations & Future developments
+
+Limitations
+
+- event name has to be unique
+- no checks applied on Event location
+
+Future improvement:
+
+- trigger search on select change and remove submit button
+- add "Go to my saved events" into the modal when an event already exists
