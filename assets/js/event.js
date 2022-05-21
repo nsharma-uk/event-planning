@@ -934,15 +934,15 @@ const renderSavedEvents = (items) => {
 
       //rendering with template string - TEMPORARY Template string
       $("#container2")
-        .append(`<div class="event-card m-3 card" id="${eventName}">
+        .append(`<div class="event-page-card m-3 card py-5 my-5" id="${eventName}">
       <h2
         class="title is-4 card-header-title has-text-centered"
-        id="event-card-name"
+        id="event-page-card-name"
       >
         ${capitalisedEventName}
       </h2>
       <div class="event-details card my-5">
-        <ul class="card-content m-0">
+        <ul class="card-content m-0 pt-0">
           <li class="event-list-item" id="event-date-1">Date : ${eventDate}</li>
           <li class="event-list-item" id="event-location-1">Location : 
             ${eventLocation}
@@ -951,12 +951,12 @@ const renderSavedEvents = (items) => {
           <li class="event-list-item" id="event-music">Selected playlists: ${eventMusicList}</li>
         </ul>
         <div class="delete-button columns is-centered" id="delete-button">
-        <button class="button is-rounded is-small is-primary is-responsive event-card-btn mb-5" id="event-card-btn"
+        <button class="button is-rounded is-small is-primary is-responsive event-card-btn mx-1 mb-5" id="event-card-btn"
         type="button"
           data-event="${eventName}">
           See full event card</i>
         </button>
-        <button id="${i}" class="button is-rounded is-small is-danger is-responsive event-card-btn mb-5 delete-button" 
+        <button id="${i}" class="button is-rounded is-small is-danger is-responsive event-card-btn mx-1 mb-5 delete-button" 
         type="button"
           data-event="${eventName}">
           Delete</i>
@@ -975,7 +975,7 @@ const renderSavedEvents = (items) => {
     $("#saved-events-container").click(handleEventCardClick);
   } else {
     const savedEventsContainer = $("#saved-events-container");
-    renderError("No results found.", savedEventsContainer);
+    renderError("You have no saved events.", savedEventsContainer);
   }
 };
 

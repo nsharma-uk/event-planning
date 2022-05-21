@@ -227,6 +227,10 @@ i {
   background-size: cover;
 }
 
+#event-page-card-name {
+  margin-bottom: 1rem;
+}
+
 .card-design * {
   font-family: "Fuzzy Bubbles", cursive;
   font-size: 20px;
@@ -258,6 +262,10 @@ hr {
   border: 1px solid var(--event-card-dynamic);
 }
 
+.event-card-btn {
+  font-family: "Fuzzy Bubbles", cursive;
+}
+
 /*small music and food cards on event cards*/
 
 .event-selection-container {
@@ -285,6 +293,21 @@ hr {
 
 /* saved events */
 
+.main {
+  background-image: url(../images/goldglitter.jpg);
+}
+
+.saved-events-container {
+  width: 60%;
+  margin: auto;
+  padding-bottom: 3rem;
+  font-family: "Fuzzy Bubbles", cursive;
+}
+
+.event-page-card {
+  margin-bottom: 1rem;
+}
+
 .saved-page-title {
   width: 100%;
   color: mintcream;
@@ -304,7 +327,7 @@ hr {
   margin: 0 auto;
   display: block;
   height: 3rem;
-  width: 15%;
+  width: 20%;
 }
 
 .delete-button {
@@ -339,6 +362,7 @@ hr {
 }
 
 /*MEDIA QUERIES */
+
 @media screen and (max-width: 768px) {
   .nav-item {
     padding-bottom: 0;
@@ -348,6 +372,12 @@ hr {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  #event-details-form {
+    margin: auto;
+    width: 90%;
+    color: var(--calm-lavender);
   }
 }
 
