@@ -128,7 +128,7 @@ const renderError = (message, containerId) => {
 
 const renderAlert = (message, containerId) => {
   // create component
-  const errorComponent = `<div class="empty is-light m-3"><i class="fa-solid fa-circle-info"></i> ${message}
+  const errorComponent = `<div class="empty is-light m-3"><p class="empty-message"><i class="fa-solid fa-circle-info"></i> ${message}</p>
   </div>`;
 
   // append component to musicContainer

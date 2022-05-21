@@ -117,7 +117,8 @@ i {
 
 /*Start of food and music pages styling*/
 
-.food-select {
+.food-select,
+.music-input {
   min-width: 300px;
   min-height: 50px;
 }
@@ -132,7 +133,8 @@ i {
   background-repeat: repeat-x;
 }
 
-#food-card-container {
+#food-card-container,
+#music-card-container {
   backdrop-filter: blur(10px);
   border: 2px solid var(--medium-turquoise);
 }
@@ -164,9 +166,11 @@ i {
   width: 100%;
 }
 
-.empty {
+.empty p {
   color: var(--bittersweet);
-  padding-top: 1.5rem;
+  background-color: var(--mint-cream);
+  padding: 5px;
+  margin-top: 30px;
   font-weight: bold;
 }
 .card-container {
@@ -192,7 +196,6 @@ i {
   min-width: 20%;
   backdrop-filter: blur(10px);
   border: 2px solid var(--medium-turquoise);
-  border-radius: 10px;
   color: mintcream;
   margin-left: 30px;
 }
