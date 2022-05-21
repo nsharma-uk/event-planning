@@ -590,7 +590,7 @@ const renderMusicSection = (e) => {
       <div class="card-container m-3" id="music-card-container">
       </div>
     </div>
-    <div class="aside music-aside has-text-centered pl-5" id="music-aside">
+    <div class="aside music-aside has-text-centered" id="music-aside">
       <div class="aside-list my-5" id="aside-list">
         <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
         <ul class="selected-items-list" id="selected-items-list">
@@ -675,7 +675,7 @@ const renderFoodSection = (e) => {
       <div class="card-container m-3" id="food-card-container"> 
       </div>
     </div>
-    <div class="aside food-aside has-text-centered pl-5" id="food-aside">
+    <div class="aside food-aside has-text-centered" id="food-aside">
       <div class="aside-list my-5" id="aside-list">
         <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
         <ul class="selected-items-list" id="selected-items-list">

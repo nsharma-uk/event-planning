@@ -656,7 +656,7 @@ const renderMusicSection = () => {
         <input type="text" class="music-input" id="music-type" />
 
         <button
-          class="button is-rounded is-small has-text-centered is-primary is-responsive"
+          class="button is-rounded is-medium has-text-centered is-primary is-responsive"
           type="submit"
           id="music-submit-btn"
         >
@@ -667,7 +667,7 @@ const renderMusicSection = () => {
     <div class="card-container mt-3" id="music-card-container">
     </div>
   </div>
-  <div class="aside music-aside has-text-centered ml-5" id="music-aside">
+  <div class="aside music-aside has-text-centered" id="music-aside">
     <div class="aside-list my-5" id="aside-list">
       <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
       <ul class="selected-items-list" id="selected-items-list">
@@ -679,7 +679,7 @@ const renderMusicSection = () => {
     </div>
     <div class="aside-btn my-5">
       <button
-        class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
+        class="button is-rounded is-medium has-text-centered is-primary is-responsive my-5"
         type="button"
         id="music-save-btn"
         data-theme="music"
@@ -731,7 +731,7 @@ const renderFoodSection = () => {
           <option value="surprise-me">Surprise me!</option>
         </select>
         <button
-          class="form-button button is-rounded is-small has-text-centered is-primary is-responsive"
+          class="form-button button is-rounded is-medium has-text-centered is-primary is-responsive"
           type="submit"
           id="food-submit-btn"
         >
@@ -742,7 +742,7 @@ const renderFoodSection = () => {
     <div class="card-container mt-3" id="food-card-container"> 
     </div>
   </div>
-  <div class="aside food-aside has-text-centered ml-5" id="food-aside">
+  <div class="aside food-aside has-text-centered" id="food-aside">
     <div class="aside-list my-5" id="aside-list">
       <h4 class="aside-text mt-5">Your selected items:</h4><p class="remaining-count">10 remaining slots </p>
       <ul class="selected-items-list" id="selected-items-list">
@@ -754,7 +754,7 @@ const renderFoodSection = () => {
     </div>
     <div class="aside-btn save-btn my-5">
       <button
-        class="button is-rounded is-small has-text-centered is-primary is-responsive my-5"
+        class="button is-rounded is-medium has-text-centered is-primary is-responsive my-5"
         type="button"
         id="food-save-btn"
         data-theme="food"
