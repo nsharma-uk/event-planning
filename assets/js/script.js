@@ -781,11 +781,8 @@ const renderFoodSection = () => {
 const saveEventDetails = (e) => {
   e.stopPropagation();
   e.preventDefault();
-  const eventName = $("#event-name-input")
-    .val()
-    .toLowerCase()
-    .trim()
-    .replace(/ /g, "-");
+  const eventName = uuid.v4();
+
   const eventDisplayName = $("#event-name-input").val().toLowerCase().trim();
   const eventOrganiser = $("#event-organiser").val().toLowerCase().trim();
   const organiserEmail = $("#organiser-mail").val().toLowerCase().trim();
