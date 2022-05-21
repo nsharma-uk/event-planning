@@ -1,5 +1,10 @@
 # Event-planning website
 
+## Summary of the project
+
+Event Card creator - this project takes you through steps to create your event card. The user goes through a form where they can enter the event details, a food selection and a music selection, and all their information is then rendered on an event card template that they can print.
+The created events are saved in local storage and the user can consult and edit them by going on the "My Saved Events" page.
+
 ## Links to the project
 
 Deployed URL: [https://am0031.github.io/event-planning/](https://am0031.github.io/event-planning/)
@@ -149,16 +154,14 @@ Mobile viewport:
 
 </details>
 
-## Block diagrams
+## Logic of the pages - Block diagram
 
-## Limitations & Future developments
+![Block diagram](./assets/images/block-diagram-event-planning.jpg)
 
-Limitations
-
-- event name has to be unique
-- no checks applied on Event location
+## Future developments
 
 Future improvement:
 
 - trigger search on select change and remove submit button
-- add "Go to my saved events" into the modal when an event already exists
+- up the limit of items received from API
+- add more editing options
