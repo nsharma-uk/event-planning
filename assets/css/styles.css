@@ -26,7 +26,6 @@ html {
   font-family: "Oxygen", sans-serif;
   color: var(--gunmetal);
   font-weight: bold;
-
   background-color: var(--gunmetal);
   display: flex;
   min-height: 100vh;
@@ -43,6 +42,9 @@ html {
 
 i {
   pointer-events: none;
+}
+button {
+  font-weight: bold;
 }
 
 /*Header styling*/
