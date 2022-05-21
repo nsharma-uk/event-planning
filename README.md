@@ -2,13 +2,48 @@
 
 ## Links to the project
 
-Deployed URL:
+Deployed URL: [https://am0031.github.io/event-planning/](https://am0031.github.io/event-planning/)
 
-Github repository:
+Github repository: [https://github.com/Am0031/event-planning](https://github.com/Am0031/event-planning)
 
 ## User Story
 
 ## Wireframes
+
+<details>
+<summary>Wireframe - Start page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-start-page.png)
+
+</details>
+
+<details>
+<summary>Wireframe - Form page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-form-page.png)
+
+</details>
+
+<details>
+<summary>Wireframe - Food/Selection page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-selection-page.png)
+
+</details>
+
+<details>
+<summary>Wireframe - Event Card page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-event-card-page.png)
+
+</details>
+
+<details>
+<summary>Wireframe - Saved Events page </summary>
+
+![Desktop - Start page](./assets/images/wireframe-saved-events-page.png)
+
+</details>
 
 ## Screenshots of the project
 
