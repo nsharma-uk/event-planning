@@ -344,7 +344,7 @@ const renderFoodCards = (items) => {
       const recipeTitle = item.recipe.label;
       const source = item.recipe.source;
       const recipeImage = item.recipe.image;
-      const linkUri = item.recipe.uri;
+      const linkUri = item.recipe.url;
       //rendering with template string - TEMPORARY Template string
       const foodCard = `<div class="card api-card" id="food-card-${i}">
       <div class="card-image">
@@ -842,7 +842,7 @@ const renderForm = () => {
       <form class="event-details-form is-size-6" id="event-details-form">
         <div class>
           <label class="input-label" for="input"
-            >What would you like to call your event? <span> * (at least 3 characters)</span></label
+            >What would you like to call your event? <span> * (at least 3 characters - max 60)</span></label
           >
           <input
             type="text"
@@ -851,6 +851,7 @@ const renderForm = () => {
             name="event-name"
             placeholder="Give your event a name"
             minlength="3"
+            maxlength="60"
             required
           />
         </div>
@@ -863,6 +864,7 @@ const renderForm = () => {
             type="text"
             class="input is-normal event-input mb-5"
             id="event-organiser"
+            maxlength="30"
             required
           />
         </div>
@@ -885,6 +887,7 @@ const renderForm = () => {
             type="text"
             class="input is-normal event-input mb-5"
             id="event-location"
+            maxlength="30"
             required
           />
         </div>
@@ -905,6 +908,7 @@ const renderForm = () => {
             id="event-description"
             class="input is-normal description"
             placeholder="Add description"
+            maxlength="1000"
           ></textarea>
         </div>
         <div class="form-button-div has-text-centered m-0">
