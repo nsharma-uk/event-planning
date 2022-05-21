@@ -79,7 +79,7 @@ const generateAlertModal = (message) => {
       </p>
       </div>
       <footer class="modal-card-foot">
-      <button class="button is-success" id="confirm">Yes</button>
+      <button class="button is-success" id="confirm">Okay</button>
       <button class="button modal-close" aria-label="close" id="close">No</button>
       </footer>
       </div>

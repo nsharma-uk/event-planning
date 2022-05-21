@@ -80,7 +80,7 @@ const generateAlertModal = (message) => {
       </p>
       </div>
       <footer class="modal-card-foot">
-      <button class="button is-success" id="confirm">Yes</button>
+      <button class="button is-success" id="confirm">Okay</button>
       <button class="button modal-close" aria-label="close" id="close">No</button>
       </footer>
       </div>
@@ -168,7 +168,7 @@ const renderError = (message, containerId) => {
 
 const renderAlert = (message, containerId) => {
   // create component
-  const errorComponent = `<div class="empty is-light m-3"><i class="fa-solid fa-circle-info"></i> ${message}
+  const errorComponent = `<div class="empty is-light m-3"><p class="empty-message"><i class="fa-solid fa-circle-info"></i> ${message}</p>
   </div>`;
 
   // append component to musicContainer
