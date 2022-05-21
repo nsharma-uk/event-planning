@@ -105,7 +105,7 @@ i {
 #event-details-form {
   margin: auto;
   width: 45%;
-  /* color: var(--calm-lavender); */
+  color: var(--mint-cream);
 }
 
 .form-button-div {
@@ -199,7 +199,8 @@ i {
   color: mintcream;
   margin-left: 30px;
 }
-.aside-list * {
+.food-aside *,
+.music-aside * {
   font-weight: bold;
 }
 
@@ -265,9 +266,14 @@ i {
   color: var(--gunmetal);
   font-size: 40px;
 }
+
 .event-card-section p {
   color: var(--gunmetal);
   padding-top: 1rem;
+}
+
+.event-card-text {
+  margin-bottom: 2rem;
 }
 
 .event-card-section {
@@ -281,7 +287,7 @@ i {
 }
 
 hr {
-  margin: 2rem 0 2rem 0;
+  margin: 1rem 0 1rem 0;
   border: 1px solid var(--event-card-dynamic);
 }
 

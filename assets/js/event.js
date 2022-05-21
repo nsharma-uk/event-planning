@@ -808,20 +808,21 @@ const renderEventCard = (e) => {
   $("#main")
     .append(`<section class="print-card-container event-card-section has-text-centered ">
     <div class="card-design section-to-print event-card-container m-5">
-      <h2>You are officially invited to : <span class="h2-title">${eventDisplayName.replace(
+      <h2>You are officially invited to : </h2>
+      <p class="event-name"><span class="h2-title">${eventDisplayName.replace(
         /\b[a-z]/g,
         function (letter) {
           return letter.toUpperCase();
         }
-      )}</span></h2>
+      )}</span></p>
       <div class="event-details">
-      <p class="event-card-text key-info">
+      <p class="event-card-details key-info">
       <ion-icon name="calendar-outline"></ion-icon>  <span>${eventDate}</span></p>
-      <p class="event-card-text key-info"><ion-icon name="location-outline"></ion-icon>  <span>${eventLocation}</span> </p>
-      <p class="event-card-text key-info">
+      <p class="event-card-details key-info"><ion-icon name="location-outline"></ion-icon>  <span>${eventLocation}</span> </p>
+      <p class="event-card-details key-info">
         And there is much more to know about this event <span>${eventDescription}</span>
       </p>
-      <p class="event-card-text key-info">It'll be a blast and we really hope to see you there!</p>
+      <p class="event-card-details key-info">It'll be a blast and we really hope to see you there!</p>
       </div>
   
       <div class="event-selection-container">
