@@ -115,7 +115,7 @@ const generateDeleteModal = (message, event) => {
     $("#modal").remove();
     // my logic to remove the item from LS
     const target = event.target;
-    console.log("the event is: " + event.target.id);
+ 
 
     // get the array from LS
     const getData = localStorage.getItem("myEvents");
