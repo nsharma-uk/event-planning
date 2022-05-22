@@ -831,7 +831,7 @@ const renderForm = () => {
     </h2>
     <div>
       <form class="event-details-form is-size-6" id="event-details-form">
-        <div class>
+        <div class="input-container">
           <label class="input-label" for="input"
             >What would you like to call your event? <span> * (at least 3 characters - max 60)</span></label
           >
@@ -846,8 +846,7 @@ const renderForm = () => {
             required
           />
         </div>
-        <div>
-          <!-- <div class="input-container"> -->
+        <div class="input-container">
           <label class="input-label" for="event-organiser"
             >Event organiser <span> * </span></label
           >

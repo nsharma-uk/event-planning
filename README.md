@@ -35,6 +35,7 @@ SO THAT I can print it to share/email it with my guest list.
 
 ## Detailed User Journey
 
+```
 GIVEN I am a user who wants to create an event card
 WHEN I land on the webpage
 THEN I see a start page with a start button
