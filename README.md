@@ -1,8 +1,9 @@
 # Event-planning website
 
-## Summary of the project
+## Project Summary
 
-Event Card creator - this project takes you through steps to create your event card. The user goes through a form where they can enter the event details, a food selection and a music selection, and all their information is then rendered on an event card template that they can print.
+Event Card creator - this project takes the user through steps to create their event card. The user enters information about their event details on a form, selects their chosen food and music and all their information is then rendered on an event card template that they can print.
+
 The created events are saved in local storage and the user can consult and edit them by going on the "My Saved Events" page.
 
 ## Team members
@@ -27,15 +28,13 @@ Github repository: [https://github.com/Am0031/event-planning](https://github.com
 
 ## User Story
 
-```
 AS A user
 I WANT to create an event card by gathering the details of the event, creating a menu and a music playlist and see my bespoke event card
 SO THAT I can print it to share/email it with my guest list.
-```
+
 
 ## Detailed User Journey
 
-```
 GIVEN I am a user who wants to create an event card
 WHEN I land on the webpage
 THEN I see a start page with a start button
@@ -46,20 +45,26 @@ THEN I am presented with a form where I can enter my event details
 WHEN I click on the form's save button
 THEN my details are saved and I am presented with the page for food selection
 
-WHEN I click on the food submit button
-THEN I am presented with a variety of recipes matching my chosen criteria
+WHEN I choose from the dropdown menu and click on the food submit button
+THEN I am presented with a variety of recipe cards matching my chosen criteria
 
-WHEN I click on a recipe
+WHEN I click on the add button a recipe card
 THEN I can see it being added to my selection list
+
+IF I want to discard any or all of cards on my menu
+THEN I can delete them by clicking on the x sign
 
 WHEN I click on Save and Continue
 THEN my food selection is saved and I am presented with the page for music selection
 
-WHEN I click on the music submit button
-THEN I am presented with a variety of playlists matching my chosen criteria
+WHEN I input my chosen genre, track or artist and I click on the music submit button
+THEN I am presented with a variety of playlist cards matching my chosen criteria
 
-WHEN I click on a playlist
+WHEN I click the add button on a playlist card
 THEN I can see it being added to my selection list
+
+IF I want to discard any or all of cards on my playlist
+THEN I can delete them by clicking on the x sign
 
 WHEN I click on Save and Continue
 THEN my music selection is saved and I am presented with the bespoke event card
@@ -89,7 +94,9 @@ THEN I am presented with the bespoke card again, which I can print, edit again o
 ## Technologies
 
 - Core files: HTML, CSS and Javascript
+
 - Libraries: jQuery, Bulma, Google fonts, FontAwesome, Ionicon, Moment.js, UUID
+
 - API: Edamam, Spotify
 
 ## Wireframes
@@ -241,7 +248,8 @@ Mobile viewport:
 
 Future improvement:
 
-- refactore for cleaner code
+- refactor for a cleaner code
 - trigger search on select change and remove submit button
-- up the limit of items received from API
-- add more editing options for the user
+- increase the limit of items received from API
+- add more options for the user to further personalise their event
+  cards, such as being able to choose from a selection of fonts and uploading their own pictures on to their cards.
