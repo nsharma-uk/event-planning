@@ -805,18 +805,10 @@ const saveEventDetails = (e) => {
 
   const myEventsFromLs = getFromLocalStorage("myEvents", []);
 
-  const plannedEvent = myEventsFromLs.findIndex((s) => s.eventId === eventId);
-  if (plannedEvent > -1) {
-    //modal "This event already exists"
-    const message =
-      "This event already exists. Please choose a different event name or go to My saved Events.";
-    generateAlertModal(message);
-  } else {
-    myEventsFromLs.push(eventObj);
-    writeToLocalStorage("myEvents", myEventsFromLs);
+  myEventsFromLs.push(eventObj);
+  writeToLocalStorage("myEvents", myEventsFromLs);
+  renderFoodSection(eventId, eventDisplayName);
 
-    renderFoodSection(eventId, eventDisplayName);
-  }
   return false;
 };
 
