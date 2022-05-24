@@ -49,7 +49,6 @@ const clearLS = () => {
 //removes the designated container - target by ID
 const removeContainer = (containerId) => {
   if (containerId) {
-    //remove the container itself and all its content
     $(`#${containerId}`).remove();
   }
 };
@@ -57,7 +56,6 @@ const removeContainer = (containerId) => {
 //empty the designated container - target by ID
 const emptyContainer = (containerId) => {
   if (containerId) {
-    //remove the container itself and all its content
     $(`#${containerId}`).empty();
     $(`#${containerId}`).off();
   }
@@ -114,22 +112,16 @@ const fetchData = async (url, options = {}) => {
 };
 
 const renderError = (message, containerId) => {
-  // create component
   const errorComponent = `<div class="notification is-danger is-light">
     <i class="fa-solid fa-triangle-exclamation"></i> ${message}
   </div>`;
-
-  // append component to musicContainer
   containerId.append(errorComponent);
 };
 
 const renderAlert = (message, containerId) => {
-  // create component
-  const errorComponent = `<div class="empty is-light m-3"><p class="empty-message"><i class="fa-solid fa-circle-info"></i> ${message}</p>
+  const alertComponent = `<div class="empty is-light m-3"><p class="empty-message"><i class="fa-solid fa-circle-info"></i> ${message}</p>
   </div>`;
-
-  // append component to musicContainer
-  containerId.append(errorComponent);
+  containerId.append(alertComponent);
 };
 
 //empty aside list, get update from local storage and renders list again
@@ -161,7 +153,6 @@ const updateAsideList = (theseChosenItems, tempId) => {
 
 //stores selected item into the event object in local storage
 const handleItemSelection = (event) => {
-  //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
   const currentEventId = $("#event-select").attr("name");
 
@@ -189,7 +180,6 @@ const handleItemSelection = (event) => {
   );
 
   if (itemExists) {
-    //find a way to flag it on screen to the user
     generateAlertModal(
       "This item has already been selected. Please pick another one."
     );
@@ -200,15 +190,11 @@ const handleItemSelection = (event) => {
       myEvents[currentEventIndex][targetType] = currentEventSelection;
       writeToLocalStorage("myEvents", myEvents);
     } else {
-      //modal
-
       generateAlertModal(
         "You've reached the limit of 10 items selected! Please remove some items from your selection to be able to add new ones."
       );
     }
   }
-
-  //re-render the selection list in the aside div
   updateAsideList(currentEventSelection, currentEventId);
 };
 
@@ -283,7 +269,7 @@ const renderMusicCards = (items) => {
       const ownerName = item.data.owner.name;
       const playlistCover = item.data.images.items[0].sources[0].url;
       const linkUrl = item.data.uri.substr(17);
-      //rendering with template string
+
       const playlistCard = `<div class="card api-card" id="music-card-${item.index}">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -329,7 +315,6 @@ const renderMusicCards = (items) => {
     musicContainer.append(allCards);
     musicContainer.click(handleItemClick);
   } else {
-    // render error
     renderError("No results found.", musicContainer);
   }
 };
@@ -386,7 +371,6 @@ const renderFoodCards = (items) => {
     foodContainer.append(allCards);
     foodContainer.click(handleItemClick);
   } else {
-    // render error
     renderError("No results found.", foodContainer);
   }
 };
@@ -405,7 +389,6 @@ const renderEventCard = (e) => {
   const currentEventIndex = myEvents.findIndex((obj) => obj.eventId === tempId);
   const currentEvent = myEvents[currentEventIndex];
 
-  const eventId = currentEvent.eventId;
   const eventDisplayName = currentEvent.eventDisplayName;
   const eventDate = currentEvent.eventDate;
   const eventLocation = currentEvent.eventLocation.replace(
@@ -490,18 +473,14 @@ const handleMusicSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    // get form values
     const searchQuery = $("#music-type").val();
     const searchType = "playlists";
 
-    // validate form
     if (searchQuery) {
-      // construct the URL
       const baseUrl = spotifyBaseUrl;
 
       const url = constructUrl(baseUrl, { q: searchQuery, type: searchType });
 
-      // construct fetch options
       const options = {
         method: "GET",
         headers: {
@@ -510,12 +489,10 @@ const handleMusicSubmit = async (event) => {
         },
       };
 
-      // fetch data from API
       const data = await fetchData(url, options);
 
       renderMusicCards(data?.playlists?.items || []);
     } else {
-      // target input and set class is-danger
       searchInput.addClass("is-danger");
     }
   } catch (error) {
@@ -546,17 +523,13 @@ const handleFoodSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    // get form values for api
     const searchQuery = getUserChoice();
 
-    // validate form
     if (searchQuery) {
-      // construct the URL
       const baseUrl = edamamBaseUrl;
 
       const url = constructUrl(baseUrl, { q: searchQuery });
 
-      // construct fetch options
       const options = {
         method: "GET",
         headers: {
@@ -565,12 +538,10 @@ const handleFoodSubmit = async (event) => {
         },
       };
 
-      // fetch data from API
       const data = await fetchData(url, options);
 
       renderFoodCards(data?.hits || []);
     } else {
-      // target input and set class is-danger
       searchInput.addClass("is-danger");
     }
   } catch (error) {
@@ -917,7 +888,6 @@ const onReady = () => {
     navbarMenu.toggleClass("is-active");
   });
 
-  //add click event to start button
   $("#start-page-btn").click(renderForm);
 };
 

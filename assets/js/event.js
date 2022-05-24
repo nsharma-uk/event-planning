@@ -49,7 +49,6 @@ const clearLS = () => {
 //removes the designated container - target by ID
 const removeContainer = (containerId) => {
   if (containerId) {
-    //remove the container itself and all its content
     $(`#${containerId}`).remove();
   }
 };
@@ -57,7 +56,6 @@ const removeContainer = (containerId) => {
 //empty the designated container - target by ID
 const emptyContainer = (containerId) => {
   if (containerId) {
-    //remove the container itself and all its content
     $(`#${containerId}`).empty();
     $(`#${containerId}`).off();
   }
@@ -115,7 +113,6 @@ const generateDeleteModal = (message, event) => {
     $("#modal").remove();
     // my logic to remove the item from LS
     const target = event.target;
- 
 
     // get the array from LS
     const getData = localStorage.getItem("myEvents");
@@ -164,11 +161,11 @@ const renderError = (message, containerId) => {
 
 const renderAlert = (message, containerId) => {
   // create component
-  const errorComponent = `<div class="empty is-light m-3"><p class="empty-message"><i class="fa-solid fa-circle-info"></i> ${message}</p>
+  const alertComponent = `<div class="empty is-light m-3"><p class="empty-message"><i class="fa-solid fa-circle-info"></i> ${message}</p>
   </div>`;
 
   // append component to musicContainer
-  containerId.append(errorComponent);
+  containerId.append(alertComponent);
 };
 
 //Constructing the URL for an API call
@@ -222,7 +219,6 @@ const updateAsideList = (theseChosenItems, tempId) => {
 
 //stores selected item into the event object in local storage
 const handleItemSelection = (event) => {
-  //need to look into amending the array (maybe pushing first one out, getting new one in at end of array)
   event.stopPropagation();
   const currentEventId = $("#event-select").attr("name");
 
@@ -251,7 +247,6 @@ const handleItemSelection = (event) => {
   );
 
   if (itemExists) {
-    //find a way to flag it on screen to the user
     generateAlertModal(
       "This item has already been selected. Please pick another one."
     );
@@ -262,14 +257,12 @@ const handleItemSelection = (event) => {
       myEvents[currentEventIndex][targetType] = currentEventSelection;
       writeToLocalStorage("myEvents", myEvents);
     } else {
-      //modal
-
       generateAlertModal(
         "You've reached the limit of 10 items selected! Please remove some items from your selection to be able to add new ones."
       );
     }
   }
-  //re-render the selection list in the aside div
+
   updateAsideList(currentEventSelection, currentEventId);
 };
 
@@ -292,7 +285,7 @@ const renderMusicCards = (items) => {
       const ownerName = item.data.owner.name;
       const playlistCover = item.data.images.items[0].sources[0].url;
       const linkUrl = item.data.uri.substr(17);
-      //rendering with template string
+
       const playlistCard = `<div class="card api-card" id="music-card-${item.index}">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -338,7 +331,6 @@ const renderMusicCards = (items) => {
     musicContainer.append(allCards);
     musicContainer.click(handleItemClick);
   } else {
-    // render error
     renderError("No results found.", musicContainer);
   }
 };
@@ -395,7 +387,6 @@ const renderFoodCards = (items) => {
     foodContainer.append(allCards);
     foodContainer.click(handleItemClick);
   } else {
-    // render error
     renderError("No results found.", foodContainer);
   }
 };
@@ -406,18 +397,14 @@ const handleMusicSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    // get form values
     const searchQuery = $("#music-type").val();
     const searchType = "playlists";
 
-    // validate form
     if (searchQuery) {
-      // construct the URL
       const baseUrl = spotifyBaseUrl;
 
       const url = constructUrl(baseUrl, { q: searchQuery, type: searchType });
 
-      // construct fetch options
       const options = {
         method: "GET",
         headers: {
@@ -426,12 +413,10 @@ const handleMusicSubmit = async (event) => {
         },
       };
 
-      // fetch data from API
       const data = await fetchData(url, options);
 
       renderMusicCards(data?.playlists?.items || []);
     } else {
-      // target input and set class is-danger
       searchInput.addClass("is-danger");
     }
   } catch (error) {
@@ -462,17 +447,13 @@ const handleFoodSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    // get form values for api
     const searchQuery = getUserChoice();
 
-    // validate form
     if (searchQuery) {
-      // construct the URL
       const baseUrl = edamamBaseUrl;
 
       const url = constructUrl(baseUrl, { q: searchQuery });
 
-      // construct fetch options
       const options = {
         method: "GET",
         headers: {
@@ -481,12 +462,10 @@ const handleFoodSubmit = async (event) => {
         },
       };
 
-      // fetch data from API
       const data = await fetchData(url, options);
 
       renderFoodCards(data?.hits || []);
     } else {
-      // target input and set class is-danger
       searchInput.addClass("is-danger");
     }
   } catch (error) {
@@ -757,11 +736,8 @@ const renderSmallFoodCard = (selectedFood) => {
 const handleEditClick = (e) => {
   e.stopPropagation();
   const eventId = $(event.target).attr("data-event");
-  // currentEventId = eventId;
 
-  //render food section
   renderFoodSection(eventId);
-  //populate the aside list with the food selection already in storage in the event
 };
 
 const handlePrintCard = () => {
@@ -880,8 +856,6 @@ const handleEventCardClick = (e) => {
 };
 
 const deleteSavedEvent = (event) => {
-  // add confirm here
-  // we can pass the whole object or just the id
   const confirmation = generateDeleteModal(
     "Are you sure you want to delete this event?",
     event
@@ -893,7 +867,6 @@ const renderSavedEvents = (items) => {
   $("#saved-events-container").append(`<div id="container2"></div>`);
 
   if (items.length) {
-    // would create the card and append it to the parent
     const createCard = (item, i) => {
       const eventId = item.eventId;
       const capitalisedEventName = item.eventDisplayName.replace(
@@ -925,7 +898,6 @@ const renderSavedEvents = (items) => {
         }
       }
 
-      //rendering with template string - TEMPORARY Template string
       $("#container2")
         .append(`<div class="event-page-card m-3 card py-5 my-5" id="${eventId}">
       <h2
@@ -983,10 +955,8 @@ const onReady = () => {
     navbarMenu.toggleClass("is-active");
   });
 
-  //pull my events from local storage using key name "myEvents"
   const savedEvents = getSavedEvents();
 
-  //call function to render the saved events in cards
   renderSavedEvents(savedEvents);
 };
 
