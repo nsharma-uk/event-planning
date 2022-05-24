@@ -26,12 +26,13 @@ Deployed URL: [https://am0031.github.io/event-planning/](https://am0031.github.i
 
 Github repository: [https://github.com/Am0031/event-planning](https://github.com/Am0031/event-planning)
 
+Slides: [Google slides here](https://docs.google.com/presentation/d/1wkRouc3eq4xP9rb7HRLQD0yUcFa2kGUbxFEFFGGqE4E/edit#slide=id.g29f43f0a72_0_0)
+
 ## User Story
 
 AS A user
 I WANT to create an event card by gathering the details of the event, creating a menu and a music playlist and see my bespoke event card
 SO THAT I can print it to share/email it with my guest list.
-
 
 ## Detailed User Journey
 
