@@ -15,7 +15,7 @@ The created events are saved in local storage and the user can consult and edit 
 - [Detailed User Journey](#detailed-user-journey)
 - [Wireframes](#wireframes)
 - [Screenshots of the project](#screenshots-of-the-project)
-- [Future developments](#future-development)
+- [Future developments](#future-developments)
 - [Contact me](#contact-me)
 
 ## Links to the project
@@ -270,5 +270,6 @@ Future improvement:
 - increase the limit of items received from API
 - add more options for the user to further personalise their event cards, such as being able to choose from a selection of fonts and uploading their own pictures on to their cards.
 
-##Contact me
+## Contact me
+ 
 If you have any questions about this project or my work, please do get in touch by contacting me via [email](mailto:nsharmauk711@gmail.com) or find me on [LinkedIn](www.linkedin.com/in/nsharma-uk)
