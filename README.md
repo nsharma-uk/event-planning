@@ -1,10 +1,31 @@
-# Event-planning website
+# Event-planning website ![MIT](https://img.shields.io/badge/License-MIT-green)
+
 
 ## Project Summary
 
 Event Card creator - this project takes the user through steps to create their event card. The user enters information about their event details on a form, selects their chosen food and music and all their information is then rendered on an event card template that they can print.
 
 The created events are saved in local storage and the user can consult and edit them by going on the "My Saved Events" page.
+
+## Table of content
+- [Links to the project](#links-to-the-project)
+- [Team members](#team-members)
+- [Technologies](#technologies)
+- [User Story](#user-story)
+- [Detailed User Journey](#detailed-user-journey)
+- [Wireframes](#wireframes)
+- [Screenshots of the project](#screenshots-of-the-project)
+- [Future developments](#future-development)
+- [Contact me](#contact-me)
+
+## Links to the project
+
+[Deployed URL](https://nsharma-uk.github.io/event-planning/)
+
+[Github repository](https://github.com/nsharma-uk/event-planning)
+
+[Google slides here](https://docs.google.com/presentation/d/1wkRouc3eq4xP9rb7HRLQD0yUcFa2kGUbxFEFFGGqE4E/edit#slide=id.g29f43f0a72_0_0)
+
 
 ## Team members
 
@@ -20,13 +41,7 @@ The created events are saved in local storage and the user can consult and edit 
 
 [Nayan Sharma](https://github.com/nsharma-uk)
 
-## Links to the project
 
-Deployed URL: [https://am0031.github.io/event-planning/](https://am0031.github.io/event-planning/)
-
-Github repository: [https://github.com/Am0031/event-planning](https://github.com/Am0031/event-planning)
-
-Slides: [Google slides here](https://docs.google.com/presentation/d/1wkRouc3eq4xP9rb7HRLQD0yUcFa2kGUbxFEFFGGqE4E/edit#slide=id.g29f43f0a72_0_0)
 
 ## User Story
 
@@ -250,8 +265,10 @@ Mobile viewport:
 
 Future improvement:
 
-- refactor for a cleaner code
+- refactor for a cleaner code 
 - trigger search on select change and remove submit button
 - increase the limit of items received from API
-- add more options for the user to further personalise their event
-  cards, such as being able to choose from a selection of fonts and uploading their own pictures on to their cards.
+- add more options for the user to further personalise their event cards, such as being able to choose from a selection of fonts and uploading their own pictures on to their cards.
+
+##Contact me
+If you have any questions about this project or my work, please do get in touch by contacting me via [email](mailto:nsharmauk711@gmail.com) or find me on [LinkedIn](www.linkedin.com/in/nsharma-uk)
